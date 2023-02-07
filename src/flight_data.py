@@ -1,4 +1,5 @@
 import json
+import os
 
 
 class FlightData:
@@ -7,5 +8,5 @@ class FlightData:
     '''
 
     def __init__(self):
-        self.cruise_conditions = json.load(open('../flights/cruiseConditions.json', 'r'))
-        self.stability_der = json.load(open('../flights/stabilityDerivatives.json', 'r'))
+        self.cruise_conditions = json.load(open(os.path.abspath('flights/cruiseConditions.json'), 'r'))
+        self.stability_der = json.load(open(os.path.abspath('flights/stabilityDerivatives.json'), 'r'))

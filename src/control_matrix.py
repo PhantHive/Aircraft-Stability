@@ -1,5 +1,5 @@
 import numpy as np
-from flight_data import FlightData
+from src.flight_data import FlightData
 
 
 class ControlMatrix(FlightData):
@@ -39,7 +39,7 @@ class ControlMatrix(FlightData):
     def get_elevator_derivatives(self):
         return self.elevator_vector
 
-    def set_control_matrix(self, Mw_dot):
+    def set_long_stability_control_matrix(self, Mw_dot):
 
         # set the elevator vector
         self.elevator_vector = np.array(

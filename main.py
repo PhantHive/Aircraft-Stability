@@ -19,6 +19,9 @@ class Airplane(AircraftMatrix, ControlMatrix):
         self.wing_oswald = wing_oswald  # e
 
     def calculate_aircraft_matrix(self):
+
+
+        # ----------------- Calculate the aircraft matrix for longitudinal stability ----------------- #
         # Calculate X matrix coefficients (Xu, Xw)
         AircraftMatrix.calculate_Xu(self, self.wing_area)
         AircraftMatrix.calculate_Xw(self, self.aspect_ratio, self.wing_oswald, self.wing_area)
@@ -35,10 +38,15 @@ class Airplane(AircraftMatrix, ControlMatrix):
         AircraftMatrix.calculate_Mw_dot(self, self.wing_mean_chord, self.wing_area)
         AircraftMatrix.calculate_Mq(self, self.wing_mean_chord, self.wing_area)
 
-        # Get aircraft matrix
-        AircraftMatrix.set_aircraft_matrix(self)
+
+        # Get aircraft matrix for longitudinal stability
+        AircraftMatrix.set_long_stability_aircraft_matrix(self)
+        # ------------------------------------------------------------------------------------------ #
+
 
     def calculate_control_matrix(self):
+
+        # ----------------- Calculate the control matrix for longitudinal stability ----------------- #
         # Calculate X_delta_e
         ControlMatrix.calculate_X_delta_e(self, self.wing_area)
 
@@ -49,7 +57,8 @@ class Airplane(AircraftMatrix, ControlMatrix):
         ControlMatrix.calculate_M_delta_e(self, self.wing_mean_chord, self.wing_area)
 
         # Get control matrix
-        ControlMatrix.set_control_matrix(self, self.Mw_dot)
+        ControlMatrix.set_long_stability_control_matrix(self, self.Mw_dot)
+        # ------------------------------------------------------------------------------------------ #
 
     def get_cruise_condition(self, coeff):
         return f"{self.cruise_conditions[coeff]['value']} {self.cruise_conditions[coeff]['unit']}"

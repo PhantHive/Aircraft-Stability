@@ -1,5 +1,5 @@
 import numpy as np
-from flight_data import FlightData
+from src.flight_data import FlightData
 
 
 class AircraftMatrix(FlightData):
@@ -109,7 +109,7 @@ class AircraftMatrix(FlightData):
         second_part = self.stability_der["C_m_d_E"]["value"]
         self.M_gamma_e = first_part * second_part
 
-    def set_aircraft_matrix(self):
+    def set_long_stability_aircraft_matrix(self):
         '''
         :return: np array of the aircraft matrix
         3 columns, 4 rows:
