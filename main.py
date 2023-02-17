@@ -19,8 +19,6 @@ class Airplane(AircraftMatrix, ControlMatrix):
         self.wing_oswald = wing_oswald  # e
 
     def calculate_aircraft_matrix(self):
-
-
         # ----------------- Calculate the aircraft matrix for longitudinal stability ----------------- #
         # Calculate X matrix coefficients (Xu, Xw)
         AircraftMatrix.calculate_Xu(self, self.wing_area)
@@ -38,14 +36,11 @@ class Airplane(AircraftMatrix, ControlMatrix):
         AircraftMatrix.calculate_Mw_dot(self, self.wing_mean_chord, self.wing_area)
         AircraftMatrix.calculate_Mq(self, self.wing_mean_chord, self.wing_area)
 
-
         # Get aircraft matrix for longitudinal stability
         AircraftMatrix.set_long_stability_aircraft_matrix(self)
         # ------------------------------------------------------------------------------------------ #
 
-
     def calculate_control_matrix(self):
-
         # ----------------- Calculate the control matrix for longitudinal stability ----------------- #
         # Calculate X_delta_e
         ControlMatrix.calculate_X_delta_e(self, self.wing_area)
@@ -56,6 +51,9 @@ class Airplane(AircraftMatrix, ControlMatrix):
         # Calculate M_delta_e
         ControlMatrix.calculate_M_delta_e(self, self.wing_mean_chord, self.wing_area)
 
+        ControlMatrix.calculate_X_delta_T(self, self.wing_area)
+        print("X_delta_T = ", self.X_delta_T)
+
         # Get control matrix
         ControlMatrix.set_long_stability_control_matrix(self, self.Mw_dot)
         # ------------------------------------------------------------------------------------------ #
@@ -65,7 +63,6 @@ class Airplane(AircraftMatrix, ControlMatrix):
 
 
 if __name__ == '__main__':
-
     # Example to use the class
     # (the values are from a Business JET aircraft)
     S = 21.55
@@ -89,3 +86,12 @@ if __name__ == '__main__':
     '''print("Exemple to get the elevator derivatives vector:\n")
     airplane.calculate_control_matrix()
     print(airplane.get_elevator_derivatives())'''
+
+    print("Parameters")
+    params = ["Xu", "Xw", "Zu", "Zw", "Zw_dot", "Zq", "Mu", "Mw", "Mw_dot", "Mq"]
+    for param in params:
+        print(param, " = ", getattr(airplane, param))
+    print("--------------------------------")
+
+    airplane.calculate_control_matrix()
+

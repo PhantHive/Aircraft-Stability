@@ -13,6 +13,7 @@ class ControlMatrix(FlightData):
         self.X_delta_e = 0
         self.Z_delta_e = 0
         self.M_delta_e = 0
+        self.X_delta_T = 0
 
         self.elevator_vector = None
 
@@ -36,6 +37,13 @@ class ControlMatrix(FlightData):
         second_part = self.stability_der["C_m_d_E"]["value"]
         self.M_delta_e = first_part * second_part
 
+    def calculate_X_delta_T(self, wing_area):
+        first_part = self.cruise_conditions["q_mean"]["value"] * wing_area / \
+                     self.cruise_conditions["m"]["value"] * self.cruise_conditions["V"]["value"]
+        second_part = self.stability_der["C_D_d_T"]["value"]
+        self.X_delta_T = first_part * second_part
+
+
     def get_elevator_derivatives(self):
         return self.elevator_vector
 
@@ -48,3 +56,6 @@ class ControlMatrix(FlightData):
                 self.Z_delta_e,
                 self.M_delta_e + self.Z_delta_e * Mw_dot
             ])
+
+
+

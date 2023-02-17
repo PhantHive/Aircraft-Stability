@@ -10,6 +10,7 @@ class AircraftMatrix(FlightData):
     def __init__(self):
         '''
         :param cruise_condition: json file with the cruise condition
+        :param stability_der: json file with the longitudinal stability derivatives
         :param X: longitudinal stability derivative vector (Xu, Xw, Xw_dot, Xq)
         :param Z: lateral stability derivative vector (Zu, Zw, Zw_dot, Zq)
         :param M: rolling moment derivative vector (Mu, Mw, Mw_dot, Mq)
@@ -133,3 +134,11 @@ class AircraftMatrix(FlightData):
 
     def get_aircraft_matrix(self):
         return self.aircraft_matrix
+
+    def get_param(self, name):
+
+        if hasattr(self, name):
+            return getattr(self, name)
+        else:
+            print("Parameter does not exist")
+
