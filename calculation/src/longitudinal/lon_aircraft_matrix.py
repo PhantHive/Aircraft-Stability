@@ -1,6 +1,6 @@
 import numpy as np
-from src.flight_data import FlightData
-
+from calculation.src.flight_data import FlightData
+import sympy
 
 class AircraftMatrix(FlightData):
     '''
@@ -17,6 +17,9 @@ class AircraftMatrix(FlightData):
         '''
 
         super().__init__()
+
+        self.eigenvalues = None
+        self.characteristic_equation = None
 
         self.Xu = 0
         self.Xw = 0
@@ -132,8 +135,23 @@ class AircraftMatrix(FlightData):
         np.set_printoptions(suppress=True)
         self.aircraft_matrix[self.aircraft_matrix == -0.0] = 0.0
 
+    def set_characteristic_equation(self):
+
+        lam = sympy.symbols('lam')
+        characteristic_equation = sympy.Matrix(lam * np.identity(4) - self.aircraft_matrix)
+        self.characteristic_equation = sympy.simplify(characteristic_equation.det())
+
+    def set_eigenvalues(self):
+        self.eigenvalues = sympy.solve(self.characteristic_equation)
+
     def get_aircraft_matrix(self):
         return self.aircraft_matrix
+
+    def get_characteristic_equation(self):
+        return self.characteristic_equation
+
+    def get_eigenvalues(self):
+        return self.eigenvalues
 
     def get_param(self, name):
 

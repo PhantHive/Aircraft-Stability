@@ -68,18 +68,24 @@ class Airplane(AircraftMatrix, ControlMatrix):
 if __name__ == '__main__':
     # Example to use the class
     # (the values are from a Business JET aircraft)
-    S = 21.55
-    A = 5.1
-    lambda_ = 0.5
-    b = 10.48
-    c_mean = 2.13
-    e = 0.94
+    S = 21.55 # Wing area
+    A = 5.09 # Aspect ratio
+    lambda_ = 0.5 # Taper ratio
+    b = 10.48 # Wingspan
+    c_mean = 2.13 # Mean chord
+    e = 0.94 # Oswald factor
 
     airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e)
     print("--------------------------------")
     print("Exemple to get the aircraft matrix:\n")
     airplane.get_longitudinal_aicraft_matrix()
     print(airplane.aircraft_matrix)
+    print("--------------------------------")
+
+    print("Eigen values:\n")
+    airplane.set_characteristic_equation()
+    airplane.set_eigenvalues()
+    print(airplane.get_eigenvalues())
     print("--------------------------------")
 
     print("Exemple to get a cruise condition")

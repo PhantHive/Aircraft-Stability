@@ -1,0 +1,78 @@
+.longitudinal-container {
+    max-width: 800px;
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+
+.longitudinal-title {
+    position: absolute;
+    color: #00f5bc;
+    top: 5%;
+    font-size: 2em;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.select {
+    position: absolute;
+    top: 35%;
+    font-size: 1.5em;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.longitudinal-file-selector {
+    position: absolute;
+    top: 50%;
+    font-size: 1.5em;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    transition: all 0.2s;
+}
+
+
+
+.longitudinal-calculation-button {
+    margin-top: 20em;
+}
+
+.calculate {
+
+    font-size: 1.5em;
+    text-align: center;
+    display: inline-block;
+    padding: 0.5em 1em;
+    margin: 0 0.3em 0.3em 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    border: white 0.5px solid;
+    font-weight: 300;
+    transition: all 0.2s;
+}
+
+.longitudinal-calculation-result {
+    margin-top: 25px;
+}
+
+.longitudinal-calculation-result h2 {
+    margin-bottom: 10px;
+}
+
+.longitudinal-calculation-result p {
+    margin-bottom: 10px;
+}
+
+.longitudinal-download-button {
+    display: block;
+    margin-top: 10px;
+}

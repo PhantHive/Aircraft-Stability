@@ -1,5 +1,5 @@
 import numpy as np
-from src.flight_data import FlightData
+from calculation.src.flight_data import FlightData
 
 
 class AircraftMatrix(FlightData):

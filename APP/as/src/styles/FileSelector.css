@@ -1,0 +1,29 @@
+.file-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: rgba(0, 245, 188, 0.1);
+    border: white 1px solid;
+    border-radius: 0.1rem;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    color: white;
+    background-color: rgba(0, 245, 188, 0.1);
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #00CC99FF;
+    color: aliceblue;
+}

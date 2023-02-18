@@ -1,5 +1,5 @@
 import numpy as np
-from src.flight_data import FlightData
+from calculation.src.flight_data import FlightData
 
 
 class ControlMatrix(FlightData):
@@ -56,6 +56,7 @@ class ControlMatrix(FlightData):
                      (self.cruise_conditions["Iyy"]["value"] * self.cruise_conditions["V"]["value"])
         second_part = self.stability_der["C_M_d_T"]["value"]
         self.M_delta_T = first_part * second_part
+
 
     def get_elevator_derivatives(self):
         return self.elevator_vector

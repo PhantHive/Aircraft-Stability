@@ -1,5 +1,5 @@
 import numpy as np
-from src.flight_data import FlightData
+from calculation.src.flight_data import FlightData
 
 
 class ControlMatrix(FlightData):
@@ -17,7 +17,7 @@ class ControlMatrix(FlightData):
         self.Z_delta_T = 0
         self.M_delta_T = 0
 
-        self.elevator_vector = None
+        self.control_matrix = None
 
     def calculate_X_delta_e(self, wing_area):
 
@@ -31,7 +31,6 @@ class ControlMatrix(FlightData):
                      (self.cruise_conditions["m"]["value"] * self.cruise_conditions["V"]["value"])
         second_part = self.stability_der["C_L_d_E"]["value"]
         self.Z_delta_e = first_part * second_part
-
 
     def calculate_M_delta_e(self, wing_area, wing_mean_chord):
         first_part = self.cruise_conditions["q_mean"]["value"] * wing_area * wing_mean_chord / \
@@ -57,14 +56,10 @@ class ControlMatrix(FlightData):
         second_part = self.stability_der["C_M_d_T"]["value"]
         self.M_delta_T = first_part * second_part
 
-
-    def get_elevator_derivatives(self):
-        return self.elevator_vector
-
     def set_long_stability_control_matrix(self, Mw_dot):
 
         # set the elevator vector
-        self.elevator_vector = np.array(
+        self.control_matrix = np.array(
             [
                 [
                     self.X_delta_e,
@@ -85,7 +80,7 @@ class ControlMatrix(FlightData):
             ])
 
     def get_long_stability_control_matrix(self):
-        return self.elevator_vector
+        return self.control_matrix
 
 
 
