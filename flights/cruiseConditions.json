@@ -23,7 +23,7 @@
     "value": 0.458,
     "unit": "kg/m^3"
   },
-  "M": {
+  "Mach": {
     "value": 0.60,
     "unit": ""
   },
@@ -54,6 +54,10 @@
   "theta": {
     "value": 0.000,
     "unit": "deg"
+  },
+  "Ixx": {
+    "value": 24415.0,
+    "unit": "kg*m^2"
   },
   "Iyy": {
     "value": 24415.0,

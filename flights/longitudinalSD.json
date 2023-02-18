@@ -64,7 +64,7 @@
         "value": 0.0
     },
     "C_L_d_E": {
-        "value": 0.430
+        "value": 0.43
     },
     "CA_m_d_E": {
         "value": -1.13
@@ -96,10 +96,16 @@
     "C_m_q": {
         "value": -11.7
     },
-    "C_m_d_E": {
+    "C_M_d_E": {
         "value": -1.13
     },
     "C_D_d_T": {
+        "value": 0.0
+    },
+    "C_L_d_T": {
+        "value": 0.0
+    },
+    "C_M_d_T": {
         "value": 0.0
     }
 
