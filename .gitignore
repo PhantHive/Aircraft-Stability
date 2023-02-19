@@ -1,5 +1,6 @@
 APP/node_modules/
 api/__pycache__/
+api/node_modules/
 
 venv/
 .idea/
