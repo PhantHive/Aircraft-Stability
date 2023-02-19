@@ -1,5 +1,8 @@
-from src.longitudinal.lon_aircraft_matrix import AircraftMatrix
-from src.longitudinal.lon_control_matrix import ControlMatrix
+import sys
+sys.path.append("calculation/src")
+
+from longitudinal.lon_aircraft_matrix import AircraftMatrix
+from longitudinal.lon_control_matrix import ControlMatrix
 
 
 class Airplane(AircraftMatrix, ControlMatrix):
@@ -8,7 +11,7 @@ class Airplane(AircraftMatrix, ControlMatrix):
     It is also used to get the cruise conditions
     '''
 
-    def __init__(self, name, wing_area, aspect_ratio, taper_ratio, wingspan, wing_mean_chord, wing_oswald):
+    def __init__(self, name, wing_area, aspect_ratio, taper_ratio, wingspan, wing_mean_chord, wing_oswald, user_file=None):
         super().__init__()
         self.name = name
         self.wing_area = wing_area  # S
@@ -17,6 +20,7 @@ class Airplane(AircraftMatrix, ControlMatrix):
         self.wingspan = wingspan  # b
         self.wing_mean_chord = wing_mean_chord  # c
         self.wing_oswald = wing_oswald  # e
+        self.user_file = user_file
 
     def get_longitudinal_aicraft_matrix(self):
         # ----------------- Calculate the aircraft matrix for longitudinal stability ----------------- #
@@ -63,43 +67,3 @@ class Airplane(AircraftMatrix, ControlMatrix):
 
     def get_cruise_condition(self, coeff):
         return f"{self.cruise_conditions[coeff]['value']} {self.cruise_conditions[coeff]['unit']}"
-
-
-if __name__ == '__main__':
-    # Example to use the class
-    # (the values are from a Business JET aircraft)
-    S = 21.55 # Wing area
-    A = 5.09 # Aspect ratio
-    lambda_ = 0.5 # Taper ratio
-    b = 10.48 # Wingspan
-    c_mean = 2.13 # Mean chord
-    e = 0.94 # Oswald factor
-
-    airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e)
-    print("--------------------------------")
-    print("Exemple to get the aircraft matrix:\n")
-    airplane.get_longitudinal_aicraft_matrix()
-    print(airplane.aircraft_matrix)
-    print("--------------------------------")
-
-    print("Eigen values:\n")
-    airplane.set_characteristic_equation()
-    airplane.set_eigenvalues()
-    print(airplane.get_eigenvalues())
-    print("--------------------------------")
-
-    print("Exemple to get a cruise condition")
-    print("U0 = ", airplane.get_cruise_condition("V"))
-    print("--------------------------------")
-
-
-    # print("Parameters")
-    # params = ["Xu", "Xw", "Zu", "Zw", "Zw_dot", "Zq", "Mu", "Mw", "Mw_dot", "Mq"]
-    # for param in params:
-    #     print(param, " = ", getattr(airplane, param))
-    # print("--------------------------------")
-
-    airplane.get_longitudinal_control_matrix()
-    print("Control matrix (elevator/throttle) for longitudinal stability")
-    print(airplane.get_long_stability_control_matrix())
-

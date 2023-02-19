@@ -16,18 +16,18 @@
 }
 
 .select {
-    position: absolute;
-    top: 35%;
-    font-size: 1.5em;
+    position: relative;
+    font-size: 1.2em;
     text-align: center;
     left: 50%;
+    padding-top: 2em;
     transform: translateX(-50%);
 }
 
 
 .longitudinal-file-selector {
     position: absolute;
-    top: 50%;
+    top: 45%;
     font-size: 1.5em;
     text-align: center;
     left: 50%;
@@ -37,12 +37,14 @@
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     transition: all 0.2s;
+
 }
 
 
 
+
 .longitudinal-calculation-button {
-    margin-top: 20em;
+  margin-top: 10em;
 }
 
 .calculate {
@@ -50,7 +52,6 @@
     font-size: 1.5em;
     text-align: center;
     display: inline-block;
-    padding: 0.5em 1em;
     margin: 0 0.3em 0.3em 0;
     box-sizing: border-box;
     text-decoration: none;
@@ -60,12 +61,23 @@
     transition: all 0.2s;
 }
 
+.reset {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.reset-button {
+    display: block;
+    margin-top: 15px;
+}
+
 .longitudinal-calculation-result {
-    margin-top: 25px;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .longitudinal-calculation-result h2 {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .longitudinal-calculation-result p {
@@ -74,5 +86,5 @@
 
 .longitudinal-download-button {
     display: block;
-    margin-top: 10px;
+    margin-top: 15px;
 }

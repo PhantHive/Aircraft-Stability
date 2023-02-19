@@ -1,27 +1,38 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import '../styles/FileSelector.css';
+import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
 
-function FileSelector(props) {
-    const [selectedFile, setSelectedFile] = useState(null);
+class FileSelector extends Component {
+    constructor(props) {
+        super(props);
 
-    const handleFileSelect = (event) => {
+        this.state = {
+            selectedFile: null,
+        };
+
+        this.id = uuidv4();
+    }
+
+    handleFileSelect = (event) => {
         const file = event.target.files[0];
-        setSelectedFile(file);
-        props.onFileSelect(file);
+        this.setState({ selectedFile: file });
+        this.props.onFileSelect(file);
     };
 
-    const handleButtonClick = () => {
-        document.getElementById('file-input').click();
+    handleButtonClick = () => {
+        document.getElementById(this.id).click();
     };
 
-    return (
-        <div className="file-selector">
-            <input id="file-input" type="file" onChange={handleFileSelect} />
-            <button onClick={handleButtonClick}>
-                {selectedFile ? selectedFile.name : props.label}
-            </button>
-        </div>
-    );
+    render() {
+        return (
+            <div className="file-selector">
+                <input id={this.id} type="file" onChange={this.handleFileSelect} />
+                <button onClick={this.handleButtonClick}>
+                    {this.state.selectedFile ? this.state.selectedFile.name : this.props.label}
+                </button>
+            </div>
+        );
+    }
 }
 
 export default FileSelector;

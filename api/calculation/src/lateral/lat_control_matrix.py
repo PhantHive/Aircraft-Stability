@@ -1,5 +1,5 @@
 import numpy as np
-from calculation.src.flight_data import FlightData
+from api import FlightData
 
 
 class ControlMatrix(FlightData):
@@ -7,9 +7,9 @@ class ControlMatrix(FlightData):
     This class calculates the control matrix for the elevator and throttle control
     '''
 
-    def __init__(self):
+    def __init__(self, user_file=None):
         # get the flight data
-        super().__init__()
+        super().__init__(user_file)
         self.X_delta_e = 0
         self.Z_delta_e = 0
         self.M_delta_e = 0

@@ -1,5 +1,7 @@
+import sys
+sys.path.append("data/")
 import numpy as np
-from calculation.src.flight_data import FlightData
+from data.flight_data import FlightData
 import sympy
 
 class AircraftMatrix(FlightData):

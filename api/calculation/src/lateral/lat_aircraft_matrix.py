@@ -1,13 +1,13 @@
 import numpy as np
-from calculation.src.flight_data import FlightData
+from api import FlightData
 
 
-class AircraftMatrix(FlightData):
+class AircraftMatrix:
     '''
     This class calculates the aircraft matrix
     '''
 
-    def __init__(self):
+    def __init__(self, user_file=None):
         '''
         :param cruise_condition: json file with the cruise condition
         :param stability_der: json file with the longitudinal stability derivatives
@@ -16,7 +16,7 @@ class AircraftMatrix(FlightData):
         :param M: rolling moment derivative vector (Mu, Mw, Mw_dot, Mq)
         '''
 
-        super().__init__()
+        super().__init__(user_file)
 
         self.Yv = 0
         self.Yp = 0
