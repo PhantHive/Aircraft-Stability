@@ -26,4 +26,5 @@ button {
 button:hover {
     background-color: #00CC99FF;
     color: aliceblue;
+    box-shadow: 0 0 10px #00f5bc;
 }

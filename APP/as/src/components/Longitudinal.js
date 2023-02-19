@@ -124,6 +124,7 @@ class Longitudinal extends Component {
         return (
             <div className="longitudinal-container">
                 <h1 className="longitudinal-title">Longitudinal stability calculation</h1>
+                <img className="longitudinal-image" src={require('../assets/images/plane-longitudinal.png')} alt="Longitudinal stability" />
                 <h2 className="select">Select a JSON file containing plane data (follow README.md)</h2>
                 <div className="longitudinal-file-selector">
                     <FileSelector key="flight-data" label="Flight Data" onFileSelect={this.handleFile1Change} />

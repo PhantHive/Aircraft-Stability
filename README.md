@@ -3,9 +3,9 @@
 
 <div align="center">
 
-<img src="demo.png" alt="AS-app"/>
-
-
+<div align="center">
+    <img src="demo2.png" alt="AS-app"/>
+</div>
 
 ---
 
@@ -53,5 +53,5 @@
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[issues-shield]: https://img.shields.io/github/issues/PhantHive/aicraft-stability.svg?style=for-the-badge&logo=github
-[issues-url]: https://github.com/PhantHive/aicraft-stability/issues/
+[issues-shield]: https://img.shields.io/github/issues/PhantHive/aircraft-stability.svg?style=for-the-badge&logo=github
+[issues-url]: https://github.com/PhantHive/aircraft-stability/issues/

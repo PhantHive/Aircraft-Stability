@@ -15,6 +15,16 @@
     transform: translateX(-50%);
 }
 
+.longitudinal-image {
+    position: absolute;
+    opacity: 0.7;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25%;
+    height: 25%;
+}
+
 .select {
     position: relative;
     font-size: 1.2em;
@@ -37,7 +47,6 @@
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     transition: all 0.2s;
-
 }
 
 
@@ -59,6 +68,7 @@
     border: white 0.5px solid;
     font-weight: 300;
     transition: all 0.2s;
+    box-shadow: 0 0 10px #ffffff;
 }
 
 .reset {
