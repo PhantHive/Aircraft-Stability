@@ -1,13 +1,14 @@
 import os
+import re
 import sys
 sys.path.append("api/calculation/src/")
 from calculation.src.airplane import Airplane
 import json
 
 def process_data():
+
     try:
         # Read the contents of the matrix.json file
-        print("matrix.json")
         with open("matrix.json", "r") as f:
             matrix_content = json.load(f)
 
@@ -22,10 +23,7 @@ def process_data():
         }
     except Exception as e:
         print("Error:", e)
-        return {"success": False, "error": "An error occurred."}
-
-
-
+        return {"success": False, "error": "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md"}
 
 
 # create function that put aircraft matrix and control matrix in a txt file
@@ -40,18 +38,39 @@ def write_matrix(aircraft_matrix, control_matrix):
 
         json.dump(matrix, f)
 
+def replacer(data_file):
+    data_file = re.sub(r'\s+', '', data_file)
+    return data_file
 
-print("ici")
-input_data = sys.argv[1]
-# Parse the JSON string to get the list of files
-files = json.loads(input_data)['input']
 
-# Access the individual files in the list
-file1 = files[0]
-file2 = files[1]
+# collect sys arg as a string
+data_str1 = sys.argv[1] # longitudinalSD.json
+data_str2 = sys.argv[2] # steadyConditions.json
 
-data = [file1, file2]
-print(data)
+
+
+data_str1 = data_str1.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
+data_str2 = data_str2.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
+
+# remove any extra spaces
+data_str1 = replacer(data_str1)
+data_str2 = replacer(data_str2)
+
+# match exactly if there is a ',n'
+data_str1 = re.sub(r',n', ',', data_str1)
+data_str2 = re.sub(r',n', ',', data_str2)
+
+# match exactly if there is a 'r,'
+data_str1 = re.sub(r',r', ',', data_str1)
+data_str2 = re.sub(r',r', ',', data_str2)
+
+
+# do something with file1 and file2
+# print(f"Contents of file1: {data_str1}")
+# print(f"Contents of file2: {data_str2}")
+
+
+data = [data_str2, data_str1]
 
 # Example to use the class
 # (the values are from a Business JET aircraft)

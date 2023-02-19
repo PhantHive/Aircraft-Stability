@@ -12,7 +12,7 @@ class Airplane(AircraftMatrix, ControlMatrix):
     '''
 
     def __init__(self, name, wing_area, aspect_ratio, taper_ratio, wingspan, wing_mean_chord, wing_oswald, user_file=None):
-        super().__init__()
+        super().__init__(user_file=user_file)
         self.name = name
         self.wing_area = wing_area  # S
         self.aspect_ratio = aspect_ratio  # A

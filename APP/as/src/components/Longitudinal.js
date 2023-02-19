@@ -54,36 +54,60 @@ class Longitudinal extends Component {
             return;
         }
 
-        // Perform calculation here and set the result in the calculationResult state
-        console.log('Calculating using file:', file1, file2);
-        const formData = new FormData();
-        formData.append('file1', file1);
-        formData.append('file2', file2);
+        // // Perform calculation here and set the result in the calculationResult state
+        // console.log('Calculating using file:', file1, file2);
+        // const formData = new FormData();
+        // formData.append('file1', file1);
+        // formData.append('file2', file2);
+        //
+        // const boundary = '----WebKitFormBoundary' + Math.random().toString().slice(2);
 
-        const boundary = '----WebKitFormBoundary' + Math.random().toString(16).substr(2, 8);
+        // concatenate the two files and stringify them
+        // read the contents of file1 as a string
+        let formData = null;
+        const reader1 = new FileReader();
+        reader1.onload = () => {
+            const file1Content = reader1.result;
+            // read the contents of file2 as a string
+            const reader2 = new FileReader();
+            reader2.onload = () => {
+                const file2Content = reader2.result;
+                // concatenate the two files and stringify them
+                formData = JSON.stringify({
+                    file1: file1Content,
+                    file2: file2Content
+                });
+                // do something with the form data
+                console.log(formData);
+                fetch('http://localhost:3001/process_data', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Received data:', data);
+                        // transform json to .txt file and make it available for download
+                        this.downloadResult(data);
+                        document.getElementsByClassName('longitudinal-file-selector')[0].remove();
+                        document.getElementsByClassName('longitudinal-calculation-button')[0].remove();
+                        document.getElementsByClassName('select')[0].innerHTML = 'Download your data or Reset';
 
-        fetch('http://localhost:3001/process_data', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Content-Type': `multipart/form-data; boundary=${boundary}`
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Received data:', data);
-                // transform json to .txt file and make it available for download
-                this.downloadResult(data);
-                document.getElementsByClassName('longitudinal-file-selector')[0].remove();
-                document.getElementsByClassName('longitudinal-calculation-button')[0].remove();
-                document.getElementsByClassName('select')[0].innerHTML = 'Download your data or Reset';
+                        this.setState({ calculationResult: data, calculationComplete: true });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        console.log(error.response);
+                    });
+            };
+            reader2.readAsText(file2);
+        };
+        reader1.readAsText(file1);
 
-                this.setState({ calculationResult: data, calculationComplete: true });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                console.log(error.response);
-            });
+        console.log(formData)
+
     };
 
     handleDownload = () => {

@@ -9,7 +9,7 @@ class ControlMatrix(FlightData):
 
     def __init__(self, user_file=None):
         # get the flight data
-        super().__init__(user_file)
+        FlightData.__init__(self, user_file=user_file)
         self.X_delta_e = 0
         self.Z_delta_e = 0
         self.M_delta_e = 0
