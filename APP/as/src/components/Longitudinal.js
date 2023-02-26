@@ -5,6 +5,7 @@ import FileSelector from './FileSelector.js';
 class Longitudinal extends Component {
     constructor(props) {
         super(props);
+        this.imgData = null;
         this.state = {
             file1: null,
             file2: null,
@@ -18,7 +19,14 @@ class Longitudinal extends Component {
         dataToTxt = dataToTxt.replace(/^-+$/gm, ''); // Remove separator lines
         dataToTxt = dataToTxt.replace(/\\r\\n/g, '\n'); // Replace new line characters
         dataToTxt = dataToTxt.replace(/^{.+result": "/s, ''); // remove leading JSON
-        dataToTxt = dataToTxt.replace(/"}$/s, ''); // remove trailing JSON
+
+        // from formData get what is between "ImageData<" and ">"
+        this.imgData = dataToTxt.substring(dataToTxt.indexOf('ImageData<') + 10, dataToTxt.indexOf('>'));
+
+        // remove the image data from the text file and save it
+        dataToTxt = dataToTxt.replace(/ImageData<.+>/s, '');
+        // remove last trailing characters " and } from the text file
+        dataToTxt = dataToTxt.substring(0, dataToTxt.length - 3);
 
         let blob = new Blob([dataToTxt], { type: 'text/plain' });
         let url = URL.createObjectURL(blob);
@@ -106,7 +114,7 @@ class Longitudinal extends Component {
         };
         reader1.readAsText(file1);
 
-        console.log(formData)
+        console.log(formData);
 
     };
 
@@ -142,6 +150,7 @@ class Longitudinal extends Component {
                 {this.state.calculationComplete && (
                     <div className="reset">
                         <button onClick={this.handleReset} className="reset-button">Reset</button>
+                        <img src={`data:image/png;base64,${this.imgData}`} alt="Phugoid Mode Response" className="phugoid-curve"/>
                     </div>
                 )}
             </div>

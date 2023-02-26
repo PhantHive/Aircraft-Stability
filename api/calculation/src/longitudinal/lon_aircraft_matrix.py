@@ -1,8 +1,10 @@
 import sys
+
+from matplotlib import pyplot as plt
+
 sys.path.append("data/")
 import numpy as np
 from data.flight_data import FlightData
-import sympy
 
 class AircraftMatrix(FlightData):
     '''
@@ -20,6 +22,9 @@ class AircraftMatrix(FlightData):
 
         FlightData.__init__(self, user_file=user_file)
 
+        self.damping_ratio = None
+        self.natural_frequency = None
+        self.eigenvectors = None
         self.eigenvalues = None
         self.characteristic_equation = None
 
@@ -137,14 +142,36 @@ class AircraftMatrix(FlightData):
         np.set_printoptions(suppress=True)
         self.aircraft_matrix[self.aircraft_matrix == -0.0] = 0.0
 
-    def set_characteristic_equation(self):
-
-        lam = sympy.symbols('lam')
-        characteristic_equation = sympy.Matrix(lam * np.identity(4) - self.aircraft_matrix)
-        self.characteristic_equation = sympy.simplify(characteristic_equation.det())
-
     def set_eigenvalues(self):
-        self.eigenvalues = sympy.solve(self.characteristic_equation)
+        self.eigenvalues = np.linalg.eigvals(self.aircraft_matrix)
+
+    def set_eigenvectors(self):
+        self.eigenvectors = np.linalg.eig(self.aircraft_matrix)[1]
+
+    def set_characteristic_equation(self):
+        self.characteristic_equation = np.polynomial.polynomial.polyfromroots(self.eigenvalues)
+
+    def set_natural_frequency(self):
+        # find natural frequency from eigenvalues there should be 2 frequency one for short period mode and one for phugoid
+        # mode
+        real_parts = np.real(self.eigenvalues)
+        imag_parts = np.imag(self.eigenvalues)
+
+        # Sort eigenvalues in ascending order of real parts
+        idx = real_parts.argsort()
+        real_parts = real_parts[idx]
+        imag_parts = imag_parts[idx]
+
+        # Calculate natural frequencies
+        omega_sp = np.sqrt(real_parts[0] ** 2 + imag_parts[0] ** 2)
+        omega_p = np.sqrt(real_parts[-1] ** 2 + imag_parts[-1] ** 2)
+
+        self.natural_frequency = np.array([omega_sp, omega_p])
+
+    def set_damping_ratio(self):
+        damping_ratio_sp = -np.real(self.eigenvalues[0]) / np.abs(self.eigenvalues[0])
+        damping_ratio_p = -np.real(self.eigenvalues[-1]) / np.abs(self.eigenvalues[-1])
+        self.damping_ratio = np.array([damping_ratio_sp, damping_ratio_p])
 
     def get_aircraft_matrix(self):
         return self.aircraft_matrix
@@ -155,10 +182,22 @@ class AircraftMatrix(FlightData):
     def get_eigenvalues(self):
         return self.eigenvalues
 
+    def get_eigenvectors(self):
+        return self.eigenvectors
+
+    def get_natural_frequency(self):
+        return self.natural_frequency
+
+    def get_damping_ratio(self):
+        return self.damping_ratio
+
     def get_param(self, name):
 
         if hasattr(self, name):
             return getattr(self, name)
         else:
             print("Parameter does not exist")
+
+
+
 

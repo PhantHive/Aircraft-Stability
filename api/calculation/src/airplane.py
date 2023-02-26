@@ -3,6 +3,7 @@ sys.path.append("calculation/src")
 
 from longitudinal.lon_aircraft_matrix import AircraftMatrix
 from longitudinal.lon_control_matrix import ControlMatrix
+from longitudinal.lon_plot_stability import PlotLongitudinalModes
 
 
 class Airplane(AircraftMatrix, ControlMatrix):
@@ -67,3 +68,8 @@ class Airplane(AircraftMatrix, ControlMatrix):
 
     def get_cruise_condition(self, coeff):
         return f"{self.cruise_conditions[coeff]['value']} {self.cruise_conditions[coeff]['unit']}"
+
+    def lon_plot_stability(self, mode):
+        plot_aircraft_stability = PlotLongitudinalModes(self.get_natural_frequency(), self.get_damping_ratio())
+        data = plot_aircraft_stability.plot(mode)
+        return data

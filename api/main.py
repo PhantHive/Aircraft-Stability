@@ -43,7 +43,7 @@ def replacer(data_file):
     return data_file
 
 
-# collect sys arg as a string
+'''# collect sys arg as a string
 data_str1 = sys.argv[1] # longitudinalSD.json
 data_str2 = sys.argv[2] # steadyConditions.json
 
@@ -70,7 +70,7 @@ data_str2 = re.sub(r',r', ',', data_str2)
 # print(f"Contents of file2: {data_str2}")
 
 
-data = [data_str2, data_str1]
+data = [data_str2, data_str1]'''
 
 # Example to use the class
 # (the values are from a Business JET aircraft)
@@ -81,21 +81,42 @@ b = 10.48 # Wingspan
 c_mean = 2.13 # Mean chord
 e = 0.94 # Oswald factor
 
-airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, data)
+airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, None)
+
 print("--------------------------------")
+
 print("Exemple to get the aircraft matrix:\n")
 airplane.get_longitudinal_aicraft_matrix()
 print(airplane.aircraft_matrix)
+
 print("--------------------------------")
 
-# print("Eigen values:\n")
-# airplane.set_characteristic_equation()
-# airplane.set_eigenvalues()
-# print(airplane.get_eigenvalues())
-# print("--------------------------------")
+print("Eigen values:")
+airplane.set_eigenvalues()
+airplane.set_characteristic_equation()
+print(airplane.get_eigenvalues())
+poly = airplane.get_characteristic_equation()
+print("\nCharacteristic equation:")
+for i in range(len(poly) - 1):
+    print(abs(poly[-1 - i]), "* s^", len(poly) - i - 1, " + ", end="")
+print(abs(poly[0]))
+
+print("--------------------------------")
+
+airplane.set_natural_frequency()
+airplane.set_damping_ratio()
+
+print("Natural frequencies:")
+print(airplane.get_natural_frequency())
+
+print("Damping ratios:")
+print(airplane.get_damping_ratio())
+
+print("--------------------------------")
 
 print("Exemple to get a cruise condition")
 print("U0 = ", airplane.get_cruise_condition("V"))
+
 print("--------------------------------")
 
 
@@ -108,6 +129,17 @@ print("--------------------------------")
 airplane.get_longitudinal_control_matrix()
 print("Control matrix (elevator/throttle) for longitudinal stability")
 print(airplane.get_long_stability_control_matrix())
+
+print("--------------------------------")
+print("Plotting the longitudinal stability")
+# # short_period or phugoid
+#airplane.lon_plot_stability("short_period")
+data = airplane.lon_plot_stability("phugoid")
+print(f"ImageData<{data}>")
+# airplane.lon_plot_stability("phugoid")
+
+
+
 
 write_matrix(airplane.aircraft_matrix, airplane.control_matrix)
 
