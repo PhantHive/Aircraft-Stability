@@ -54,7 +54,9 @@ def replacer(data_file):
     return data_file
 
 
-"""# collect sys arg as a string
+
+# collect sys arg as a string
+
 data_str1 = sys.argv[1] # longitudinalSD.json
 data_str2 = sys.argv[2] # steadyConditions.json
 
@@ -81,7 +83,8 @@ data_str2 = re.sub(r',r', ',', data_str2)
 # print(f"Contents of file2: {data_str2}")
 
 
-data = [data_str2, data_str1]"""
+data = [data_str2, data_str1]
+
 
 # Example to use the class
 # (the values are from a Business JET aircraft)

@@ -1,45 +1,42 @@
 import "../styles/Longitudinal.css";
-
 import React, { Component } from "react";
+
 
 import FileSelector from "./FileSelector.js";
 
 class Longitudinal extends Component {
   constructor(props) {
-    super(props);
-    this.imgData = null;
-    this.state = {
-      file1: null,
-      file2: null,
-      calculationResult: null,
-      calculationComplete: false,
-    };
+      super(props);
+      this.imgData = null;
+      this.state = {
+          file1: null,
+          file2: null,
+          calculationResult: null,
+          calculationComplete: false
+      };
   }
 
   downloadResult = (data) => {
-    let dataToTxt = JSON.stringify(data, null, 4);
-    dataToTxt = dataToTxt.replace(/^-+$/gm, ""); // Remove separator lines
-    dataToTxt = dataToTxt.replace(/\\r\\n/g, "\n"); // Replace new line characters
-    dataToTxt = dataToTxt.replace(/^{.+result": "/s, ""); // remove leading JSON
+      let dataToTxt = JSON.stringify(data, null, 4);
+      dataToTxt = dataToTxt.replace(/^-+$/gm, ''); // Remove separator lines
+      dataToTxt = dataToTxt.replace(/\\r\\n/g, '\n'); // Replace new line characters
+      dataToTxt = dataToTxt.replace(/^{.+result": "/s, ''); // remove leading JSON
 
-    // from formData get what is between "ImageData<" and ">"
-    this.imgData = dataToTxt.substring(
-      dataToTxt.indexOf("ImageData<") + 10,
-      dataToTxt.indexOf(">")
-    );
+      // from formData get what is between "ImageData<" and ">"
+      this.imgData = dataToTxt.substring(dataToTxt.indexOf('ImageData<') + 10, dataToTxt.indexOf('>'));
 
-    // remove the image data from the text file and save it
-    dataToTxt = dataToTxt.replace(/ImageData<.+>/s, "");
-    // remove last trailing characters " and } from the text file
-    dataToTxt = dataToTxt.substring(0, dataToTxt.length - 3);
+      // remove the image data from the text file and save it
+      dataToTxt = dataToTxt.replace(/ImageData<.+>/s, '');
+      // remove last trailing characters " and } from the text file
+      dataToTxt = dataToTxt.substring(0, dataToTxt.length - 3);
 
-    let blob = new Blob([dataToTxt], { type: "text/plain" });
-    let url = URL.createObjectURL(blob);
-    let a = document.createElement("a");
-    a.download = "data.txt";
-    a.href = url;
-    document.body.appendChild(a);
-    a.click();
+      let blob = new Blob([dataToTxt], { type: 'text/plain' });
+      let url = URL.createObjectURL(blob);
+      let a = document.createElement('a');
+      a.download = 'plane_data.txt';
+      a.href = url;
+      document.body.appendChild(a);
+      a.click();
   };
 
   handleFile1Change = (file) => {
