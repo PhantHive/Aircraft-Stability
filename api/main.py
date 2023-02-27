@@ -20,15 +20,18 @@ def process_data():
             "success": True,
             "data": matrix_content,
             "headers": {
-                "Content-Disposition": f"attachment; filename={os.path.basename('matrix.json')}",
+                "Content-Disposition":
+                f"attachment; filename={os.path.basename('matrix.json')}",
                 "Content-Type": "application/json",
             },
         }
     except Exception as e:
         print("Error:", e)
         return {
-            "success": False,
-            "error": "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
+            "success":
+            False,
+            "error":
+            "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
         }
 
 
@@ -127,7 +130,6 @@ print("U0 = ", airplane.get_cruise_condition("V"))
 
 print("--------------------------------")
 
-
 # print("Parameters")
 # params = ["Xu", "Xw", "Zu", "Zw", "Zw_dot", "Zq", "Mu", "Mw", "Mw_dot", "Mq"]
 # for param in params:
@@ -145,7 +147,6 @@ print("Plotting the longitudinal stability")
 data = airplane.lon_plot_stability("phugoid")
 print(f"ImageData<{data}>")
 # airplane.lon_plot_stability("phugoid")
-
 
 write_matrix(airplane.aircraft_matrix, airplane.control_matrix)
 
