@@ -31,7 +31,7 @@ class Longitudinal extends Component {
         let blob = new Blob([dataToTxt], { type: 'text/plain' });
         let url = URL.createObjectURL(blob);
         let a = document.createElement('a');
-        a.download = 'data.txt';
+        a.download = 'plane_data.txt';
         a.href = url;
         document.body.appendChild(a);
         a.click();
