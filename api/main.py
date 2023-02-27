@@ -1,9 +1,10 @@
+import json
+from calculation.src.airplane import Airplane
 import os
 import re
 import sys
 sys.path.append("api/calculation/src/")
-from calculation.src.airplane import Airplane
-import json
+
 
 def process_data():
 
@@ -38,19 +39,21 @@ def write_matrix(aircraft_matrix, control_matrix):
 
         json.dump(matrix, f)
 
+
 def replacer(data_file):
     data_file = re.sub(r'\s+', '', data_file)
     return data_file
 
 
 # collect sys arg as a string
-data_str1 = sys.argv[1] # longitudinalSD.json
-data_str2 = sys.argv[2] # steadyConditions.json
+data_str1 = sys.argv[1]  # longitudinalSD.json
+data_str2 = sys.argv[2]  # steadyConditions.json
 
 
-
-data_str1 = data_str1.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
-data_str2 = data_str2.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
+data_str1 = data_str1.replace('\\r', '').replace(
+    '\\n', ''). replace(' ', '').replace('\\', '')
+data_str2 = data_str2.replace('\\r', '').replace(
+    '\\n', ''). replace(' ', '').replace('\\', '')
 
 # remove any extra spaces
 data_str1 = replacer(data_str1)
@@ -74,12 +77,12 @@ data = [data_str2, data_str1]
 
 # Example to use the class
 # (the values are from a Business JET aircraft)
-S = 21.55 # Wing area
-A = 5.09 # Aspect ratio
-lambda_ = 0.5 # Taper ratio
-b = 10.48 # Wingspan
-c_mean = 2.13 # Mean chord
-e = 0.94 # Oswald factor
+S = 21.55  # Wing area
+A = 5.09  # Aspect ratio
+lambda_ = 0.5  # Taper ratio
+b = 10.48  # Wingspan
+c_mean = 2.13  # Mean chord
+e = 0.94  # Oswald factor
 
 airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, None)
 
@@ -133,20 +136,12 @@ print(airplane.get_long_stability_control_matrix())
 print("--------------------------------")
 print("Plotting the longitudinal stability")
 # # short_period or phugoid
-#airplane.lon_plot_stability("short_period")
+# airplane.lon_plot_stability("short_period")
 data = airplane.lon_plot_stability("phugoid")
 print(f"ImageData<{data}>")
 # airplane.lon_plot_stability("phugoid")
 
 
-
-
 write_matrix(airplane.aircraft_matrix, airplane.control_matrix)
 
 process_data()
-
-
-
-
-
-
