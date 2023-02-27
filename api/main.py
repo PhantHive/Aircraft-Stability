@@ -54,16 +54,15 @@ def replacer(data_file):
     return data_file
 
 
-
 # collect sys arg as a string
-
-data_str1 = sys.argv[1] # longitudinalSD.json
-data_str2 = sys.argv[2] # steadyConditions.json
-
+data_str1 = sys.argv[1]  # longitudinalSD.json
+data_str2 = sys.argv[2]  # steadyConditions.json
 
 
-data_str1 = data_str1.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
-data_str2 = data_str2.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
+data_str1 = data_str1.replace('\\r', '').replace(
+    '\\n', ''). replace(' ', '').replace('\\', '')
+data_str2 = data_str2.replace('\\r', '').replace(
+    '\\n', ''). replace(' ', '').replace('\\', '')
 
 # remove any extra spaces
 data_str1 = replacer(data_str1)
