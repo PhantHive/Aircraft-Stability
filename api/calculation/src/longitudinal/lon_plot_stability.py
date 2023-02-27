@@ -49,7 +49,8 @@ class PlotLongitudinalModes:
         # Render the plot as a bitmap or vector graphics format
         canvas = FigureCanvas(fig)
         buf = io.BytesIO()
-        canvas.print_png(buf)  # Or use print_svg or print_pdf for other formats
+        # Or use print_svg or print_pdf for other formats
+        canvas.print_png(buf)
 
         # Convert the rendered plot to a binary data payload
         data = base64.b64encode(buf.getvalue()).decode('utf-8')
