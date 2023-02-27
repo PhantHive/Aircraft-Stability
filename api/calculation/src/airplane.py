@@ -1,7 +1,8 @@
-from longitudinal.lon_plot_stability import PlotLongitudinalModes
-from longitudinal.lon_control_matrix import ControlMatrix
-from longitudinal.lon_aircraft_matrix import AircraftMatrix
 import sys
+
+from longitudinal.lon_aircraft_matrix import AircraftMatrix
+from longitudinal.lon_control_matrix import ControlMatrix
+from longitudinal.lon_plot_stability import PlotLongitudinalModes
 
 sys.path.append("calculation/src")
 
