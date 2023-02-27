@@ -1,6 +1,6 @@
 import "../styles/Longitudinal.css";
 
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 import FileSelector from "./FileSelector.js";
 
@@ -9,50 +9,51 @@ class Longitudinal extends Component {
     super(props);
     this.imgData = null;
     this.state = {
-      file1 : null,
-      file2 : null,
-      calculationResult : null,
-      calculationComplete : false
+      file1: null,
+      file2: null,
+      calculationResult: null,
+      calculationComplete: false,
     };
   }
 
   downloadResult = (data) => {
     let dataToTxt = JSON.stringify(data, null, 4);
-    dataToTxt = dataToTxt.replace(/^-+$/gm, ''); // Remove separator lines
-    dataToTxt =
-        dataToTxt.replace(/\\r\\n/g, '\n'); // Replace new line characters
-    dataToTxt = dataToTxt.replace(/^{.+result": "/s, ''); // remove leading JSON
+    dataToTxt = dataToTxt.replace(/^-+$/gm, ""); // Remove separator lines
+    dataToTxt = dataToTxt.replace(/\\r\\n/g, "\n"); // Replace new line characters
+    dataToTxt = dataToTxt.replace(/^{.+result": "/s, ""); // remove leading JSON
 
     // from formData get what is between "ImageData<" and ">"
-    this.imgData = dataToTxt.substring(dataToTxt.indexOf('ImageData<') + 10,
-                                       dataToTxt.indexOf('>'));
+    this.imgData = dataToTxt.substring(
+      dataToTxt.indexOf("ImageData<") + 10,
+      dataToTxt.indexOf(">")
+    );
 
     // remove the image data from the text file and save it
-    dataToTxt = dataToTxt.replace(/ImageData<.+>/s, '');
+    dataToTxt = dataToTxt.replace(/ImageData<.+>/s, "");
     // remove last trailing characters " and } from the text file
     dataToTxt = dataToTxt.substring(0, dataToTxt.length - 3);
 
-    let blob = new Blob([ dataToTxt ], {type : 'text/plain'});
+    let blob = new Blob([dataToTxt], { type: "text/plain" });
     let url = URL.createObjectURL(blob);
-    let a = document.createElement('a');
-    a.download = 'plane_data.txt';
+    let a = document.createElement("a");
+    a.download = "plane_data.txt";
     a.href = url;
     document.body.appendChild(a);
     a.click();
   };
 
   handleFile1Change = (file) => {
-    this.setState({file1 : file});
+    this.setState({ file1: file });
     console.log(this.state.file1);
   };
 
   handleFile2Change = (file) => {
-    this.setState({file2 : file});
+    this.setState({ file2: file });
     console.log(this.state.file2);
   };
 
   handleCalculate = () => {
-    const {file1, file2} = this.state;
+    const { file1, file2 } = this.state;
 
     // check if file is null
     if (file1 === null || file2 === null) {
@@ -61,8 +62,10 @@ class Longitudinal extends Component {
     }
 
     // check if file is JSON
-    if (file1.type !== "application/json" ||
-        file2.type !== "application/json") {
+    if (
+      file1.type !== "application/json" ||
+      file2.type !== "application/json"
+    ) {
       alert("Please select a JSON file");
       return;
     }
@@ -86,36 +89,37 @@ class Longitudinal extends Component {
       reader2.onload = () => {
         const file2Content = reader2.result;
         // concatenate the two files and stringify them
-        formData = JSON.stringify({file1 : file1Content, file2 : file2Content});
+        formData = JSON.stringify({ file1: file1Content, file2: file2Content });
         // do something with the form data
         console.log(formData);
         fetch("http://localhost:3001/process_data", {
-          method : "POST",
-          body : formData,
-          headers : {"Content-Type" : "application/json"},
+          method: "POST",
+          body: formData,
+          headers: { "Content-Type": "application/json" },
         })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("Received data:", data);
-              // transform json to .txt file and make it available for download
-              this.downloadResult(data);
-              document.getElementsByClassName("longitudinal-file-selector")[0]
-                  .remove();
-              document
-                  .getElementsByClassName("longitudinal-calculation-button")[0]
-                  .remove();
-              document.getElementsByClassName("select")[0].innerHTML =
-                  "Download your data or Reset";
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Received data:", data);
+            // transform json to .txt file and make it available for download
+            this.downloadResult(data);
+            document
+              .getElementsByClassName("longitudinal-file-selector")[0]
+              .remove();
+            document
+              .getElementsByClassName("longitudinal-calculation-button")[0]
+              .remove();
+            document.getElementsByClassName("select")[0].innerHTML =
+              "Download your data or Reset";
 
-              this.setState({
-                calculationResult : data,
-                calculationComplete : true,
-              });
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-              console.log(error.response);
+            this.setState({
+              calculationResult: data,
+              calculationComplete: true,
             });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            console.log(error.response);
+          });
       };
       reader2.readAsText(file2);
     };
@@ -124,7 +128,9 @@ class Longitudinal extends Component {
     console.log(formData);
   };
 
-  handleDownload = () => { this.downloadResult(this.state.calculationResult); };
+  handleDownload = () => {
+    this.downloadResult(this.state.calculationResult);
+  };
 
   handleReset = () => {
     // Reset calculation here
@@ -141,26 +147,29 @@ class Longitudinal extends Component {
         <img
           className="longitudinal-image"
           src={require("../assets/images/plane-longitudinal.png")}
-    alt =
-        "Longitudinal stability" / >
-        <h2 className = "select">Select a JSON file containing plane data(
-            follow README.md)<
-            /h2>
+          alt="Longitudinal stability"
+        />
+        <h2 className="select">
+          Select a JSON file containing plane data( follow README.md)
+        </h2>
         <div className="longitudinal-file-selector">
           <FileSelector
             key="flight-data"
             label="Flight Data"
             onFileSelect={this.handleFile1Change}
-          /><
-        FileSelector
-    key = "derivatives-data"
-    label = "Derivatives Data"
-    onFileSelect = { this.handleFile2Change } />
-        </div >
-                   <div className = "longitudinal-calculation-button">
-                   <button onClick = {this.handleCalculate} className =
-                        "calculate">Calculate</button>
-        </div>{" "} {this.state.calculationComplete && (
+          />
+          <FileSelector
+            key="derivatives-data"
+            label="Derivatives Data"
+            onFileSelect={this.handleFile2Change}
+          />
+        </div>
+        <div className="longitudinal-calculation-button">
+          <button onClick={this.handleCalculate} className="calculate">
+            Calculate
+          </button>
+        </div>{" "}
+        {this.state.calculationComplete && (
           <div className="longitudinal-calculation-result">
             <h2>Calculation result: </h2>
             <button
@@ -177,15 +186,15 @@ class Longitudinal extends Component {
               Reset
             </button>
             <img
-                     src = {`data:image/png;base64,${this.imgData}`} alt =
-                         "Phugoid Mode Response"
+              src={`data:image/png;base64,${this.imgData}`}
+              alt="Phugoid Mode Response"
               className="phugoid-curve"
             />
           </div>
         )}
       </div>
     );
-                   }
   }
+}
 
-  export default Longitudinal;
+export default Longitudinal;
