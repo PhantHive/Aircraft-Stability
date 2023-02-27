@@ -16,33 +16,29 @@
 }
 
 .longitudinal-image {
-    position: absolute;
+    position: relative;
     opacity: 0.7;
     top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 25%;
-    height: 25%;
+    width: 50%;
+    height: 50%;
 }
 
 .select {
     position: relative;
     font-size: 1.2em;
     text-align: center;
-    left: 50%;
     padding-top: 2em;
-    transform: translateX(-50%);
 }
 
 
 .longitudinal-file-selector {
-    position: absolute;
+    position: relative;
     top: 45%;
     font-size: 1.5em;
     text-align: center;
-    left: 50%;
-    transform: translateX(-50%);
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
@@ -51,9 +47,8 @@
 
 
 
-
 .longitudinal-calculation-button {
-  margin-top: 10em;
+  margin-top: 5em;
 }
 
 .calculate {
@@ -97,4 +92,10 @@
 .longitudinal-download-button {
     display: block;
     margin-top: 15px;
+}
+
+.phugoid-curve {
+    width: 30vw;
+    height: 30vh;
+    margin-top: 50px;
 }
