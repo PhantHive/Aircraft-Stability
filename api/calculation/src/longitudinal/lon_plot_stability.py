@@ -7,7 +7,6 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 
 class PlotLongitudinalModes:
-
     def __init__(self, natural_frequency, damping_ratio):
         self.natural_frequency = natural_frequency
         self.damping_ratio = damping_ratio
@@ -37,9 +36,10 @@ class PlotLongitudinalModes:
         A1 = A
         A2 = -A * wn_zeta / omega_n
         u = A1 * np.exp(-zeta * omega_n * t) * np.cos(
-            omega_n * np.sqrt(1 - zeta**2) * t) + A2 * np.exp(
-                -zeta * omega_n * t) * np.sin(
-                    omega_n * np.sqrt(1 - zeta**2) * t)
+            omega_n * np.sqrt(1 - zeta**2) * t
+        ) + A2 * np.exp(-zeta * omega_n * t) * np.sin(
+            omega_n * np.sqrt(1 - zeta**2) * t
+        )
 
         fig = plt.figure()
         # Plot response

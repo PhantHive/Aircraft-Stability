@@ -20,18 +20,15 @@ def process_data():
             "success": True,
             "data": matrix_content,
             "headers": {
-                "Content-Disposition":
-                f"attachment; filename={os.path.basename('matrix.json')}",
+                "Content-Disposition": f"attachment; filename={os.path.basename('matrix.json')}",
                 "Content-Type": "application/json",
             },
         }
     except Exception as e:
         print("Error:", e)
         return {
-            "success":
-            False,
-            "error":
-            "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
+            "success": False,
+            "error": "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
         }
 
 
