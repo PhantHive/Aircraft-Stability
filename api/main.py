@@ -20,18 +20,15 @@ def process_data():
             "success": True,
             "data": matrix_content,
             "headers": {
-                "Content-Disposition":
-                f"attachment; filename={os.path.basename('matrix.json')}",
+                "Content-Disposition": f"attachment; filename={os.path.basename('matrix.json')}",
                 "Content-Type": "application/json",
             },
         }
     except Exception as e:
         print("Error:", e)
         return {
-            "success":
-            False,
-            "error":
-            "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
+            "success": False,
+            "error": "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
         }
 
 
@@ -59,22 +56,24 @@ data_str1 = sys.argv[1]  # longitudinalSD.json
 data_str2 = sys.argv[2]  # steadyConditions.json
 
 
-data_str1 = data_str1.replace('\\r', '').replace(
-    '\\n', ''). replace(' ', '').replace('\\', '')
-data_str2 = data_str2.replace('\\r', '').replace(
-    '\\n', ''). replace(' ', '').replace('\\', '')
+data_str1 = (
+    data_str1.replace("\\r", "").replace("\\n", "").replace(" ", "").replace("\\", "")
+)
+data_str2 = (
+    data_str2.replace("\\r", "").replace("\\n", "").replace(" ", "").replace("\\", "")
+)
 
 # remove any extra spaces
 data_str1 = replacer(data_str1)
 data_str2 = replacer(data_str2)
 
 # match exactly if there is a ',n'
-data_str1 = re.sub(r',n', ',', data_str1)
-data_str2 = re.sub(r',n', ',', data_str2)
+data_str1 = re.sub(r",n", ",", data_str1)
+data_str2 = re.sub(r",n", ",", data_str2)
 
 # match exactly if there is a 'r,'
-data_str1 = re.sub(r',r', ',', data_str1)
-data_str2 = re.sub(r',r', ',', data_str2)
+data_str1 = re.sub(r",r", ",", data_str1)
+data_str2 = re.sub(r",r", ",", data_str2)
 
 
 # do something with file1 and file2
