@@ -150,7 +150,7 @@ class Longitudinal extends Component {
           alt="Longitudinal stability"
         />
         <h2 className="select">
-          Select a JSON file containing plane data (follow README.md)
+          Select a JSON file containing plane data( follow README.md)
         </h2>
         <div className="longitudinal-file-selector">
           <FileSelector
@@ -168,7 +168,7 @@ class Longitudinal extends Component {
           <button onClick={this.handleCalculate} className="calculate">
             Calculate
           </button>
-        </div>
+        </div>{" "}
         {this.state.calculationComplete && (
           <div className="longitudinal-calculation-result">
             <h2>Calculation result: </h2>
