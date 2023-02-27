@@ -6,7 +6,6 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 
 class PlotLongitudinalModes:
-
     def __init__(self, natural_frequency, damping_ratio):
         self.natural_frequency = natural_frequency
         self.damping_ratio = damping_ratio
@@ -35,15 +34,18 @@ class PlotLongitudinalModes:
         wn_zeta = omega_n * zeta
         A1 = A
         A2 = -A * wn_zeta / omega_n
-        u = A1 * np.exp(-zeta * omega_n * t) * np.cos(omega_n * np.sqrt(1 - zeta ** 2) * t) + A2 * np.exp(
-            -zeta * omega_n * t) * np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t)
+        u = A1 * np.exp(-zeta * omega_n * t) * np.cos(
+            omega_n * np.sqrt(1 - zeta**2) * t
+        ) + A2 * np.exp(-zeta * omega_n * t) * np.sin(
+            omega_n * np.sqrt(1 - zeta**2) * t
+        )
 
         fig = plt.figure()
         # Plot response
         plt.plot(t, u)
-        plt.xlabel('Time (s)')
-        plt.ylabel('Pitch angle (rad)')
-        plt.title('Phugoid Mode Response')
+        plt.xlabel("Time (s)")
+        plt.ylabel("Pitch angle (rad)")
+        plt.title("Phugoid Mode Response")
         plt.grid(True)
 
         # Render the plot as a bitmap or vector graphics format
@@ -53,6 +55,6 @@ class PlotLongitudinalModes:
         canvas.print_png(buf)
 
         # Convert the rendered plot to a binary data payload
-        data = base64.b64encode(buf.getvalue()).decode('utf-8')
+        data = base64.b64encode(buf.getvalue()).decode("utf-8")
 
         return data

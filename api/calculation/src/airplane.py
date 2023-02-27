@@ -2,16 +2,27 @@ from longitudinal.lon_plot_stability import PlotLongitudinalModes
 from longitudinal.lon_control_matrix import ControlMatrix
 from longitudinal.lon_aircraft_matrix import AircraftMatrix
 import sys
+
 sys.path.append("calculation/src")
 
 
 class Airplane(AircraftMatrix, ControlMatrix):
-    '''
+    """
     This class is used to calculate the aircraft matrix and the control matrix
     It is also used to get the cruise conditions
-    '''
+    """
 
-    def __init__(self, name, wing_area, aspect_ratio, taper_ratio, wingspan, wing_mean_chord, wing_oswald, user_file=None):
+    def __init__(
+        self,
+        name,
+        wing_area,
+        aspect_ratio,
+        taper_ratio,
+        wingspan,
+        wing_mean_chord,
+        wing_oswald,
+        user_file=None,
+    ):
         super().__init__(user_file=user_file)
         self.name = name
         self.wing_area = wing_area  # S
@@ -27,20 +38,19 @@ class Airplane(AircraftMatrix, ControlMatrix):
         # Calculate X matrix coefficients (Xu, Xw)
         AircraftMatrix.calculate_Xu(self, self.wing_area)
         AircraftMatrix.calculate_Xw(
-            self, self.aspect_ratio, self.wing_oswald, self.wing_area)
+            self, self.aspect_ratio, self.wing_oswald, self.wing_area
+        )
 
         # Calculate Z matrix coefficients (Zu, Zw, Zw_dot, Zq)
         AircraftMatrix.calculate_Zu(self, self.wing_area)
         AircraftMatrix.calculate_Zw(self, self.wing_area)
-        AircraftMatrix.calculate_Zw_dot(
-            self, self.wing_mean_chord, self.wing_area)
+        AircraftMatrix.calculate_Zw_dot(self, self.wing_mean_chord, self.wing_area)
         AircraftMatrix.calculate_Zq(self, self.wing_mean_chord, self.wing_area)
 
         # Calculate M matrix coefficients (Mu, Mw, Mw_dot, Mq)
         AircraftMatrix.calculate_Mu(self, self.wing_mean_chord, self.wing_area)
         AircraftMatrix.calculate_Mw(self, self.wing_mean_chord, self.wing_area)
-        AircraftMatrix.calculate_Mw_dot(
-            self, self.wing_mean_chord, self.wing_area)
+        AircraftMatrix.calculate_Mw_dot(self, self.wing_mean_chord, self.wing_area)
         AircraftMatrix.calculate_Mq(self, self.wing_mean_chord, self.wing_area)
 
         # Get aircraft matrix for longitudinal stability
@@ -56,15 +66,13 @@ class Airplane(AircraftMatrix, ControlMatrix):
         ControlMatrix.calculate_Z_delta_e(self, self.wing_area)
 
         # Calculate M_delta_e
-        ControlMatrix.calculate_M_delta_e(
-            self, self.wing_area, self.wing_mean_chord)
+        ControlMatrix.calculate_M_delta_e(self, self.wing_area, self.wing_mean_chord)
 
         ControlMatrix.calculate_X_delta_T(self, self.wing_area)
 
         ControlMatrix.calculate_Z_delta_T(self, self.wing_area)
 
-        ControlMatrix.calculate_M_delta_T(
-            self, self.wing_area, self.wing_mean_chord)
+        ControlMatrix.calculate_M_delta_T(self, self.wing_area, self.wing_mean_chord)
 
         # Get control matrix
         ControlMatrix.set_long_stability_control_matrix(self, self.Mw_dot)
@@ -75,6 +83,7 @@ class Airplane(AircraftMatrix, ControlMatrix):
 
     def lon_plot_stability(self, mode):
         plot_aircraft_stability = PlotLongitudinalModes(
-            self.get_natural_frequency(), self.get_damping_ratio())
+            self.get_natural_frequency(), self.get_damping_ratio()
+        )
         data = plot_aircraft_stability.plot(mode)
         return data
