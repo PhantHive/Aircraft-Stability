@@ -1,15 +1,15 @@
 import numpy as np
-from api import FlightData
+from data.flight_data import FlightData
 
 
-class ControlMatrix(FlightData):
+class LatControlMatrix(FlightData):
     '''
     This class calculates the control matrix for the elevator and throttle control
     '''
 
     def __init__(self, user_file=None):
         # get the flight data
-        FlightData.__init__(self, user_file=user_file)
+        FlightData.__init__(self, "lateral", user_file=user_file)
         self.X_delta_e = 0
         self.Z_delta_e = 0
         self.M_delta_e = 0
@@ -61,7 +61,7 @@ class ControlMatrix(FlightData):
     def get_elevator_derivatives(self):
         return self.elevator_vector
 
-    def set_long_stability_control_matrix(self, Mw_dot):
+    def set_lat_stability_control_matrix(self, Mw_dot):
 
         # set the elevator vector
         self.elevator_vector = np.array(
@@ -84,7 +84,7 @@ class ControlMatrix(FlightData):
                 ]
             ])
 
-    def get_long_stability_control_matrix(self):
+    def get_lat_stability_control_matrix(self):
         return self.elevator_vector
 
 

@@ -1,8 +1,8 @@
 import numpy as np
-from api import FlightData
+from data.flight_data import FlightData
 
 
-class AircraftMatrix:
+class LatAircraftMatrix(FlightData):
     '''
     This class calculates the aircraft matrix
     '''
@@ -16,8 +16,9 @@ class AircraftMatrix:
         :param M: rolling moment derivative vector (Mu, Mw, Mw_dot, Mq)
         '''
 
-        super().__init__(user_file)
+        FlightData.__init__(self, "lateral", user_file)
 
+        self.aircraft_matrix = None
         self.Yv = 0
         self.Yp = 0
         self.Yr = 0
@@ -86,7 +87,7 @@ class AircraftMatrix:
 
 
 
-    def set_long_stability_aircraft_matrix(self):
+    def set_lat_stability_aircraft_matrix(self):
         '''
         :return: np array of the aircraft matrix
         3 columns, 4 rows:
@@ -105,7 +106,7 @@ class AircraftMatrix:
         np.set_printoptions(suppress=True)
         self.aircraft_matrix[self.aircraft_matrix == -0.0] = 0.0
 
-    def get_aircraft_matrix(self):
+    def get_lat_aircraft_matrix(self):
         return self.aircraft_matrix
 
     def get_param(self, name):

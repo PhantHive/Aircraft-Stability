@@ -9,8 +9,10 @@ const path = require("path");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const pythonPath = path.join('main');
-process.env.PYTHONPATH = pythonPath;
+const pythonPathLon = path.join('main_lon');
+process.env.PYTHONPATH = pythonPathLon;
+const pythonPathLat = path.join('main_lat');
+//process.env.PYTHONPATH = pythonPathLat;
 
 
 // Define your /process_data route
@@ -25,9 +27,9 @@ app.post('/process_data',(req, res) => {
     file2 = file2.replace(/^"(.*)"$/, '$1');
 
     // Call the Python script and pass in the input data as arguments
-    const cmd = `py -m ${pythonPath} '${file1}' '${file2}'`;
+    const cmd = `py -m ${pythonPathLon} '${file1}' '${file2}'`;
     console.log(`Executing command: ${cmd}`);
-    const process = spawn('py', ['-m', pythonPath, `${file1}`, `${file2}`]);
+    const process = spawn('py', ['-m', pythonPathLon, `${file1}`, `${file2}`]);
 
     // Listen for data coming back from the Python script
     let result = '';
