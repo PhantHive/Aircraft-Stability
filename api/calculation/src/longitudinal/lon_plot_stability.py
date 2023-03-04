@@ -43,7 +43,7 @@ class PlotLongitudinalModes:
         plt.plot(t, u)
         plt.xlabel('Time (s)')
         plt.ylabel('Pitch angle (rad)')
-        plt.title('Phugoid Mode Response')
+        plt.title(f'{mode} Mode Response')
         plt.grid(True)
 
         # Render the plot as a bitmap or vector graphics format

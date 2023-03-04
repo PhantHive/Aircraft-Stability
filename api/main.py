@@ -133,10 +133,12 @@ print(airplane.get_long_stability_control_matrix())
 print("--------------------------------")
 print("Plotting the longitudinal stability")
 # # short_period or phugoid
-#airplane.lon_plot_stability("short_period")
+
 data = airplane.lon_plot_stability("phugoid")
-print(f"ImageData<{data}>")
-# airplane.lon_plot_stability("phugoid")
+print(f"ImageDataPhugoid<{data}>Phugoid")
+data2 = airplane.lon_plot_stability("short_period")
+print(f"ImageDataShort<{data2}>Short")
+
 
 
 

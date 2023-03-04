@@ -4,8 +4,6 @@
     align-items: center;
     margin-bottom: 1rem;
     color: rgba(0, 245, 188, 0.1);
-    border: white 1px solid;
-    border-radius: 0.1rem;
 }
 
 input[type="file"] {

@@ -5,7 +5,8 @@ import FileSelector from './FileSelector.js';
 class Longitudinal extends Component {
     constructor(props) {
         super(props);
-        this.imgData = null;
+        this.imgPhugoid = null;
+        this.imgShort = null;
         this.state = {
             file1: null,
             file2: null,
@@ -21,10 +22,14 @@ class Longitudinal extends Component {
         dataToTxt = dataToTxt.replace(/^{.+result": "/s, ''); // remove leading JSON
 
         // from formData get what is between "ImageData<" and ">"
-        this.imgData = dataToTxt.substring(dataToTxt.indexOf('ImageData<') + 10, dataToTxt.indexOf('>'));
+        this.imgPhugoid = dataToTxt.substring(dataToTxt.indexOf('ImageDataPhugoid<') + 17, dataToTxt.indexOf('>Phugoid'));
+        this.imgShort = dataToTxt.substring(dataToTxt.indexOf('ImageDataShort<') + 15, dataToTxt.indexOf('>Short'));
+        console.log(this.imgPhugoid);
+        console.log(this.imgShort);
 
         // remove the image data from the text file and save it
-        dataToTxt = dataToTxt.replace(/ImageData<.+>/s, '');
+        dataToTxt = dataToTxt.replace(/ImageDataPhugoid<.+>/s, '');
+        dataToTxt = dataToTxt.replace(/ImageDataShort<.+>/s, '');
         // remove last trailing characters " and } from the text file
         dataToTxt = dataToTxt.substring(0, dataToTxt.length - 3);
 
@@ -150,7 +155,10 @@ class Longitudinal extends Component {
                 {this.state.calculationComplete && (
                     <div className="reset">
                         <button onClick={this.handleReset} className="reset-button">Reset</button>
-                        <img src={`data:image/png;base64,${this.imgData}`} alt="Phugoid Mode Response" className="phugoid-curve"/>
+                        <div className="plot-images">
+                            <img src={`data:image/png;base64,${this.imgPhugoid}`} alt="Phugoid Mode Response" className="phugoid-curve"/>
+                            <img src={`data:image/png;base64,${this.imgShort}`} alt="Short Period Mode Response" className="short-curve"/>
+                        </div>
                     </div>
                 )}
             </div>
