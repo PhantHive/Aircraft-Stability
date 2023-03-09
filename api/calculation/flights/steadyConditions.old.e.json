@@ -1,6 +1,6 @@
 {
   "h": {
-    "value": 0.0,
+    "value": 0,
     "unit": "m"
   },
   "V": {
@@ -8,7 +8,7 @@
     "unit": "m/s"
   },
   "X_mean_cg": {
-    "value": 0.0,
+    "value": 0,
     "unit": ""
   },
   "q_mean": {
@@ -28,11 +28,11 @@
     "unit": ""
   },
   "m": {
-    "value": 15060.0,
+    "value": 15060,
     "unit": "kg"
   },
   "C_mean_D0": {
-    "value": 0.0,
+    "value": 0,
     "unit": ""
   },
   "C_D_0": {
@@ -48,7 +48,7 @@
     "unit": "m/s^2"
   },
   "gamma": {
-    "value": 0.000,
+    "value": 0,
     "unit": "deg"
   },
   "theta": {
@@ -56,7 +56,7 @@
     "unit": "deg"
   },
   "Iyy": {
-    "value": 159375.0,
+    "value": 159375,
     "unit": "kg*m^2"
   },
   "epsilon": {
@@ -67,6 +67,4 @@
     "value": 0.2,
     "unit": ""
   }
-
-
 }

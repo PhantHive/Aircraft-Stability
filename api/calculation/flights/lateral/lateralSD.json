@@ -4,7 +4,7 @@
     "desc": "Side force due to sideslip angle"
   },
   "C_Y_p": {
-    "value": 0.0,
+    "value": 0,
     "desc": "Side force due to roll rate"
   },
   "C_Y_r": {
@@ -48,7 +48,7 @@
     "desc": "Yawing moment due to rudder deflection"
   },
   "C_Y_delta_a": {
-    "value": 0.0,
+    "value": 0,
     "desc": "Side force due to aileron deflection"
   },
   "C_L_delta_a": {
