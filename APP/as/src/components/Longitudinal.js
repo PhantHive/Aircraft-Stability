@@ -89,7 +89,8 @@ class Longitudinal extends Component {
                 // concatenate the two files and stringify them
                 formData = JSON.stringify({
                     file1: file1Content,
-                    file2: file2Content
+                    file2: file2Content,
+                    selected: 0
                 });
                 // do something with the form data
                 console.log(formData);

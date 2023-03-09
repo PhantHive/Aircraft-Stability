@@ -33,8 +33,9 @@
     position: relative;
     opacity: 0.7;
     top: 15%;
-    width: 20vw;
-    height: 15vh;
+    object-fit: contain;
+    max-width: 25vw;
+    max-height: 25vh;
 }
 
 .select {

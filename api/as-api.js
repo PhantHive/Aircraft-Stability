@@ -9,11 +9,8 @@ const path = require("path");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const pythonPathLon = path.join('main_lon');
-process.env.PYTHONPATH = pythonPathLon;
-const pythonPathLat = path.join('main_lat');
-//process.env.PYTHONPATH = pythonPathLat;
-
+let pythonPath;
+process.env.PYTHONPATH = 'main_lon:main_lat';
 
 // Define your /process_data route
 app.post('/process_data',(req, res) => {
@@ -21,15 +18,23 @@ app.post('/process_data',(req, res) => {
     let inputData = req.body;
     let file1 = JSON.stringify(inputData.file1);
     let file2 = JSON.stringify(inputData.file2);
+    let selected = parseInt(inputData.selected);
+
+    if (selected === 0) {
+        pythonPath = 'main_lon'
+    }
+    else if (selected === 1) {
+        pythonPath = 'main_lat'
+    }
 
     // replace the double quote at the beginning and end of the string with a single quote
     file1 = file1.replace(/^"(.*)"$/, '$1');
     file2 = file2.replace(/^"(.*)"$/, '$1');
 
     // Call the Python script and pass in the input data as arguments
-    const cmd = `py -m ${pythonPathLon} '${file1}' '${file2}'`;
+    const cmd = `py -m ${pythonPath} '${file1}' '${file2}'`;
     console.log(`Executing command: ${cmd}`);
-    const process = spawn('py', ['-m', pythonPathLon, `${file1}`, `${file2}`]);
+    const process = spawn('py', ['-m', pythonPath, `${file1}`, `${file2}`]);
 
     // Listen for data coming back from the Python script
     let result = '';
