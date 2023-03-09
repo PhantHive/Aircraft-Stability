@@ -79,8 +79,8 @@ class Airplane(LongAircraftMatrix, LongControlMatrix, LatAircraftMatrix, LatCont
         # ----------------- Calculate the aircraft matrix for lateral stability ----------------- #
         # Calculate Y matrix coefficients (Yv, Yp, Yr)
         LatAircraftMatrix.calculate_Yv(self, self.wing_area)
-        LatAircraftMatrix.calculate_Yp(self, self.wing_area)
-        LatAircraftMatrix.calculate_Yr(self, self.wing_area)
+        LatAircraftMatrix.calculate_Yp(self, self.wing_area, self.wingspan)
+        LatAircraftMatrix.calculate_Yr(self, self.wing_area, self.wingspan)
 
         # Calculate L matrix coefficients (Lv, Lp, Lr)
         LatAircraftMatrix.calculate_Lv(self, self.wing_area, self.wingspan)
@@ -106,6 +106,15 @@ class Airplane(LongAircraftMatrix, LongControlMatrix, LatAircraftMatrix, LatCont
 
         # Calculate N_delta_r
         LatControlMatrix.calculate_N_delta_r(self, self.wing_area, self.wingspan)
+
+        # Calculate Y_delta_a
+        LatControlMatrix.calculate_Y_delta_a(self, self.wing_area)
+
+        # Calculate L_delta_a
+        LatControlMatrix.calculate_L_delta_a(self, self.wing_area, self.wingspan)
+
+        # Calculate N_delta_a
+        LatControlMatrix.calculate_N_delta_a(self, self.wing_area, self.wingspan)
 
         # Get control matrix
         LatControlMatrix.set_lat_stability_control_matrix(self)

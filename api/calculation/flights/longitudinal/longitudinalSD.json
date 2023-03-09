@@ -1,112 +1,146 @@
 {
-
     "C_D_alpha": {
-        "value": 0.214
+        "value": 0.214,
+        "desc": "Coefficient of drag with respect to angle of attack"
     },
     "C_L_alpha": {
-        "value": 5.16
+        "value": 5.16,
+        "desc": "Coefficient of lift with respect to angle of attack"
     },
     "CA_m_alpha": {
-        "value": -1.09
+        "value": -1.09,
+        "desc": "Coefficient of pitching moment with respect to angle of attack"
     },
     "CT_m_alpha": {
-        "value": 0.0
+        "value": 0.0,
+        "desc": "Coefficient of pitching moment due to thrust with respect to angle of attack"
     },
     "C_T_u": {
-        "value": -0.0591
+        "value": -0.0591,
+        "desc": "Thrust coefficient with respect to velocity"
     },
     "C_x_alpha": {
-        "value": 0.0848
+        "value": 0.0848,
+        "desc": "Coefficient of longitudinal force with respect to angle of attack"
     },
     "C_x_u": {
-        "value": -0.0626
+        "value": -0.0626,
+        "desc": "Coefficient of longitudinal force with respect to velocity"
     },
     "C_x_alpha_dot": {
-        "value": 0.0
+        "value": 0.0,
+        "desc": "Coefficient of longitudinal force with respect to pitch rate"
     },
     "C_x_q": {
-        "value": 0.0
+        "value": 0.0,
+        "desc": "Coefficient of longitudinal force with respect to pitch rate"
     },
     "C_x_d_E": {
-        "value": 0.0
+        "value": 0.0,
+        "desc": "Coefficient of longitudinal force with respect to elevator deflection"
     },
     "C_D_u": {
-        "value": 0.0035
+        "value": 0.0035,
+        "desc": "Coefficient of drag with respect to velocity"
     },
     "C_L_u": {
-        "value": 0.0881
+        "value": 0.0881,
+        "desc": "Coefficient of lift with respect to velocity"
     },
     "CA_m_u": {
-        "value": 0.0261
+        "value": 0.0261,
+        "desc": "Coefficient of pitching moment with respect to velocity"
     },
     "CT_m_u": {
-        "value": 0.0169
+        "value": 0.0169,
+        "desc": "Coefficient of pitching moment due to thrust with respect to velocity"
     },
     "C_D_alpha_dot": {
-        "value": 0.0
+        "value": 0.0,
+        "desc": "Coefficient of drag with respect to pitch rate"
     },
     "C_L_alpha_dot": {
-        "value": 1.89
+        "value": 1.89,
+        "desc": "Coefficient of lift with respect to pitch rate"
     },
     "CA_m_alpha_dot": {
-        "value": -4.98
+        "value": -4.98,
+        "desc": "Coefficient of pitching moment with respect to pitch rate"
     },
     "C_D_q": {
-        "value": 0.0
+        "value": 0.0,
+        "desc": "Coefficient of drag with respect to pitch rate"
     },
     "C_L_q": {
-        "value": 4.44
+        "value": 4.44,
+        "desc": "Coefficient of lift with respect to pitch rate"
     },
     "CA_m_q": {
-        "value": -11.7
+        "value": -11.7,
+        "desc": "Coefficient of pitching moment with respect to pitch rate"
     },
     "C_D_d_E": {
-        "value": 0.0
+        "value": 0.0,
+        "desc": "Coefficient of drag with respect to elevator deflection"
     },
     "C_L_d_E": {
-        "value": 0.43
+        "value": 0.43,
+        "desc": "Coefficient of lift with respect to elevator deflection"
     },
     "CA_m_d_E": {
-        "value": -1.13
+        "value": -1.13,
+        "desc": "Coefficient of pitching moment with respect to elevator deflection"
     },
     "C_z_alpha": {
-        "value": -5.19
+        "value": -5.19,
+        "desc": "Coefficient of vertical force with respect to angle of attack"
     },
     "C_z_u": {
-        "value": -0.0881
+        "value": -0.0881,
+        "desc": "Coefficient of vertical force with respect to velocity"
     },
     "C_z_alpha_dot": {
-        "value": -1.89
+        "value": -1.89,
+        "desc": "Coefficient of vertical force with respect to angular velocity"
     },
     "C_z_q": {
-        "value": -4.38
+        "value": -4.38,
+        "desc": "Coefficient of vertical force with respect to pitch rate"
     },
     "C_z_d_E": {
-        "value": -0.430
+        "value": -0.430,
+        "desc": "Coefficient of vertical force with respect to elevator deflection"
     },
     "C_m_alpha": {
-        "value": -1.09
+        "value": -1.09,
+        "desc": "Coefficient of pitching moment with respect to angle of attack"
     },
     "C_m_u": {
-        "value": 0.0430
+        "value": 0.0430,
+        "desc": "Coefficient of pitching moment with respect to velocity"
     },
     "C_m_alpha_dot": {
-        "value": -4.98
+        "value": -4.98,
+        "desc": "Coefficient of pitching moment with respect to angular velocity"
     },
     "C_m_q": {
-        "value": -11.7
+        "value": -11.7,
+        "desc": "Coefficient of pitching moment with respect to pitch rate"
     },
     "C_M_d_E": {
-        "value": -1.13
+        "value": -1.13,
+        "desc": "Coefficient of pitching moment with respect to elevator deflection"
     },
     "C_D_d_T": {
-        "value": 0.0
+        "value": 0.0,
+        "desc": "Coefficient of drag with respect to throttle"
     },
     "C_L_d_T": {
-        "value": 0.0
+        "value": 0.0,
+        "desc": "Coefficient of lift with respect to throttle"
     },
     "C_M_d_T": {
-        "value": 0.0
+        "value": 0.0,
+        "desc": "Coefficient of pitching moment with respect to throttle"
     }
-
 }

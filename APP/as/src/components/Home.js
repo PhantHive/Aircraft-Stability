@@ -9,7 +9,14 @@ function Home() {
 
     const handleNavigation = (e) => {
         e.preventDefault();
-        navigate('/longitudinal');
+        // check if the link is to the longitudinal page
+        if (e.target.innerText === 'Longitudinal') {
+            navigate('/longitudinal');
+        }
+        // check if the link is to the lateral page
+        else if (e.target.innerText === 'Lateral') {
+            navigate('/lateral');
+        }
     };
 
     return (
@@ -17,7 +24,7 @@ function Home() {
             <h1>Select an option:</h1>
             <ul>
                 <li onClick={handleNavigation}><Link to="/longitudinal" style={{ textDecoration: 'inherit', color: 'inherit' }}>Longitudinal</Link></li>
-                <li>Lateral</li>
+                <li onClick={handleNavigation}><Link to="/lateral" style={{ textDecoration: 'inherit', color: 'inherit' }}>Lateral</Link></li>
             </ul>
         </div>
     );

@@ -138,9 +138,9 @@ class LongAircraftMatrix(FlightData):
         self.aircraft_matrix = np.array(
             [
                 [self.Xu, self.Xw, 0,
-                 -self.cruise_conditions["g"]["value"] * np.cos(self.cruise_conditions["theta"]["value"])],
+                 -self.cruise_conditions["g"]["value"] * np.cos((np.pi * self.cruise_conditions["theta"]["value"] / 180))],
                 [self.Zu, self.Zw, self.cruise_conditions["V"]["value"],
-                 -self.cruise_conditions["g"]["value"] * np.sin(self.cruise_conditions["theta"]["value"])],
+                 -self.cruise_conditions["g"]["value"] * np.sin((np.pi * self.cruise_conditions["theta"]["value"] / 180))],
                 [self.Mu + self.Zu * self.Mw_dot, self.Mw + self.Zw * self.Mw_dot,
                  self.Mq + self.cruise_conditions["V"]["value"] * self.Mw_dot, 0],
                 [0, 0, 1, 0]

@@ -93,17 +93,17 @@ print(airplane.aircraft_matrix)
 
 print("--------------------------------")
 
-# print("Eigen values:")
-# airplane.set_eigenvalues()
-# airplane.set_characteristic_equation()
-# print(airplane.get_eigenvalues())
-# poly = airplane.get_characteristic_equation()
-# print("\nCharacteristic equation:")
-# for i in range(len(poly) - 1):
-#     print(abs(poly[-1 - i]), "* s^", len(poly) - i - 1, " + ", end="")
-# print(abs(poly[0]))
-#
-# print("--------------------------------")
+print("Eigen values:")
+airplane.set_eigenvalues()
+airplane.set_characteristic_equation()
+print(airplane.get_eigenvalues())
+poly = airplane.get_characteristic_equation()
+print("\nCharacteristic equation:")
+for i in range(len(poly) - 1):
+    print(abs(poly[-1 - i]), "* s^", len(poly) - i - 1, " + ", end="")
+print(abs(poly[0]))
+
+print("--------------------------------")
 #
 # airplane.set_natural_frequency()
 # airplane.set_damping_ratio()
@@ -128,9 +128,10 @@ print("--------------------------------")
 #     print(param, " = ", getattr(airplane, param))
 # print("--------------------------------")
 
-# airplane.get_lateral_control_matrix()
-# print("Control matrix (elevator/throttle) for lateral stability")
-# print(airplane.get_lateral_stability_control_matrix())
+
+print("Control matrix (Rudder/Throttle) for lateral stability")
+airplane.get_lateral_control_matrix()
+print(airplane.control_matrix)
 #
 # print("--------------------------------")
 # print("Plotting the latgitudinal stability")

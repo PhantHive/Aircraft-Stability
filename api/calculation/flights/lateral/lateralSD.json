@@ -1,49 +1,62 @@
 {
-
   "C_Y_beta": {
-    "value": -0.73
+    "value": -0.73,
+    "desc": "Side force due to sideslip angle"
   },
   "C_Y_p": {
-    "value": 0.0
+    "value": 0.0,
+    "desc": "Side force due to roll rate"
   },
   "C_Y_r": {
-    "value": 0.04
+    "value": 0.4,
+    "desc": "Side force due to yaw rate"
   },
   "C_L_beta": {
-    "value": -0.11
+    "value": -0.11,
+    "desc": "Rolling moment due to sideslip angle"
   },
   "C_L_p": {
-    "value": -0.45
+    "value": -0.45,
+    "desc": "Rolling moment due to roll rate"
   },
   "C_L_r": {
-    "value": 0.16
+    "value": 0.16,
+    "desc": "Rolling moment due to yaw rate"
   },
   "C_N_beta": {
-    "value": 0.127
+    "value": 0.127,
+    "desc": "Yawing moment due to sideslip angle"
   },
   "C_N_p": {
-    "value": -0.008
+    "value": -0.008,
+    "desc": "Yawing moment due to roll rate"
   },
   "C_N_r": {
-    "value": -0.2
+    "value": -0.2,
+    "desc": "Yawing moment due to yaw rate"
   },
   "C_Y_delta_r": {
-    "value": 0.14
+    "value": 0.14,
+    "desc": "Side force due to rudder deflection"
   },
   "C_L_delta_r": {
-      "value": 0.019
+    "value": 0.019,
+    "desc": "Rolling moment due to rudder deflection"
   },
   "C_N_delta_r": {
-    "value": -0.074
+    "value": -0.074,
+    "desc": "Yawing moment due to rudder deflection"
   },
   "C_Y_delta_a": {
-    "value": 0.0
+    "value": 0.0,
+    "desc": "Side force due to aileron deflection"
   },
   "C_L_delta_a": {
-      "value": 0.178
+    "value": 0.178,
+    "desc": "Rolling moment due to aileron deflection"
   },
   "C_N_delta_a": {
-      "value": -0.02
+    "value": -0.02,
+    "desc": "Yawing moment due to aileron deflection"
   }
-
 }
