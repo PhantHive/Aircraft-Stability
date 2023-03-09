@@ -6,7 +6,6 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 
 class PlotLongitudinalModes:
-
     def __init__(self, natural_frequency, damping_ratio):
         self.natural_frequency = natural_frequency
         self.damping_ratio = damping_ratio
@@ -33,25 +32,27 @@ class PlotLongitudinalModes:
         wn_zeta = omega_n * zeta
         A1 = A
         A2 = -A * wn_zeta / omega_n
-        u = np.exp(-wn_zeta * t) * (A1 * np.cos(omega_n * np.sqrt(1 - zeta ** 2)
-                                                * t) + A2 * np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t))
+        u = np.exp(-wn_zeta * t) * (
+            A1 * np.cos(omega_n * np.sqrt(1 - zeta**2) * t)
+            + A2 * np.sin(omega_n * np.sqrt(1 - zeta**2) * t)
+        )
 
         fig = plt.figure()
         ax = fig.add_subplot(111)
         # Plot response
         plt.plot(t, u)
-        plt.xlabel('Time (s)')
-        plt.ylabel('Pitch angle (rad)')
-        plt.title(f'{mode} Mode Response')
+        plt.xlabel("Time (s)")
+        plt.ylabel("Pitch angle (rad)")
+        plt.title(f"{mode} Mode Response")
         # # Move left y-axis and bottom x-axis to left, passing through (0,0)
-        ax.spines['left'].set_position('zero')
-        ax.spines['bottom'].set_position('zero')
+        ax.spines["left"].set_position("zero")
+        ax.spines["bottom"].set_position("zero")
         # # Eliminate upper and right axes
-        ax.spines['right'].set_color('none')
-        ax.spines['top'].set_color('none')
+        ax.spines["right"].set_color("none")
+        ax.spines["top"].set_color("none")
         # # Show ticks in the left and lower axes only
-        ax.xaxis.set_ticks_position('bottom')
-        ax.yaxis.set_ticks_position('left')
+        ax.xaxis.set_ticks_position("bottom")
+        ax.yaxis.set_ticks_position("left")
 
         plt.grid(True)
 
@@ -62,6 +63,6 @@ class PlotLongitudinalModes:
         canvas.print_png(buf)
 
         # Convert the rendered plot to a binary data payload
-        data = base64.b64encode(buf.getvalue()).decode('utf-8')
+        data = base64.b64encode(buf.getvalue()).decode("utf-8")
 
         return data
