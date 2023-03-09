@@ -19,15 +19,18 @@ def process_data():
             "success": True,
             "data": matrix_content,
             "headers": {
-                "Content-Disposition": f"attachment; filename={os.path.basename('latMatrix.json')}",
+                "Content-Disposition":
+                f"attachment; filename={os.path.basename('latMatrix.json')}",
                 "Content-Type": "application/json",
             },
         }
     except Exception as e:
         print("Error:", e)
         return {
-            "success": False,
-            "error": "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
+            "success":
+            False,
+            "error":
+            "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
         }
 
 
@@ -90,7 +93,8 @@ e = 0.94  # Oswald factor
 
 # CAUTION
 # IF YOU WANT TO USE THE DEFAULT FILES, JUST PUT "None" FOR THE LAST ARGUMENT
-airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral", None)
+airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral",
+                    None)
 
 print("--------------------------------")
 
@@ -128,13 +132,11 @@ print("--------------------------------")
 #
 # print("--------------------------------")
 
-
 # print("Parameters")
 # params = ["Xu", "Xw", "Zu", "Zw", "Zw_dot", "Zq", "Mu", "Mw", "Mw_dot", "Mq"]
 # for param in params:
 #     print(param, " = ", getattr(airplane, param))
 # print("--------------------------------")
-
 
 print("Control matrix (Rudder/Throttle) for lateral stability")
 airplane.get_lateral_control_matrix()
@@ -148,7 +150,6 @@ print(airplane.control_matrix)
 # print(f"ImageDataPhugoid<{data}>Phugoid")
 # data2 = airplane.lat_plot_stability("short_period")
 # print(f"ImageDataShort<{data2}>Short")
-
 
 # write_matrix(airplane.aircraft_matrix, airplane.control_matrix)
 

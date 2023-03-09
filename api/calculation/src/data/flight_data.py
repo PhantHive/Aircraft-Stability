@@ -22,10 +22,10 @@ class FlightData:
                 ]
             elif axis == "lateral":
                 user_file = [
-                    os.path.abspath("calculation/flights/lateral/lateralSD.json"),
                     os.path.abspath(
-                        "calculation/flights/lateral/steadyConditions.json"
-                    ),
+                        "calculation/flights/lateral/lateralSD.json"),
+                    os.path.abspath(
+                        "calculation/flights/lateral/steadyConditions.json"),
                 ]
             self.stability_der = json.load(open(user_file[0], "r"))
             self.cruise_conditions = json.load(open(user_file[1], "r"))

@@ -19,15 +19,18 @@ def process_data():
             "success": True,
             "data": matrix_content,
             "headers": {
-                "Content-Disposition": f"attachment; filename={os.path.basename('longMatrix.json')}",
+                "Content-Disposition":
+                f"attachment; filename={os.path.basename('longMatrix.json')}",
                 "Content-Type": "application/json",
             },
         }
     except Exception as e:
         print("Error:", e)
         return {
-            "success": False,
-            "error": "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
+            "success":
+            False,
+            "error":
+            "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
         }
 
 
@@ -58,12 +61,14 @@ data_str2 = sys.argv[2]  # steadyConditions.json
 #
 #
 #
-data_str1 = (
-    data_str1.replace("\\r", "").replace("\\n", "").replace(" ", "").replace("\\", "")
-)
-data_str2 = (
-    data_str2.replace("\\r", "").replace("\\n", "").replace(" ", "").replace("\\", "")
-)
+data_str1 = (data_str1.replace("\\r",
+                               "").replace("\\n",
+                                           "").replace(" ",
+                                                       "").replace("\\", ""))
+data_str2 = (data_str2.replace("\\r",
+                               "").replace("\\n",
+                                           "").replace(" ",
+                                                       "").replace("\\", ""))
 
 # remove any extra spaces
 data_str1 = replacer(data_str1)
@@ -77,11 +82,9 @@ data_str2 = re.sub(r",n", ",", data_str2)
 data_str1 = re.sub(r",r", ",", data_str1)
 data_str2 = re.sub(r",r", ",", data_str2)
 
-
 # do something with file1 and file2
 # print(f"Contents of file1: {data_str1}")
 # print(f"Contents of file2: {data_str2}")
-
 
 data = [data_str2, data_str1]
 
@@ -96,9 +99,8 @@ e = 0.94  # Oswald factor
 
 # CAUTION
 # IF YOU WANT TO USE THE DEFAULT FILES, JUST PUT "None" FOR THE LAST ARGUMENT
-airplane_long = Airplane(
-    "Business JET", S, A, lambda_, b, c_mean, e, "longitudinal", data
-)
+airplane_long = Airplane("Business JET", S, A, lambda_, b, c_mean, e,
+                         "longitudinal", data)
 
 print("--------------------------------")
 
@@ -136,7 +138,6 @@ print("U0 = ", airplane_long.get_cruise_condition("V"))
 
 print("--------------------------------")
 
-
 # print("Parameters")
 # params = ["Xu", "Xw", "Zu", "Zw", "Zw_dot", "Zq", "Mu", "Mw", "Mw_dot", "Mq"]
 # for param in params:
@@ -155,7 +156,6 @@ data = airplane_long.lon_plot_stability("phugoid")
 print(f"ImageDataPhugoid<{data}>Phugoid")
 data2 = airplane_long.lon_plot_stability("short_period")
 print(f"ImageDataShort<{data2}>Short")
-
 
 write_matrix(airplane_long.aircraft_matrix, airplane_long.control_matrix)
 
