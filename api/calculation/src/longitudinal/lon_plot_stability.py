@@ -1,8 +1,7 @@
-import base64
-import io
-
 import numpy as np
 from matplotlib import pyplot as plt
+import io
+import base64
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 
@@ -30,32 +29,38 @@ class PlotLongitudinalModes:
 
         A = 1  # initial disturbance in pitch angle
 
-        # Define time vector
-
         # Compute phugoid mode response
         wn_zeta = omega_n * zeta
         A1 = A
         A2 = -A * wn_zeta / omega_n
-        u = A1 * np.exp(-zeta * omega_n * t) * np.cos(
-            omega_n * np.sqrt(1 - zeta**2) * t) + A2 * np.exp(
-                -zeta * omega_n * t) * np.sin(
-                    omega_n * np.sqrt(1 - zeta**2) * t)
+        u = np.exp(-wn_zeta * t) * ( A1 * np.cos(omega_n * np.sqrt(1 - zeta ** 2) * t) + A2 * np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t))
 
         fig = plt.figure()
+        ax = fig.add_subplot(111)
         # Plot response
         plt.plot(t, u)
-        plt.xlabel("Time (s)")
-        plt.ylabel("Pitch angle (rad)")
-        plt.title("Phugoid Mode Response")
+        plt.xlabel('Time (s)')
+        plt.ylabel('Pitch angle (rad)')
+        plt.title(f'{mode} Mode Response')
+        # # Move left y-axis and bottom x-axis to left, passing through (0,0)
+        ax.spines['left'].set_position('zero')
+        ax.spines['bottom'].set_position('zero')
+        # # Eliminate upper and right axes
+        ax.spines['right'].set_color('none')
+        ax.spines['top'].set_color('none')
+        # # Show ticks in the left and lower axes only
+        ax.xaxis.set_ticks_position('bottom')
+        ax.yaxis.set_ticks_position('left')
+
+
         plt.grid(True)
 
         # Render the plot as a bitmap or vector graphics format
         canvas = FigureCanvas(fig)
         buf = io.BytesIO()
-        # Or use print_svg or print_pdf for other formats
-        canvas.print_png(buf)
+        canvas.print_png(buf)  # Or use print_svg or print_pdf for other formats
 
         # Convert the rendered plot to a binary data payload
-        data = base64.b64encode(buf.getvalue()).decode("utf-8")
+        data = base64.b64encode(buf.getvalue()).decode('utf-8')
 
         return data

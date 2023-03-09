@@ -1,82 +1,88 @@
 import numpy as np
-from api import FlightData
+from data.flight_data import FlightData
 
 
-class ControlMatrix(FlightData):
+class LatControlMatrix(FlightData):
     '''
     This class calculates the control matrix for the elevator and throttle control
     '''
 
     def __init__(self, user_file=None):
         # get the flight data
-        FlightData.__init__(self, user_file=user_file)
-        self.X_delta_e = 0
-        self.Z_delta_e = 0
-        self.M_delta_e = 0
-        self.X_delta_T = 0
-        self.Z_delta_T = 0
-        self.M_delta_T = 0
+        FlightData.__init__(self, "lateral", user_file=user_file)
+        self.control_matrix = None
+        self.Y_delta_r = 0
+        self.L_delta_r = 0
+        self.N_delta_r = 0
+        self.Y_delta_a = 0
+        self.L_delta_a = 0
+        self.N_delta_a = 0
 
-        self.elevator_vector = None
+        if self.cruise_conditions["q_mean"]["value"] == -1111:
+            self.q_mean = (self.cruise_conditions["rho"]["value"] *
+                           self.cruise_conditions["V"]["value"] ** 2) / 2
+        else:
+            self.q_mean = self.cruise_conditions["q_mean"]["value"]
+        
 
-    def calculate_X_delta_e(self, wing_area):
+    def calculate_Y_delta_r(self, wing_area):
 
-        first_part = self.cruise_conditions["q_mean"]["value"] * wing_area / \
+        first_part = self.q_mean * wing_area / \
                      (self.cruise_conditions["m"]["value"] * self.cruise_conditions["V"]["value"])
-        second_part = self.stability_der["C_D_d_E"]["value"]
-        self.X_delta_e = first_part * second_part
+        second_part = self.stability_der["C_Y_delta_r"]["value"]
+        self.Y_delta_r = first_part * second_part
 
-    def calculate_Z_delta_e(self, wing_area):
-        first_part = self.cruise_conditions["q_mean"]["value"] * wing_area / \
+    def calculate_L_delta_r(self, wing_area, wing_span):
+        first_part = self.q_mean * wing_area * wing_span / \
+                     (self.cruise_conditions["Ixx"]["value"] * self.cruise_conditions["V"]["value"])
+        second_part = self.stability_der["C_L_delta_r"]["value"]
+        self.L_delta_r = first_part * second_part
+
+
+    def calculate_N_delta_r(self, wing_area, wing_span):
+        first_part = self.q_mean * wing_area * wing_span / \
+                     (self.cruise_conditions["Izz"]["value"] * self.cruise_conditions["V"]["value"])
+        second_part = self.stability_der["C_N_delta_r"]["value"]
+        self.N_delta_r = first_part * second_part
+
+    def calculate_Y_delta_a(self, wing_area):
+        first_part = self.q_mean * wing_area / \
                      (self.cruise_conditions["m"]["value"] * self.cruise_conditions["V"]["value"])
-        second_part = self.stability_der["C_L_d_E"]["value"]
-        self.Z_delta_e = first_part * second_part
+        second_part = self.stability_der["C_Y_delta_a"]["value"]
+        self.Y_delta_a = first_part * second_part
+
+    def calculate_L_delta_a(self, wing_area, wing_span):
+        first_part = self.q_mean * wing_area * wing_span / \
+                     (self.cruise_conditions["Ixx"]["value"] * self.cruise_conditions["V"]["value"])
+        second_part = self.stability_der["C_L_delta_a"]["value"]
+        self.L_delta_a = first_part * second_part
+
+    def calculate_N_delta_a(self, wing_area, wing_span):
+        first_part = self.q_mean * wing_area * wing_span / \
+                     (self.cruise_conditions["Izz"]["value"] * self.cruise_conditions["V"]["value"])
+        second_part = self.stability_der["C_N_delta_a"]["value"]
+        self.N_delta_a = first_part * second_part
 
 
-    def calculate_M_delta_e(self, wing_area, wing_mean_chord):
-        first_part = self.cruise_conditions["q_mean"]["value"] * wing_area * wing_mean_chord / \
-                     (self.cruise_conditions["Iyy"]["value"] * self.cruise_conditions["V"]["value"])
-        second_part = self.stability_der["C_M_d_E"]["value"]
-        self.M_delta_e = first_part * second_part
+    def show_control_matrix(self):
+        return self.control_matrix
 
-    def calculate_X_delta_T(self, wing_area):
-        first_part = self.cruise_conditions["q_mean"]["value"] * wing_area / \
-                     (self.cruise_conditions["m"]["value"] * self.cruise_conditions["V"]["value"])
-        second_part = self.stability_der["C_D_d_T"]["value"]
-        self.X_delta_T = first_part * second_part
-
-    def calculate_Z_delta_T(self, wing_area):
-        first_part = self.cruise_conditions["q_mean"]["value"] * wing_area / \
-                     (self.cruise_conditions["m"]["value"] * self.cruise_conditions["V"]["value"])
-        second_part = self.stability_der["C_L_d_T"]["value"]
-        self.Z_delta_T = first_part * second_part
-
-    def calculate_M_delta_T(self, wing_area, wing_mean_chord):
-        first_part = self.cruise_conditions["q_mean"]["value"] * wing_area * wing_mean_chord / \
-                     (self.cruise_conditions["Iyy"]["value"] * self.cruise_conditions["V"]["value"])
-        second_part = self.stability_der["C_M_d_T"]["value"]
-        self.M_delta_T = first_part * second_part
-
-
-    def get_elevator_derivatives(self):
-        return self.elevator_vector
-
-    def set_long_stability_control_matrix(self, Mw_dot):
+    def set_lat_stability_control_matrix(self):
 
         # set the elevator vector
-        self.elevator_vector = np.array(
+        self.control_matrix = np.array(
             [
                 [
-                    self.X_delta_e,
-                    self.X_delta_T
+                    self.Y_delta_r,
+                    self.Y_delta_a
                 ],
                 [
-                    self.Z_delta_e,
-                    self.Z_delta_T
+                    self.L_delta_r,
+                    self.L_delta_a
                 ],
                 [
-                    self.M_delta_e + self.Z_delta_e * Mw_dot,
-                    self.M_delta_T + self.Z_delta_T * Mw_dot
+                    self.N_delta_r,
+                    self.N_delta_a
                 ],
                 [
                     0,
@@ -84,8 +90,7 @@ class ControlMatrix(FlightData):
                 ]
             ])
 
-    def get_long_stability_control_matrix(self):
-        return self.elevator_vector
+
 
 
 

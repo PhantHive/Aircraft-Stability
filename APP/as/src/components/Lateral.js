@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../styles/Longitudinal.css';
+import '../styles/Lateral.css';
 import FileSelector from './FileSelector.js';
 import {Link} from "react-router-dom";
 
-class Longitudinal extends Component {
+class Lateral extends Component {
     constructor(props) {
         super(props);
         this.imgPhugoid = null;
@@ -23,14 +23,14 @@ class Longitudinal extends Component {
         dataToTxt = dataToTxt.replace(/^{.+result": "/s, ''); // remove leading JSON
 
         // from formData get what is between "ImageData<" and ">"
-        this.imgPhugoid = dataToTxt.substring(dataToTxt.indexOf('ImageDataPhugoid<') + 17, dataToTxt.indexOf('>Phugoid'));
-        this.imgShort = dataToTxt.substring(dataToTxt.indexOf('ImageDataShort<') + 15, dataToTxt.indexOf('>Short'));
-        console.log(this.imgPhugoid);
-        console.log(this.imgShort);
+        // this.imgPhugoid = dataToTxt.substring(dataToTxt.indexOf('ImageDataPhugoid<') + 17, dataToTxt.indexOf('>Phugoid'));
+        // this.imgShort = dataToTxt.substring(dataToTxt.indexOf('ImageDataShort<') + 15, dataToTxt.indexOf('>Short'));
+        // console.log(this.imgPhugoid);
+        // console.log(this.imgShort);
 
         // remove the image data from the text file and save it
-        dataToTxt = dataToTxt.replace(/ImageDataPhugoid<.+>/s, '');
-        dataToTxt = dataToTxt.replace(/ImageDataShort<.+>/s, '');
+        // dataToTxt = dataToTxt.replace(/ImageDataPhugoid<.+>/s, '');
+        // dataToTxt = dataToTxt.replace(/ImageDataShort<.+>/s, '');
         // remove last trailing characters " and } from the text file
         dataToTxt = dataToTxt.substring(0, dataToTxt.length - 3);
 
@@ -105,8 +105,8 @@ class Longitudinal extends Component {
                         console.log('Received data:', data);
                         // transform json to .txt file and make it available for download
                         this.downloadResult(data);
-                        document.getElementsByClassName('longitudinal-file-selector')[0].remove();
-                        document.getElementsByClassName('longitudinal-calculation-button')[0].remove();
+                        document.getElementsByClassName('lateral-file-selector')[0].remove();
+                        document.getElementsByClassName('lateral-calculation-button')[0].remove();
                         document.getElementsByClassName('select')[0].innerHTML = 'Download your data or Reset';
 
                         this.setState({ calculationResult: data, calculationComplete: true });
@@ -136,36 +136,31 @@ class Longitudinal extends Component {
 
     render() {
         return (
-            <div className="longitudinal-container">
-                {/*home back button */}
+            <div className="lateral-container">
                 <div className="home-button">
                     <Link to="/">
                         <button className="home">Home</button>
                     </Link>
                 </div>
-                <h1 className="longitudinal-title">Longitudinal stability calculation</h1>
-                <img className="longitudinal-image" src={require('../assets/images/plane-longitudinal.png')} alt="Longitudinal stability" />
+                <h1 className="lateral-title">lateral stability calculation</h1>
+                <img className="lateral-image" src={require('../assets/images/plane-lateral.png')} alt="lateral stability" />
                 <h2 className="select">Select a JSON file containing plane data (follow README.md)</h2>
-                <div className="longitudinal-file-selector">
+                <div className="lateral-file-selector">
                     <FileSelector key="flight-data" label="Flight Data" onFileSelect={this.handleFile1Change} />
                     <FileSelector key="derivatives-data" label="Derivatives Data" onFileSelect={this.handleFile2Change} />
                 </div>
-                <div className="longitudinal-calculation-button">
+                <div className="lateral-calculation-button">
                     <button onClick={this.handleCalculate} className="calculate">Calculate</button>
                 </div>
                 {this.state.calculationComplete && (
-                    <div className="longitudinal-calculation-result">
+                    <div className="lateral-calculation-result">
                         <h2>Calculation result:</h2>
-                        <button onClick={this.handleDownload} className="longitudinal-download-button">Download data</button>
+                        <button onClick={this.handleDownload} className="lateral-download-button">Download data</button>
                     </div>
                 )}
                 {this.state.calculationComplete && (
                     <div className="reset">
                         <button onClick={this.handleReset} className="reset-button">Reset</button>
-                        <div className="plot-images">
-                            <img src={`data:image/png;base64,${this.imgPhugoid}`} alt="Phugoid Mode Response" className="phugoid-curve"/>
-                            <img src={`data:image/png;base64,${this.imgShort}`} alt="Short Period Mode Response" className="short-curve"/>
-                        </div>
                     </div>
                 )}
             </div>
@@ -173,4 +168,4 @@ class Longitudinal extends Component {
     }
 }
 
-export default Longitudinal;
+export default Lateral;
