@@ -33,7 +33,8 @@ class PlotLongitudinalModes:
         wn_zeta = omega_n * zeta
         A1 = A
         A2 = -A * wn_zeta / omega_n
-        u = np.exp(-wn_zeta * t) * ( A1 * np.cos(omega_n * np.sqrt(1 - zeta ** 2) * t) + A2 * np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t))
+        u = np.exp(-wn_zeta * t) * (A1 * np.cos(omega_n * np.sqrt(1 - zeta ** 2)
+                                                * t) + A2 * np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t))
 
         fig = plt.figure()
         ax = fig.add_subplot(111)
@@ -52,13 +53,13 @@ class PlotLongitudinalModes:
         ax.xaxis.set_ticks_position('bottom')
         ax.yaxis.set_ticks_position('left')
 
-
         plt.grid(True)
 
         # Render the plot as a bitmap or vector graphics format
         canvas = FigureCanvas(fig)
         buf = io.BytesIO()
-        canvas.print_png(buf)  # Or use print_svg or print_pdf for other formats
+        # Or use print_svg or print_pdf for other formats
+        canvas.print_png(buf)
 
         # Convert the rendered plot to a binary data payload
         data = base64.b64encode(buf.getvalue()).decode('utf-8')

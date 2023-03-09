@@ -1,7 +1,7 @@
+from data.flight_data import FlightData
+import numpy as np
 import sys
 sys.path.append("data/")
-import numpy as np
-from data.flight_data import FlightData
 
 
 class LongControlMatrix(FlightData):
@@ -30,37 +30,43 @@ class LongControlMatrix(FlightData):
     def calculate_X_delta_e(self, wing_area):
 
         first_part = self.q_mean * wing_area / \
-                     (self.cruise_conditions["m"]["value"] * self.cruise_conditions["V"]["value"])
+            (self.cruise_conditions["m"]["value"]
+             * self.cruise_conditions["V"]["value"])
         second_part = self.stability_der["C_D_d_E"]["value"]
         self.X_delta_e = first_part * second_part
 
     def calculate_Z_delta_e(self, wing_area):
         first_part = self.q_mean * wing_area / \
-                     (self.cruise_conditions["m"]["value"] * self.cruise_conditions["V"]["value"])
+            (self.cruise_conditions["m"]["value"]
+             * self.cruise_conditions["V"]["value"])
         second_part = self.stability_der["C_L_d_E"]["value"]
         self.Z_delta_e = first_part * second_part
 
     def calculate_M_delta_e(self, wing_area, wing_mean_chord):
         first_part = self.q_mean * wing_area * wing_mean_chord / \
-                     (self.cruise_conditions["Iyy"]["value"] * self.cruise_conditions["V"]["value"])
+            (self.cruise_conditions["Iyy"]["value"]
+             * self.cruise_conditions["V"]["value"])
         second_part = self.stability_der["C_M_d_E"]["value"]
         self.M_delta_e = first_part * second_part
 
     def calculate_X_delta_T(self, wing_area):
         first_part = self.q_mean * wing_area / \
-                     (self.cruise_conditions["m"]["value"] * self.cruise_conditions["V"]["value"])
+            (self.cruise_conditions["m"]["value"]
+             * self.cruise_conditions["V"]["value"])
         second_part = self.stability_der["C_D_d_T"]["value"]
         self.X_delta_T = first_part * second_part
 
     def calculate_Z_delta_T(self, wing_area):
         first_part = self.q_mean * wing_area / \
-                     (self.cruise_conditions["m"]["value"] * self.cruise_conditions["V"]["value"])
+            (self.cruise_conditions["m"]["value"]
+             * self.cruise_conditions["V"]["value"])
         second_part = self.stability_der["C_L_d_T"]["value"]
         self.Z_delta_T = first_part * second_part
 
     def calculate_M_delta_T(self, wing_area, wing_mean_chord):
         first_part = self.q_mean * wing_area * wing_mean_chord / \
-                     (self.cruise_conditions["Iyy"]["value"] * self.cruise_conditions["V"]["value"])
+            (self.cruise_conditions["Iyy"]["value"]
+             * self.cruise_conditions["V"]["value"])
         second_part = self.stability_der["C_M_d_T"]["value"]
         self.M_delta_T = first_part * second_part
 
@@ -89,6 +95,3 @@ class LongControlMatrix(FlightData):
 
     def get_long_stability_control_matrix(self):
         return self.control_matrix
-
-
-
