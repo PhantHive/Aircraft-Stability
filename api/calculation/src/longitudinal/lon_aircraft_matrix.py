@@ -1,7 +1,7 @@
-from data.flight_data import FlightData
-import numpy as np
 import sys
 
+import numpy as np
+from data.flight_data import FlightData
 from matplotlib import pyplot as plt
 
 sys.path.append("data/")

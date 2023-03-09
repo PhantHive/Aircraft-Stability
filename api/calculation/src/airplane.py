@@ -1,9 +1,10 @@
-from lateral.lat_control_matrix import LatControlMatrix
-from lateral.lat_aircraft_matrix import LatAircraftMatrix
-from longitudinal.lon_plot_stability import PlotLongitudinalModes
-from longitudinal.lon_control_matrix import LongControlMatrix
-from longitudinal.lon_aircraft_matrix import LongAircraftMatrix
 import sys
+
+from lateral.lat_aircraft_matrix import LatAircraftMatrix
+from lateral.lat_control_matrix import LatControlMatrix
+from longitudinal.lon_aircraft_matrix import LongAircraftMatrix
+from longitudinal.lon_control_matrix import LongControlMatrix
+from longitudinal.lon_plot_stability import PlotLongitudinalModes
 
 sys.path.append("calculation/src")
 
