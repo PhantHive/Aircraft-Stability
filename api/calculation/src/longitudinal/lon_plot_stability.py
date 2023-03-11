@@ -29,25 +29,40 @@ class PlotLongitudinalModes:
 
         A = 1  # initial disturbance in pitch angle
 
-        # Compute phugoid mode response
-        wn_zeta = omega_n * zeta
-        A1 = A
-        A2 = -A * wn_zeta / omega_n
-        u = np.exp(-wn_zeta * t) * ( A1 * np.cos(omega_n * np.sqrt(1 - zeta ** 2) * t) + A2 * np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t))
-
         # calculate pitch rate for phugoid mode
-        if mode == "short_period":
-            # compute pitch rate q
-            q = -omega_n * zeta * u
+        if mode == "phugoid":
+            # compute axial velocity
+            u = A * np.exp(-zeta * omega_n * t) * (
+                    np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t) + zeta * np.cos( omega_n * np.sqrt(1 - zeta ** 2) * t) / np.sqrt(1 - zeta ** 2))
+            # compute angle of attack
+            theta = A * np.exp(-zeta * omega_n * t) * (
+                        -zeta * omega_n * np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t) / np.sqrt(1 - zeta ** 2))
         else:
+            # compute pitch rate
+            p = A * np.exp(-zeta * omega_n * t) * (np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t) + zeta * np.cos(
+                omega_n * np.sqrt(1 - zeta ** 2) * t) / np.sqrt(1 - zeta ** 2))
             # compute pitch angle
-            q = u
+            q = A * np.exp(-zeta * omega_n * t) * (np.cos(omega_n * np.sqrt(1 - zeta ** 2) * t) - zeta * np.sin(
+                omega_n * np.sqrt(1 - zeta ** 2) * t) / np.sqrt(1 - zeta ** 2))
 
 
         fig = plt.figure()
         ax = fig.add_subplot(111)
+
+        # plot pitch rate for phugoid mode or pitch angle for short period mode
+        if mode == "phugoid":
+            plt.plot(t, u, 'r')
+            plt.plot(t, theta, 'b')
+            # add legend
+            plt.legend(['axial velocity', 'angle of attack'], loc='upper right')
+        else:
+            plt.plot(t, p, 'r')
+            plt.plot(t, q, 'b')
+            # add legend
+            plt.legend(['pitch rate', 'pitch angle'], loc='upper right')
+
         # Plot response
-        plt.plot(t, u)
+        # plt.plot(t, u)
         plt.xlabel('Time (s)')
         plt.title(f'{mode} Mode Response')
 
@@ -61,18 +76,9 @@ class PlotLongitudinalModes:
         ax.xaxis.set_ticks_position('bottom')
         ax.yaxis.set_ticks_position('left')
 
-        # plot pitch rate for phugoid mode or pitch angle for short period mode
-        if mode == "phugoid":
-            plt.plot(t, q, 'r')
-            # add legend
-            plt.legend(['axial velocity', 'pitch rate'], loc='upper right')
-        else:
-            plt.plot(t, q, 'r')
-            # add legend
-            plt.legend(['angle of attack', 'pitch angle'], loc='upper right')
-
 
         plt.grid(True)
+        plt.show()
 
         # Render the plot as a bitmap or vector graphics format
         canvas = FigureCanvas(fig)
