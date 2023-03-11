@@ -27,22 +27,29 @@ class PlotLongitudinalModes:
         else:
             print("Mode does not exist")
 
-        A = 1  # initial disturbance in pitch angle
+        wn_zeta = omega_n * zeta
+        A1 = 1  # initial disturbance in pitch angle
+        A2 = -A1 * wn_zeta / omega_n
+        u = 0  # initial axial velocity
+        theta = 0  # initial angle of attack
+        p = 0  # initial pitch rate
+        q = 0  # initial pitch angle
 
         # calculate pitch rate for phugoid mode
         if mode == "phugoid":
             # compute axial velocity
-            u = A * np.exp(-zeta * omega_n * t) * (
-                    np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t) + zeta * np.cos( omega_n * np.sqrt(1 - zeta ** 2) * t) / np.sqrt(1 - zeta ** 2))
+            u = np.exp(-wn_zeta * t) * (
+                    A1 * np.cos(omega_n * np.sqrt(1 - zeta ** 2) * t) + A2 * np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t))
             # compute angle of attack
-            theta = A * np.exp(-zeta * omega_n * t) * (
-                        -zeta * omega_n * np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t) / np.sqrt(1 - zeta ** 2))
+            theta = np.exp(-wn_zeta * t) * (
+                    A1 * np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t) / np.sqrt(1 - zeta ** 2) - A2 * np.cos(
+                omega_n * np.sqrt(1 - zeta ** 2) * t) / np.sqrt(1 - zeta ** 2))
         else:
             # compute pitch rate
-            p = A * np.exp(-zeta * omega_n * t) * (np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t) + zeta * np.cos(
+            p = A1 * np.exp(-wn_zeta * t) * (np.cos(omega_n * np.sqrt(1 - zeta ** 2) * t) + zeta * np.sin(
                 omega_n * np.sqrt(1 - zeta ** 2) * t) / np.sqrt(1 - zeta ** 2))
             # compute pitch angle
-            q = A * np.exp(-zeta * omega_n * t) * (np.cos(omega_n * np.sqrt(1 - zeta ** 2) * t) - zeta * np.sin(
+            q = A1 * (1 - np.exp(-wn_zeta * t)) * (np.cos(omega_n * np.sqrt(1 - zeta ** 2) * t) + zeta * np.sin(
                 omega_n * np.sqrt(1 - zeta ** 2) * t) / np.sqrt(1 - zeta ** 2))
 
 
