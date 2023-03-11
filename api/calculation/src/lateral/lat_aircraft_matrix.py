@@ -18,6 +18,7 @@ class LatAircraftMatrix(FlightData):
 
         FlightData.__init__(self, "lateral", user_file)
 
+        self.tf = None
         self.damping_ratio = None
         self.natural_frequency = None
         self.characteristic_equation = None
@@ -147,6 +148,16 @@ class LatAircraftMatrix(FlightData):
         damping_ratio_sp = -np.real(self.eigenvalues[0]) / np.abs(self.eigenvalues[0])
         damping_ratio_p = -np.real(self.eigenvalues[-1]) / np.abs(self.eigenvalues[-1])
         self.damping_ratio = np.array([damping_ratio_sp, damping_ratio_p])
+
+    def set_transfer_functions(self):
+        # transfer function for short period mode
+        transfer_function_sp = np.array([self.eigenvalues[0], 1])
+        # transfer function for phugoid mode
+        transfer_function_p = np.array([self.eigenvalues[-1], 1])
+
+        self.tf = np.array([transfer_function_sp, transfer_function_p])
+
+        return self.tf
 
     def get_lat_aircraft_matrix(self):
         return self.aircraft_matrix

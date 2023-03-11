@@ -125,5 +125,5 @@ class Airplane(LongAircraftMatrix, LongControlMatrix, LatAircraftMatrix, LatCont
 
     def lon_plot_stability(self, mode):
         plot_aircraft_stability = PlotLongitudinalModes(self.get_natural_frequency(), self.get_damping_ratio())
-        data = plot_aircraft_stability.plot(mode)
+        data = plot_aircraft_stability.plot_modes(mode)
         return data

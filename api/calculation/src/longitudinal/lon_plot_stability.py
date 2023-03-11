@@ -11,7 +11,7 @@ class PlotLongitudinalModes:
         self.natural_frequency = natural_frequency
         self.damping_ratio = damping_ratio
 
-    def plot(self, mode):
+    def plot_modes(self, mode):
         omega_n = 0
         zeta = 0
         t = 0
@@ -35,13 +35,22 @@ class PlotLongitudinalModes:
         A2 = -A * wn_zeta / omega_n
         u = np.exp(-wn_zeta * t) * ( A1 * np.cos(omega_n * np.sqrt(1 - zeta ** 2) * t) + A2 * np.sin(omega_n * np.sqrt(1 - zeta ** 2) * t))
 
+        # calculate pitch rate for phugoid mode
+        if mode == "short_period":
+            # compute pitch rate q
+            q = -omega_n * zeta * u
+        else:
+            # compute pitch angle
+            q = u
+
+
         fig = plt.figure()
         ax = fig.add_subplot(111)
         # Plot response
         plt.plot(t, u)
         plt.xlabel('Time (s)')
-        plt.ylabel('Pitch angle (rad)')
         plt.title(f'{mode} Mode Response')
+
         # # Move left y-axis and bottom x-axis to left, passing through (0,0)
         ax.spines['left'].set_position('zero')
         ax.spines['bottom'].set_position('zero')
@@ -51,6 +60,16 @@ class PlotLongitudinalModes:
         # # Show ticks in the left and lower axes only
         ax.xaxis.set_ticks_position('bottom')
         ax.yaxis.set_ticks_position('left')
+
+        # plot pitch rate for phugoid mode or pitch angle for short period mode
+        if mode == "phugoid":
+            plt.plot(t, q, 'r')
+            # add legend
+            plt.legend(['axial velocity', 'pitch rate'], loc='upper right')
+        else:
+            plt.plot(t, q, 'r')
+            # add legend
+            plt.legend(['angle of attack', 'pitch angle'], loc='upper right')
 
 
         plt.grid(True)

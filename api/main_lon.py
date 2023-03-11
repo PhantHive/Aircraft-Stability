@@ -154,6 +154,12 @@ print(f"ImageDataPhugoid<{data}>Phugoid")
 data2 = airplane_long.lon_plot_stability("short_period")
 print(f"ImageDataShort<{data2}>Short")
 
+print("--------------------------------")
+print("Plotting the longitudinal TF")
+tf = airplane_long.set_transfer_functions()
+print(f"TF = {tf}")
+print("--------------------------------")
+
 
 
 write_matrix(airplane_long.aircraft_matrix, airplane_long.control_matrix)
