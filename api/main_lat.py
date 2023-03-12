@@ -1,8 +1,9 @@
 import json
-from calculation.src.airplane import Airplane
 import os
 import re
 import sys
+
+from calculation.src.airplane import Airplane
 
 sys.path.append("api/calculation/src/")
 
