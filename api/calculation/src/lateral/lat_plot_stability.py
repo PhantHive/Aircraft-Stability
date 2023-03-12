@@ -6,7 +6,6 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 
 class PlotLateralModes:
-
     def __init__(self, eigenvalues, eigenvectors):
         self.eigenvalues = eigenvalues
         self.eigenvectors = eigenvectors
@@ -18,7 +17,7 @@ class PlotLateralModes:
         print(self.eigenvectors)
 
         # calculate response for selected mode
-        if mode == 'Rolling':
+        if mode == "Rolling":
             lambda_roll = self.eigenvalues[2].real
             # initial conditions
             v0 = self.eigenvectors[0][2].real  # good
@@ -34,7 +33,7 @@ class PlotLateralModes:
             # calculate side angle
             phi = phi0 * np.exp(lambda_roll * t)
 
-        elif mode == 'Spiral':
+        elif mode == "Spiral":
             lambda_spiral = self.eigenvalues[3].real
             # initial conditions
             v0 = self.eigenvectors[0][3].real
@@ -54,25 +53,25 @@ class PlotLateralModes:
         ax = fig.add_subplot(111)
 
         # plot all curves on the same graph
-        plt.plot(t, v, 'blue', label='Side velocity')
-        plt.plot(t, p, 'red', label='Roll rate')
-        plt.plot(t, r, 'orange', label='Yaw rate')
-        plt.plot(t, phi, 'purple', label='Side angle')
+        plt.plot(t, v, "blue", label="Side velocity")
+        plt.plot(t, p, "red", label="Roll rate")
+        plt.plot(t, r, "orange", label="Yaw rate")
+        plt.plot(t, phi, "purple", label="Side angle")
         # add legend
-        plt.legend(loc='upper right')
+        plt.legend(loc="upper right")
 
-        plt.xlabel('Time (s)')
-        plt.title(f'{mode} Mode Response')
+        plt.xlabel("Time (s)")
+        plt.title(f"{mode} Mode Response")
 
         # # Move left y-axis and bottom x-axis to left, passing through (0,0)
-        ax.spines['left'].set_position('zero')
-        ax.spines['bottom'].set_position('zero')
+        ax.spines["left"].set_position("zero")
+        ax.spines["bottom"].set_position("zero")
         # # Eliminate upper and right axes
-        ax.spines['right'].set_color('none')
-        ax.spines['top'].set_color('none')
+        ax.spines["right"].set_color("none")
+        ax.spines["top"].set_color("none")
         # # Show ticks in the left and lower axes only
-        ax.xaxis.set_ticks_position('bottom')
-        ax.yaxis.set_ticks_position('left')
+        ax.xaxis.set_ticks_position("bottom")
+        ax.yaxis.set_ticks_position("left")
 
         # limit y axis between -1 and 1
 
@@ -86,6 +85,6 @@ class PlotLateralModes:
         canvas.print_png(buf)
 
         # Convert the rendered plot to a binary data payload
-        data = base64.b64encode(buf.getvalue()).decode('utf-8')
+        data = base64.b64encode(buf.getvalue()).decode("utf-8")
 
         return data
