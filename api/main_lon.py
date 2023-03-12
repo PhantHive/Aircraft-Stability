@@ -55,35 +55,35 @@ def replacer(data_file):
 
 
 
-# # collect sys arg as a string
-# data_str1 = sys.argv[1] # longitudinalSD.json
-# data_str2 = sys.argv[2] # steadyConditions.json
+# collect sys arg as a string
+data_str1 = sys.argv[1] # longitudinalSD.json
+data_str2 = sys.argv[2] # steadyConditions.json
+
+
 #
 #
-# #
-# #
-# data_str1 = data_str1.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
-# data_str2 = data_str2.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
-#
-# # remove any extra spaces
-# data_str1 = replacer(data_str1)
-# data_str2 = replacer(data_str2)
-#
-# # match exactly if there is a ',n'
-# data_str1 = re.sub(r',n', ',', data_str1)
-# data_str2 = re.sub(r',n', ',', data_str2)
-#
-# # match exactly if there is a 'r,'
-# data_str1 = re.sub(r',r', ',', data_str1)
-# data_str2 = re.sub(r',r', ',', data_str2)
-#
-#
-# # do something with file1 and file2
-# # print(f"Contents of file1: {data_str1}")
-# # print(f"Contents of file2: {data_str2}")
-#
-#
-# data = [data_str2, data_str1]
+data_str1 = data_str1.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
+data_str2 = data_str2.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
+
+# remove any extra spaces
+data_str1 = replacer(data_str1)
+data_str2 = replacer(data_str2)
+
+# match exactly if there is a ',n'
+data_str1 = re.sub(r',n', ',', data_str1)
+data_str2 = re.sub(r',n', ',', data_str2)
+
+# match exactly if there is a 'r,'
+data_str1 = re.sub(r',r', ',', data_str1)
+data_str2 = re.sub(r',r', ',', data_str2)
+
+
+# do something with file1 and file2
+# print(f"Contents of file1: {data_str1}")
+# print(f"Contents of file2: {data_str2}")
+
+
+data = [data_str2, data_str1]
 
 
 # Example to use the class
@@ -97,7 +97,7 @@ e = 0.94  # Oswald factor
 
 # CAUTION
 # IF YOU WANT TO USE THE DEFAULT FILES, JUST PUT "None" FOR THE LAST ARGUMENT
-airplane_long = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "longitudinal", None)
+airplane_long = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "longitudinal", data)
 
 print("--------------------------------")
 
