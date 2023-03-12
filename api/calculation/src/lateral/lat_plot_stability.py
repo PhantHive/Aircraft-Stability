@@ -17,7 +17,6 @@ class PlotLateralModes:
         # extract eigenvalue and eigenvector components for selected mode
         print(self.eigenvectors)
 
-
         # calculate response for selected mode
         if mode == 'Rolling':
             lambda_roll = self.eigenvalues[2].real
@@ -51,8 +50,6 @@ class PlotLateralModes:
             # calculate side angle
             phi = phi0 * np.exp(lambda_spiral * t)
 
-
-
         fig = plt.figure()
         ax = fig.add_subplot(111)
 
@@ -85,7 +82,8 @@ class PlotLateralModes:
         # Render the plot as a bitmap or vector graphics format
         canvas = FigureCanvas(fig)
         buf = io.BytesIO()
-        canvas.print_png(buf)  # Or use print_svg or print_pdf for other formats
+        # Or use print_svg or print_pdf for other formats
+        canvas.print_png(buf)
 
         # Convert the rendered plot to a binary data payload
         data = base64.b64encode(buf.getvalue()).decode('utf-8')

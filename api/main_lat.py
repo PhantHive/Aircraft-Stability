@@ -1,9 +1,10 @@
+import json
+from calculation.src.airplane import Airplane
 import os
 import re
 import sys
 sys.path.append("api/calculation/src/")
-from calculation.src.airplane import Airplane
-import json
+
 
 def process_data():
 
@@ -37,6 +38,7 @@ def write_matrix(aircraft_matrix, control_matrix):
         }
 
         json.dump(matrix, f)
+
 
 def replacer(data_file):
     data_file = re.sub(r'\s+', '', data_file)
@@ -74,7 +76,7 @@ def replacer(data_file):
 # Example to use the class
 # (the values are from a Business JET aircraft)
 S = 21.55  # Wing area
-A = 5.09 # Aspect ratio
+A = 5.09  # Aspect ratio
 lambda_ = 0.5  # Taper ratio
 b = 10.48  # Wingspan
 c_mean = 2.13  # Mean chord
@@ -82,7 +84,8 @@ e = 0.94  # Oswald factor
 
 # CAUTION
 # IF YOU WANT TO USE THE DEFAULT FILES, JUST PUT "None" FOR THE LAST ARGUMENT
-airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral", None)
+airplane = Airplane("Business JET", S, A, lambda_,
+                    b, c_mean, e, "lateral", None)
 
 print("--------------------------------")
 
@@ -149,13 +152,6 @@ print("--------------------------------")
 # print(f"ImageDataShort<{data2}>Short")
 
 
-
 # write_matrix(airplane.aircraft_matrix, airplane.control_matrix)
 
 # process_data()
-
-
-
-
-
-
