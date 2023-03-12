@@ -44,37 +44,37 @@ def replacer(data_file):
 
 
 # collect sys arg as a string
-data_str1 = sys.argv[1] # latgitudinalSD.json
-data_str2 = sys.argv[2] # steadyConditions.json
-
-
-data_str1 = data_str1.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
-data_str2 = data_str2.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
-
-# remove any extra spaces
-data_str1 = replacer(data_str1)
-data_str2 = replacer(data_str2)
-
-# match exactly if there is a ',n'
-data_str1 = re.sub(r',n', ',', data_str1)
-data_str2 = re.sub(r',n', ',', data_str2)
-
-# match exactly if there is a 'r,'
-data_str1 = re.sub(r',r', ',', data_str1)
-data_str2 = re.sub(r',r', ',', data_str2)
-
-
-# do something with file1 and file2
-# print(f"Contents of file1: {data_str1}")
-# print(f"Contents of file2: {data_str2}")
-
-
-data = [data_str2, data_str1]
+# data_str1 = sys.argv[1] # latgitudinalSD.json
+# data_str2 = sys.argv[2] # steadyConditions.json
+#
+#
+# data_str1 = data_str1.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
+# data_str2 = data_str2.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
+#
+# # remove any extra spaces
+# data_str1 = replacer(data_str1)
+# data_str2 = replacer(data_str2)
+#
+# # match exactly if there is a ',n'
+# data_str1 = re.sub(r',n', ',', data_str1)
+# data_str2 = re.sub(r',n', ',', data_str2)
+#
+# # match exactly if there is a 'r,'
+# data_str1 = re.sub(r',r', ',', data_str1)
+# data_str2 = re.sub(r',r', ',', data_str2)
+#
+#
+# # do something with file1 and file2
+# # print(f"Contents of file1: {data_str1}")
+# # print(f"Contents of file2: {data_str2}")
+#
+#
+# data = [data_str2, data_str1]
 
 # Example to use the class
 # (the values are from a Business JET aircraft)
 S = 21.55  # Wing area
-A = 5.09  # Aspect ratio
+A = 5.09 # Aspect ratio
 lambda_ = 0.5  # Taper ratio
 b = 10.48  # Wingspan
 c_mean = 2.13  # Mean chord
@@ -82,7 +82,7 @@ e = 0.94  # Oswald factor
 
 # CAUTION
 # IF YOU WANT TO USE THE DEFAULT FILES, JUST PUT "None" FOR THE LAST ARGUMENT
-airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral", data)
+airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral", None)
 
 print("--------------------------------")
 
@@ -93,11 +93,12 @@ print(airplane.aircraft_matrix)
 print("--------------------------------")
 
 print("Eigen values:")
-airplane.set_eigenvalues()
-airplane.set_characteristic_equation()
-print(airplane.get_eigenvalues())
-poly = airplane.get_characteristic_equation()
-print("\nCharacteristic equation:")
+airplane.set_lateral_eigenvalues()
+airplane.set_lateral_eigenvectors()
+airplane.set_lateral_characteristic_equation()
+print(airplane.get_lateral_eigenvalues())
+poly = airplane.get_lateral_characteristic_equation()
+print("\nLateral Characteristic equation:")
 for i in range(len(poly) - 1):
     print(abs(poly[-1 - i]), "* s^", len(poly) - i - 1, " + ", end="")
 print(abs(poly[0]))
@@ -132,9 +133,15 @@ print("Control matrix (Rudder/Throttle) for lateral stability")
 airplane.get_lateral_control_matrix()
 print(airplane.control_matrix)
 #
-# print("--------------------------------")
-# print("Plotting the latgitudinal stability")
-# # # short_period or phugoid
+print("--------------------------------")
+print("Plotting the Rolling mode")
+airplane.lat_plot_stability("Rolling")
+print("--------------------------------")
+print("Plotting the Spiral mode")
+airplane.lat_plot_stability("Spiral")
+print("--------------------------------")
+
+
 #
 # data = airplane.lat_plot_stability("phugoid")
 # print(f"ImageDataPhugoid<{data}>Phugoid")

@@ -1,4 +1,7 @@
 import sys
+
+from calculation.src.lateral.lat_plot_stability import PlotLateralModes
+
 sys.path.append("calculation/src")
 
 from longitudinal.lon_aircraft_matrix import LongAircraftMatrix
@@ -125,5 +128,10 @@ class Airplane(LongAircraftMatrix, LongControlMatrix, LatAircraftMatrix, LatCont
 
     def lon_plot_stability(self, mode):
         plot_aircraft_stability = PlotLongitudinalModes(self.get_natural_frequency(), self.get_damping_ratio())
+        data = plot_aircraft_stability.plot_modes(mode)
+        return data
+
+    def lat_plot_stability(self, mode):
+        plot_aircraft_stability = PlotLateralModes(self.get_lateral_eigenvalues(), self.get_lateral_eigenvectors())
         data = plot_aircraft_stability.plot_modes(mode)
         return data

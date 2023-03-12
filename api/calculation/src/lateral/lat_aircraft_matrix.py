@@ -118,15 +118,15 @@ class LatAircraftMatrix(FlightData):
         np.set_printoptions(suppress=True)
         self.aircraft_matrix[self.aircraft_matrix == -0.0] = 0.0
         
-    def set_eigenvalues(self):
+    def set_lateral_eigenvalues(self):
         self.eigenvalues = np.linalg.eigvals(self.aircraft_matrix)
         
-    def set_eigenvectors(self):
+    def set_lateral_eigenvectors(self):
         self.eigenvectors = np.linalg.eig(self.aircraft_matrix)[1]
         
-    def set_characteristic_equation(self):
+    def set_lateral_characteristic_equation(self):
         self.characteristic_equation = np.polynomial.polynomial.polyfromroots(self.eigenvalues)
-        
+
     def set_natural_frequency(self):
         # find natural frequency from eigenvalues there should be 2 frequency one for short period mode and one for phugoid
         # mode
@@ -161,6 +161,15 @@ class LatAircraftMatrix(FlightData):
 
     def get_lat_aircraft_matrix(self):
         return self.aircraft_matrix
+
+    def get_lateral_eigenvalues(self):
+        return self.eigenvalues
+
+    def get_lateral_eigenvectors(self):
+        return self.eigenvectors
+
+    def get_lateral_characteristic_equation(self):
+        return self.characteristic_equation
 
     def get_param(self, name):
 
