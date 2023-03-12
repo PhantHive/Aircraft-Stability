@@ -7,6 +7,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 
 class PlotLateralModes:
+
     def __init__(self, eigenvalues, eigenvectors):
         self.eigenvalues = eigenvalues
         self.eigenvectors = eigenvectors
