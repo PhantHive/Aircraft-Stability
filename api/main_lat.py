@@ -19,15 +19,18 @@ def process_data():
             "success": True,
             "data": matrix_content,
             "headers": {
-                "Content-Disposition": f"attachment; filename={os.path.basename('latMatrix.json')}",
+                "Content-Disposition":
+                f"attachment; filename={os.path.basename('latMatrix.json')}",
                 "Content-Type": "application/json",
             },
         }
     except Exception as e:
         print("Error:", e)
         return {
-            "success": False,
-            "error": "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
+            "success":
+            False,
+            "error":
+            "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
         }
 
 
@@ -54,13 +57,14 @@ def replacer(data_file):
 data_str1 = sys.argv[1]  # latgitudinalSD.json
 data_str2 = sys.argv[2]  # steadyConditions.json
 
-
-data_str1 = (
-    data_str1.replace("\\r", "").replace("\\n", "").replace(" ", "").replace("\\", "")
-)
-data_str2 = (
-    data_str2.replace("\\r", "").replace("\\n", "").replace(" ", "").replace("\\", "")
-)
+data_str1 = (data_str1.replace("\\r",
+                               "").replace("\\n",
+                                           "").replace(" ",
+                                                       "").replace("\\", ""))
+data_str2 = (data_str2.replace("\\r",
+                               "").replace("\\n",
+                                           "").replace(" ",
+                                                       "").replace("\\", ""))
 
 # remove any extra spaces
 data_str1 = replacer(data_str1)
@@ -74,11 +78,9 @@ data_str2 = re.sub(r",n", ",", data_str2)
 data_str1 = re.sub(r",r", ",", data_str1)
 data_str2 = re.sub(r",r", ",", data_str2)
 
-
 # do something with file1 and file2
 print(f"Contents of file1: {data_str1}")
 print(f"Contents of file2: {data_str2}")
-
 
 data = [data_str2, data_str1]
 
@@ -93,7 +95,8 @@ e = 0.94  # Oswald factor
 
 # CAUTION
 # IF YOU WANT TO USE THE DEFAULT FILES, JUST PUT "None" FOR THE LAST ARGUMENT
-airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral", data)
+airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral",
+                    data)
 
 print("--------------------------------")
 
@@ -132,13 +135,11 @@ print("--------------------------------")
 #
 # print("--------------------------------")
 
-
 # print("Parameters")
 # params = ["Xu", "Xw", "Zu", "Zw", "Zw_dot", "Zq", "Mu", "Mw", "Mw_dot", "Mq"]
 # for param in params:
 #     print(param, " = ", getattr(airplane, param))
 # print("--------------------------------")
-
 
 print("Control matrix (Rudder/Throttle) for lateral stability")
 airplane.get_lateral_control_matrix()
@@ -155,13 +156,11 @@ print(airplane.control_matrix)
 # airplane.lat_plot_stability("Dutch Roll")
 # print("--------------------------------")
 
-
 #
 data = airplane.lat_plot_stability("Rolling")
 print(f"ImageDataRolling<{data}>Rolling")
 data2 = airplane.lat_plot_stability("Spiral")
 print(f"ImageDataSpiral<{data2}>Spiral")
-
 
 # write_matrix(airplane.aircraft_matrix, airplane.control_matrix)
 

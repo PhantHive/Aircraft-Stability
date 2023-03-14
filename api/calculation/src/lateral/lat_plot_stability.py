@@ -7,6 +7,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 
 class PlotLateralModes:
+
     def __init__(self, eigenvalues, eigenvectors):
         self.eigenvalues = eigenvalues
         self.eigenvectors = eigenvectors
@@ -76,43 +77,35 @@ class PlotLateralModes:
 
             # calculate side velocity
             v = np.exp(-wn_dutch_roll * zeta_dutch_roll * t) * (
-                v0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
-                + (
-                    (v0 * wn_dutch_roll * zeta_dutch_roll)
-                    / (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))
-                )
-                * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
-            )
+                v0 * np.cos(
+                    (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t) +
+                ((v0 * wn_dutch_roll * zeta_dutch_roll) /
+                 (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))) * np.sin(
+                     (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t))
 
             # calculate roll rate
             p = np.exp(-wn_dutch_roll * zeta_dutch_roll * t) * (
-                p0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
-                + (
-                    (p0 * wn_dutch_roll * zeta_dutch_roll)
-                    / (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))
-                )
-                * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
-            )
+                p0 * np.cos(
+                    (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t) +
+                ((p0 * wn_dutch_roll * zeta_dutch_roll) /
+                 (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))) * np.sin(
+                     (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t))
 
             # calculate yaw rate
             r = np.exp(-wn_dutch_roll * zeta_dutch_roll * t) * (
-                r0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
-                + (
-                    (r0 * wn_dutch_roll * zeta_dutch_roll)
-                    / (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))
-                )
-                * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
-            )
+                r0 * np.cos(
+                    (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t) +
+                ((r0 * wn_dutch_roll * zeta_dutch_roll) /
+                 (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))) * np.sin(
+                     (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t))
 
             # calculate side angle
             phi = np.exp(-wn_dutch_roll * zeta_dutch_roll * t) * (
-                phi0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
-                + (
-                    (phi0 * wn_dutch_roll * zeta_dutch_roll)
-                    / (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))
-                )
-                * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
-            )
+                phi0 * np.cos(
+                    (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t) +
+                ((phi0 * wn_dutch_roll * zeta_dutch_roll) /
+                 (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))) * np.sin(
+                     (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t))
 
         fig = plt.figure(figsize=(5, 5))
         ax = fig.add_subplot(111)
