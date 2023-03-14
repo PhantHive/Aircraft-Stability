@@ -25,12 +25,14 @@ class Lateral extends Component {
         // from formData get what is between "ImageData<" and ">"
         this.imgRolling = dataToTxt.substring(dataToTxt.indexOf('ImageDataRolling<') + 17, dataToTxt.indexOf('>Rolling'));
         this.imgSpiral = dataToTxt.substring(dataToTxt.indexOf('ImageDataSpiral<') + 16, dataToTxt.indexOf('>Spiral'));
+        this.imgDutchRoll = dataToTxt.substring(dataToTxt.indexOf('ImageDataDutchRoll<') + 19, dataToTxt.indexOf('>DutchRoll'));
         console.log(this.imgRolling);
         console.log(this.imgSpiral);
 
         // remove the image data from the text file and save it
         dataToTxt = dataToTxt.replace(/ImageDataRolling<.+>/s, '');
         dataToTxt = dataToTxt.replace(/ImageDataSpiral<.+>/s, '');
+        dataToTxt = dataToTxt.replace(/ImageDataDutchRoll<.+>/s, '');
         // remove last trailing characters " and } from the text file
         dataToTxt = dataToTxt.substring(0, dataToTxt.length - 3);
 
@@ -165,6 +167,7 @@ class Lateral extends Component {
                         <div className="plot-images">
                             <img src={`data:image/png;base64,${this.imgRolling}`} alt="Rolling Mode Response" className="rolling-curve"/>
                             <img src={`data:image/png;base64,${this.imgSpiral}`} alt="Spiral Mode Response" className="spiral-curve"/>
+                            <img src={`data:image/png;base64,${this.imgDutchRoll}`} alt="Dutch Roll Mode Response" className="dutch-roll-curve"/>
                         </div>
                     </div>
 
