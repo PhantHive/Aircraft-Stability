@@ -63,9 +63,9 @@ class PlotLateralModes:
 
             # plot dutch roll mode
 
-            wn_dutch_roll = self.eigenvalues[0].real
+            wn_dutch_roll = self.eigenvalues[0].imag
 
-            zeta_dutch_roll = self.eigenvalues[0].imag / wn_dutch_roll
+            zeta_dutch_roll = -self.eigenvalues[0].real / (2 * wn_dutch_roll)
 
             print("wn_dutch_roll = ", wn_dutch_roll)
             print("zeta_dutch_roll = ", zeta_dutch_roll)
