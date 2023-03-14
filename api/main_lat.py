@@ -3,11 +3,11 @@ from calculation.src.airplane import Airplane
 import os
 import re
 import sys
+
 sys.path.append("api/calculation/src/")
 
 
 def process_data():
-
     try:
         # Read the contents of the latMatrix.json file
         with open("latMatrix.json", "r") as f:
@@ -19,29 +19,33 @@ def process_data():
             "data": matrix_content,
             "headers": {
                 "Content-Disposition": f"attachment; filename={os.path.basename('latMatrix.json')}",
-                "Content-Type": "application/json"
-            }
+                "Content-Type": "application/json",
+            },
         }
     except Exception as e:
         print("Error:", e)
-        return {"success": False, "error": "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md"}
+        return {
+            "success": False,
+            "error": "Vérifier que les fichiers sont bien au bon format et dans le bon ordre. Voir README.md",
+        }
 
 
 # create function that put aircraft matrix and control matrix in a txt file
+
 
 def write_matrix(aircraft_matrix, control_matrix):
     # Write both matrices to a JSON file
     with open("latMatrix.json", "w") as f:
         matrix = {
             "aircraft_matrix": aircraft_matrix.tolist(),
-            "control_matrix": control_matrix.tolist()
+            "control_matrix": control_matrix.tolist(),
         }
 
         json.dump(matrix, f)
 
 
 def replacer(data_file):
-    data_file = re.sub(r'\s+', '', data_file)
+    data_file = re.sub(r"\s+", "", data_file)
     return data_file
 
 
@@ -50,22 +54,24 @@ data_str1 = sys.argv[1]  # latgitudinalSD.json
 data_str2 = sys.argv[2]  # steadyConditions.json
 
 
-data_str1 = data_str1.replace('\\r', '').replace(
-    '\\n', ''). replace(' ', '').replace('\\', '')
-data_str2 = data_str2.replace('\\r', '').replace(
-    '\\n', ''). replace(' ', '').replace('\\', '')
+data_str1 = (
+    data_str1.replace("\\r", "").replace("\\n", "").replace(" ", "").replace("\\", "")
+)
+data_str2 = (
+    data_str2.replace("\\r", "").replace("\\n", "").replace(" ", "").replace("\\", "")
+)
 
 # remove any extra spaces
 data_str1 = replacer(data_str1)
 data_str2 = replacer(data_str2)
 
 # match exactly if there is a ',n'
-data_str1 = re.sub(r',n', ',', data_str1)
-data_str2 = re.sub(r',n', ',', data_str2)
+data_str1 = re.sub(r",n", ",", data_str1)
+data_str2 = re.sub(r",n", ",", data_str2)
 
 # match exactly if there is a 'r,'
-data_str1 = re.sub(r',r', ',', data_str1)
-data_str2 = re.sub(r',r', ',', data_str2)
+data_str1 = re.sub(r",r", ",", data_str1)
+data_str2 = re.sub(r",r", ",", data_str2)
 
 
 # do something with file1 and file2
@@ -86,8 +92,7 @@ e = 0.94  # Oswald factor
 
 # CAUTION
 # IF YOU WANT TO USE THE DEFAULT FILES, JUST PUT "None" FOR THE LAST ARGUMENT
-airplane = Airplane("Business JET", S, A, lambda_,
-                    b, c_mean, e, "lateral", data)
+airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral", data)
 
 print("--------------------------------")
 

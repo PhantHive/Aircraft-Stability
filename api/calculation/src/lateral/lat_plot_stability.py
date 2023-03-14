@@ -6,19 +6,16 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 
 class PlotLateralModes:
-
     def __init__(self, eigenvalues, eigenvectors):
         self.eigenvalues = eigenvalues
         self.eigenvectors = eigenvectors
 
     def plot_modes(self, mode):
-
         # extract eigenvalue and eigenvector components for selected mode
         print(self.eigenvectors)
 
         # calculate response for selected mode
-        if mode == 'Rolling':
-
+        if mode == "Rolling":
             t = np.linspace(0, 10, 1000)
             lambda_roll = self.eigenvalues[2].real
             # initial conditions
@@ -35,7 +32,7 @@ class PlotLateralModes:
             # calculate side angle
             phi = phi0 * np.exp(lambda_roll * t)
 
-        elif mode == 'Spiral':
+        elif mode == "Spiral":
             t = np.linspace(0, 6000, 1000)
             # plot spiral mode
             lambda_spiral = self.eigenvalues[3].real
@@ -54,8 +51,7 @@ class PlotLateralModes:
             # calculate side angle
             phi = phi0 * np.exp(lambda_spiral * t)
 
-        elif mode == 'Dutch Roll':
-
+        elif mode == "Dutch Roll":
             t = np.linspace(0, 50, 1000)
 
             # plot dutch roll mode
@@ -78,44 +74,68 @@ class PlotLateralModes:
             phi0 = self.eigenvectors[3][1].real  # good
 
             # calculate side velocity
-            v = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (v0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((v0 * wn_dutch_roll *
-                                                                                                                                          zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+            v = np.exp(-wn_dutch_roll * zeta_dutch_roll * t) * (
+                v0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
+                + (
+                    (v0 * wn_dutch_roll * zeta_dutch_roll)
+                    / (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))
+                )
+                * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
+            )
 
             # calculate roll rate
-            p = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (p0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((p0 * wn_dutch_roll *
-                                                                                                                                          zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+            p = np.exp(-wn_dutch_roll * zeta_dutch_roll * t) * (
+                p0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
+                + (
+                    (p0 * wn_dutch_roll * zeta_dutch_roll)
+                    / (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))
+                )
+                * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
+            )
 
             # calculate yaw rate
-            r = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (r0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((r0 * wn_dutch_roll *
-                                                                                                                                          zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+            r = np.exp(-wn_dutch_roll * zeta_dutch_roll * t) * (
+                r0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
+                + (
+                    (r0 * wn_dutch_roll * zeta_dutch_roll)
+                    / (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))
+                )
+                * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
+            )
 
             # calculate side angle
-            phi = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (phi0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((phi0 * wn_dutch_roll *
-                                                                                                                                              zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+            phi = np.exp(-wn_dutch_roll * zeta_dutch_roll * t) * (
+                phi0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
+                + (
+                    (phi0 * wn_dutch_roll * zeta_dutch_roll)
+                    / (wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2))
+                )
+                * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll**2)) * t)
+            )
 
         fig = plt.figure(figsize=(5, 5))
         ax = fig.add_subplot(111)
 
         # plot all curves on the same graph
-        plt.plot(t, v, 'blue', label='Side velocity')
-        plt.plot(t, p, 'red', label='Roll rate')
-        plt.plot(t, r, 'orange', label='Yaw rate')
-        plt.plot(t, phi, 'purple', label='Side angle')
+        plt.plot(t, v, "blue", label="Side velocity")
+        plt.plot(t, p, "red", label="Roll rate")
+        plt.plot(t, r, "orange", label="Yaw rate")
+        plt.plot(t, phi, "purple", label="Side angle")
         # add legend
-        plt.legend(loc='upper right')
+        plt.legend(loc="upper right")
 
-        plt.xlabel('Time (s)')
-        plt.title(f'{mode} Mode Response')
+        plt.xlabel("Time (s)")
+        plt.title(f"{mode} Mode Response")
 
         # # Move left y-axis and bottom x-axis to left, passing through (0,0)
-        ax.spines['left'].set_position('zero')
-        ax.spines['bottom'].set_position('zero')
+        ax.spines["left"].set_position("zero")
+        ax.spines["bottom"].set_position("zero")
         # # Eliminate upper and right axes
-        ax.spines['right'].set_color('none')
-        ax.spines['top'].set_color('none')
+        ax.spines["right"].set_color("none")
+        ax.spines["top"].set_color("none")
         # # Show ticks in the left and lower axes only
-        ax.xaxis.set_ticks_position('bottom')
-        ax.yaxis.set_ticks_position('left')
+        ax.xaxis.set_ticks_position("bottom")
+        ax.yaxis.set_ticks_position("left")
 
         plt.grid(True)
         # plt.show()
@@ -127,6 +147,6 @@ class PlotLateralModes:
         canvas.print_png(buf)
 
         # Convert the rendered plot to a binary data payload
-        data = base64.b64encode(buf.getvalue()).decode('utf-8')
+        data = base64.b64encode(buf.getvalue()).decode("utf-8")
 
         return data
