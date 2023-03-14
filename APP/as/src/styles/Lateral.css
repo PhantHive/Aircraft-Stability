@@ -110,4 +110,25 @@
 }
 
 
+.plot-images {
+    position: relative;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.rolling-curve {
+    width: 30vw;
+    height: 30vh;
+}
+
+.spiral-curve {
+    width: 30vw;
+    height: 30vh;
+}
+
 
