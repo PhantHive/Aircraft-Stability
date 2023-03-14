@@ -12,7 +12,7 @@ class PlotLateralModes:
         self.eigenvectors = eigenvectors
 
     def plot_modes(self, mode):
-        t = np.linspace(0, 10, 1000)
+
 
         # extract eigenvalue and eigenvector components for selected mode
         print(self.eigenvectors)
@@ -20,12 +20,14 @@ class PlotLateralModes:
 
         # calculate response for selected mode
         if mode == 'Rolling':
+
+            t = np.linspace(0, 10, 1000)
             lambda_roll = self.eigenvalues[2].real
             # initial conditions
-            v0 = self.eigenvectors[0][2].real  # good
-            p0 = self.eigenvectors[1][2].real  # good
-            r0 = self.eigenvectors[2][2].real  # good
-            phi0 = self.eigenvectors[3][2].real  # good
+            v0 = self.eigenvectors[0][2].real
+            p0 = self.eigenvectors[1][2].real
+            r0 = self.eigenvectors[2][2].real
+            phi0 = self.eigenvectors[3][2].real
             # calculate side velocity
             v = v0 * np.exp(lambda_roll * t)
             # calculate roll rate
@@ -36,12 +38,15 @@ class PlotLateralModes:
             phi = phi0 * np.exp(lambda_roll * t)
 
         elif mode == 'Spiral':
+            t = np.linspace(0, 6000, 1000)
+            # plot spiral mode
             lambda_spiral = self.eigenvalues[3].real
             # initial conditions
             v0 = self.eigenvectors[0][3].real
             p0 = self.eigenvectors[1][3].real
             r0 = self.eigenvectors[2][3].real
             phi0 = self.eigenvectors[3][3].real
+
             # calculate side velocity
             v = v0 * np.exp(lambda_spiral * t)
             # calculate roll rate
@@ -52,8 +57,42 @@ class PlotLateralModes:
             phi = phi0 * np.exp(lambda_spiral * t)
 
 
+        elif mode == 'Dutch Roll':
 
-        fig = plt.figure()
+            t = np.linspace(0, 50, 1000)
+
+            # plot dutch roll mode
+
+            wn_dutch_roll = self.eigenvalues[0].real
+
+            zeta_dutch_roll = self.eigenvalues[0].imag / wn_dutch_roll
+
+            print("wn_dutch_roll = ", wn_dutch_roll)
+            print("zeta_dutch_roll = ", zeta_dutch_roll)
+
+            # initial conditions
+
+            v0 = self.eigenvectors[0][1].real  # good
+
+            p0 = self.eigenvectors[1][1].real  # good
+
+            r0 = self.eigenvectors[2][1].real  # good
+
+            phi0 = self.eigenvectors[3][1].real  # good
+
+            # calculate side velocity
+            v = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (v0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((v0 * wn_dutch_roll * zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+
+            # calculate roll rate
+            p = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (p0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((p0 * wn_dutch_roll * zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+
+            # calculate yaw rate
+            r = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (r0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((r0 * wn_dutch_roll * zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+
+            # calculate side angle
+            phi = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (phi0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((phi0 * wn_dutch_roll * zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+
+        fig = plt.figure(figsize=(5, 5))
         ax = fig.add_subplot(111)
 
         # plot all curves on the same graph
@@ -76,8 +115,6 @@ class PlotLateralModes:
         # # Show ticks in the left and lower axes only
         ax.xaxis.set_ticks_position('bottom')
         ax.yaxis.set_ticks_position('left')
-
-        # limit y axis between -1 and 1
 
         plt.grid(True)
         plt.show()

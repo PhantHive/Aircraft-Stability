@@ -43,25 +43,25 @@ def replacer(data_file):
     return data_file
 
 
-# collect sys arg as a string
-data_str1 = sys.argv[1] # latgitudinalSD.json
-data_str2 = sys.argv[2] # steadyConditions.json
-
-
-data_str1 = data_str1.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
-data_str2 = data_str2.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
-
-# remove any extra spaces
-data_str1 = replacer(data_str1)
-data_str2 = replacer(data_str2)
-
-# match exactly if there is a ',n'
-data_str1 = re.sub(r',n', ',', data_str1)
-data_str2 = re.sub(r',n', ',', data_str2)
-
-# match exactly if there is a 'r,'
-data_str1 = re.sub(r',r', ',', data_str1)
-data_str2 = re.sub(r',r', ',', data_str2)
+# # collect sys arg as a string
+# data_str1 = sys.argv[1] # latgitudinalSD.json
+# data_str2 = sys.argv[2] # steadyConditions.json
+#
+#
+# data_str1 = data_str1.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
+# data_str2 = data_str2.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
+#
+# # remove any extra spaces
+# data_str1 = replacer(data_str1)
+# data_str2 = replacer(data_str2)
+#
+# # match exactly if there is a ',n'
+# data_str1 = re.sub(r',n', ',', data_str1)
+# data_str2 = re.sub(r',n', ',', data_str2)
+#
+# # match exactly if there is a 'r,'
+# data_str1 = re.sub(r',r', ',', data_str1)
+# data_str2 = re.sub(r',r', ',', data_str2)
 
 
 # do something with file1 and file2
@@ -69,7 +69,7 @@ data_str2 = re.sub(r',r', ',', data_str2)
 # print(f"Contents of file2: {data_str2}")
 
 
-data = [data_str2, data_str1]
+# data = [data_str2, data_str1]
 
 # Example to use the class
 # (the values are from a Business JET aircraft)
@@ -82,7 +82,7 @@ e = 0.94  # Oswald factor
 
 # CAUTION
 # IF YOU WANT TO USE THE DEFAULT FILES, JUST PUT "None" FOR THE LAST ARGUMENT
-airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral", data)
+airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral", None)
 
 print("--------------------------------")
 
@@ -133,20 +133,23 @@ print("Control matrix (Rudder/Throttle) for lateral stability")
 airplane.get_lateral_control_matrix()
 print(airplane.control_matrix)
 #
-print("--------------------------------")
-print("Plotting the Rolling mode")
-airplane.lat_plot_stability("Rolling")
-print("--------------------------------")
-print("Plotting the Spiral mode")
-airplane.lat_plot_stability("Spiral")
-print("--------------------------------")
+# print("--------------------------------")
+# print("Plotting the Rolling mode")
+# airplane.lat_plot_stability("Rolling")
+# print("--------------------------------")
+# print("Plotting the Spiral mode")
+# airplane.lat_plot_stability("Spiral")
+# print("--------------------------------")
+# print("Plotting the Dutch roll mode")
+# airplane.lat_plot_stability("Dutch Roll")
+# print("--------------------------------")
 
 
 #
-# data = airplane.lat_plot_stability("phugoid")
-# print(f"ImageDataPhugoid<{data}>Phugoid")
-# data2 = airplane.lat_plot_stability("short_period")
-# print(f"ImageDataShort<{data2}>Short")
+data = airplane.lat_plot_stability("Rolling")
+print(f"ImageDataRolling<{data}>Rolling")
+data2 = airplane.lat_plot_stability("Spiral")
+print(f"ImageDataSpiral<{data2}>Spiral")
 
 
 
