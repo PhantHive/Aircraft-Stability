@@ -1,7 +1,8 @@
+import base64
+import io
+
 import numpy as np
 from matplotlib import pyplot as plt
-import io
-import base64
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 
