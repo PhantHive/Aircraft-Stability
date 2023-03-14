@@ -43,7 +43,7 @@ def replacer(data_file):
     return data_file
 
 
-# # collect sys arg as a string
+# # # collect sys arg as a string
 data_str1 = sys.argv[1] # latgitudinalSD.json
 data_str2 = sys.argv[2] # steadyConditions.json
 
@@ -150,6 +150,8 @@ data = airplane.lat_plot_stability("Rolling")
 print(f"ImageDataRolling<{data}>Rolling")
 data2 = airplane.lat_plot_stability("Spiral")
 print(f"ImageDataSpiral<{data2}>Spiral")
+data3 = airplane.lat_plot_stability("Dutch Roll")
+print(f"ImageDataDutchRoll<{data3}>DutchRoll")
 
 
 
