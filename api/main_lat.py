@@ -1,9 +1,10 @@
+import json
+from calculation.src.airplane import Airplane
 import os
 import re
 import sys
 sys.path.append("api/calculation/src/")
-from calculation.src.airplane import Airplane
-import json
+
 
 def process_data():
 
@@ -38,18 +39,21 @@ def write_matrix(aircraft_matrix, control_matrix):
 
         json.dump(matrix, f)
 
+
 def replacer(data_file):
     data_file = re.sub(r'\s+', '', data_file)
     return data_file
 
 
 # # collect sys arg as a string
-data_str1 = sys.argv[1] # latgitudinalSD.json
-data_str2 = sys.argv[2] # steadyConditions.json
+data_str1 = sys.argv[1]  # latgitudinalSD.json
+data_str2 = sys.argv[2]  # steadyConditions.json
 
 
-data_str1 = data_str1.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
-data_str2 = data_str2.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
+data_str1 = data_str1.replace('\\r', '').replace(
+    '\\n', ''). replace(' ', '').replace('\\', '')
+data_str2 = data_str2.replace('\\r', '').replace(
+    '\\n', ''). replace(' ', '').replace('\\', '')
 
 # remove any extra spaces
 data_str1 = replacer(data_str1)
@@ -74,7 +78,7 @@ data = [data_str2, data_str1]
 # Example to use the class
 # (the values are from a Business JET aircraft)
 S = 21.55  # Wing area
-A = 5.09 # Aspect ratio
+A = 5.09  # Aspect ratio
 lambda_ = 0.5  # Taper ratio
 b = 10.48  # Wingspan
 c_mean = 2.13  # Mean chord
@@ -82,7 +86,8 @@ e = 0.94  # Oswald factor
 
 # CAUTION
 # IF YOU WANT TO USE THE DEFAULT FILES, JUST PUT "None" FOR THE LAST ARGUMENT
-airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral", data)
+airplane = Airplane("Business JET", S, A, lambda_,
+                    b, c_mean, e, "lateral", data)
 
 print("--------------------------------")
 
@@ -152,13 +157,6 @@ data2 = airplane.lat_plot_stability("Spiral")
 print(f"ImageDataSpiral<{data2}>Spiral")
 
 
-
 # write_matrix(airplane.aircraft_matrix, airplane.control_matrix)
 
 # process_data()
-
-
-
-
-
-

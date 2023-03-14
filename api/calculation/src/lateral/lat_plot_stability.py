@@ -13,10 +13,8 @@ class PlotLateralModes:
 
     def plot_modes(self, mode):
 
-
         # extract eigenvalue and eigenvector components for selected mode
         print(self.eigenvectors)
-
 
         # calculate response for selected mode
         if mode == 'Rolling':
@@ -56,7 +54,6 @@ class PlotLateralModes:
             # calculate side angle
             phi = phi0 * np.exp(lambda_spiral * t)
 
-
         elif mode == 'Dutch Roll':
 
             t = np.linspace(0, 50, 1000)
@@ -81,16 +78,20 @@ class PlotLateralModes:
             phi0 = self.eigenvectors[3][1].real  # good
 
             # calculate side velocity
-            v = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (v0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((v0 * wn_dutch_roll * zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+            v = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (v0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((v0 * wn_dutch_roll *
+                                                                                                                                          zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
 
             # calculate roll rate
-            p = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (p0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((p0 * wn_dutch_roll * zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+            p = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (p0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((p0 * wn_dutch_roll *
+                                                                                                                                          zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
 
             # calculate yaw rate
-            r = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (r0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((r0 * wn_dutch_roll * zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+            r = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (r0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((r0 * wn_dutch_roll *
+                                                                                                                                          zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
 
             # calculate side angle
-            phi = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (phi0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((phi0 * wn_dutch_roll * zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
+            phi = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (phi0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((phi0 * wn_dutch_roll *
+                                                                                                                                              zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))
 
         fig = plt.figure(figsize=(5, 5))
         ax = fig.add_subplot(111)
@@ -122,7 +123,8 @@ class PlotLateralModes:
         # Render the plot as a bitmap or vector graphics format
         canvas = FigureCanvas(fig)
         buf = io.BytesIO()
-        canvas.print_png(buf)  # Or use print_svg or print_pdf for other formats
+        # Or use print_svg or print_pdf for other formats
+        canvas.print_png(buf)
 
         # Convert the rendered plot to a binary data payload
         data = base64.b64encode(buf.getvalue()).decode('utf-8')
