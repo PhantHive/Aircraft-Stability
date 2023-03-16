@@ -1,6 +1,6 @@
 import numpy as np
 from data.flight_data import FlightData
-
+from control import tf
 
 class LatAircraftMatrix(FlightData):
     '''
@@ -18,7 +18,7 @@ class LatAircraftMatrix(FlightData):
 
         FlightData.__init__(self, "lateral", user_file)
 
-        self.tf = None
+        self.tf = {}
         self.damping_ratio = None
         self.natural_frequency = None
         self.characteristic_equation = None
@@ -149,13 +149,17 @@ class LatAircraftMatrix(FlightData):
         damping_ratio_p = -np.real(self.eigenvalues[-1]) / np.abs(self.eigenvalues[-1])
         self.damping_ratio = np.array([damping_ratio_sp, damping_ratio_p])
 
-    def set_transfer_functions(self):
-        # transfer function for short period mode
-        transfer_function_sp = np.array([self.eigenvalues[0], 1])
-        # transfer function for phugoid mode
-        transfer_function_p = np.array([self.eigenvalues[-1], 1])
+    def set_lateral_transfer_functions(self):
+        # calculate transfer functions
+        # rolling mode
+        self.tf["roll_mode"] = tf([self.Nv, self.Np, self.Nr], [1, 0, 0])
 
-        self.tf = np.array([transfer_function_sp, transfer_function_p])
+        # spiral mode
+        self.tf["spiral_mode"] = tf([self.Lv, self.Lp, self.Lr], [1, 0, 0])
+
+        # dutch roll mode
+        self.tf["dutch_roll_mode"] = tf([self.Yv, self.Yp, -(self.cruise_conditions["V"]["value"] - self.Yr), self.cruise_conditions["g"]["value"]*np.cos((np.pi * self.cruise_conditions["theta"]["value"] / 180))], [1, 0, 0, 0])
+
 
         return self.tf
 

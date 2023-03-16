@@ -15,7 +15,7 @@ class PlotLateralModes:
 
 
         # extract eigenvalue and eigenvector components for selected mode
-        print(self.eigenvectors)
+        # print(self.eigenvectors)
 
 
         # calculate response for selected mode
@@ -67,8 +67,8 @@ class PlotLateralModes:
 
             zeta_dutch_roll = -self.eigenvalues[0].real / (2 * wn_dutch_roll)
 
-            print("wn_dutch_roll = ", wn_dutch_roll)
-            print("zeta_dutch_roll = ", zeta_dutch_roll)
+            # print("wn_dutch_roll = ", wn_dutch_roll)
+            # print("zeta_dutch_roll = ", zeta_dutch_roll)
 
             # initial conditions
 
@@ -117,7 +117,7 @@ class PlotLateralModes:
         ax.yaxis.set_ticks_position('left')
 
         plt.grid(True)
-        # plt.show()
+        plt.show()
 
         # Render the plot as a bitmap or vector graphics format
         canvas = FigureCanvas(fig)

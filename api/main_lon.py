@@ -1,7 +1,6 @@
 import json
 import os
 import re
-import shlex
 import sys
 
 from calculation.src.airplane import Airplane
