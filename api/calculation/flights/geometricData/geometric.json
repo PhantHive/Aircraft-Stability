@@ -1,0 +1,27 @@
+{
+    "S": {
+      "value": 26.01,
+      "unit": "m2",
+      "Desc": "Wing area S"
+    },
+    "b": {
+      "value": 14.02,
+      "unit": "m",
+      "Desc": "Wing span b"
+    },
+    "c": {
+        "value": 1.98,
+        "unit": "m",
+        "Desc": "Mean aerodynamic chord c"
+    },
+    "AR": {
+        "value": 7.56,
+        "unit": "",
+        "Desc": "Aspect ratio AR"
+    },
+    "e": {
+        "value": 0.86,
+        "unit": "",
+        "Desc": "Oswald efficiency factor e"
+    }
+}

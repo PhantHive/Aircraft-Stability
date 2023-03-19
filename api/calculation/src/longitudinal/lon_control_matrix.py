@@ -46,6 +46,7 @@ class LongControlMatrix(FlightData):
         second_part = self.stability_der["C_M_d_E"]["value"]
         self.M_delta_e = first_part * second_part
 
+
     def calculate_X_delta_T(self, wing_area):
         first_part = self.q_mean * wing_area / \
                      (self.cruise_conditions["m"]["value"] * self.cruise_conditions["V"]["value"])

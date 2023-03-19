@@ -85,7 +85,7 @@ class PlotLongitudinalModes:
 
 
         plt.grid(True)
-        plt.show()
+        # plt.show()
 
         # Render the plot as a bitmap or vector graphics format
         canvas = FigureCanvas(fig)

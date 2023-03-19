@@ -29,8 +29,9 @@ class Longitudinal extends Component {
         console.log(this.imgShort);
 
         // remove the image data from the text file and save it
-        dataToTxt = dataToTxt.replace(/ImageDataPhugoid<.+>/s, '');
-        dataToTxt = dataToTxt.replace(/ImageDataShort<.+>/s, '');
+        // remove the image data and trailing text from the text file and save it
+        dataToTxt = dataToTxt.replace(/ImageDataPhugoid<.+?>Phugoid/, '');
+        dataToTxt = dataToTxt.replace(/ImageDataShort<.+?>Short/, '');
         // remove last trailing characters " and } from the text file
         dataToTxt = dataToTxt.substring(0, dataToTxt.length - 3);
 
