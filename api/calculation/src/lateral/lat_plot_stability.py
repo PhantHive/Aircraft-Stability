@@ -117,7 +117,7 @@ class PlotLateralModes:
         ax.yaxis.set_ticks_position('left')
 
         plt.grid(True)
-        plt.show()
+        # plt.show()
 
         # Render the plot as a bitmap or vector graphics format
         canvas = FigureCanvas(fig)
