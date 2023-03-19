@@ -15,7 +15,7 @@ class PlotLateralModes:
 
 
         # extract eigenvalue and eigenvector components for selected mode
-        print(self.eigenvectors)
+        # print(self.eigenvectors)
 
 
         # calculate response for selected mode
@@ -67,8 +67,8 @@ class PlotLateralModes:
 
             zeta_dutch_roll = -self.eigenvalues[0].real / (2 * wn_dutch_roll)
 
-            print("wn_dutch_roll = ", wn_dutch_roll)
-            print("zeta_dutch_roll = ", zeta_dutch_roll)
+            # print("wn_dutch_roll = ", wn_dutch_roll)
+            # print("zeta_dutch_roll = ", zeta_dutch_roll)
 
             # initial conditions
 

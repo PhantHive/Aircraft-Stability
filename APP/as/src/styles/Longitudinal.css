@@ -116,18 +116,23 @@
     margin-top: 50px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    width: 105%;
+    height: 105%;
+    max-width: 1000px; /* set maximum width for parent container */
+    margin-left: auto; /* center parent container horizontally */
+    margin-right: auto; /* center parent container horizontally */
 }
 
-.phugoid-curve {
-    width: 30vw;
-    height: 30vh;
-}
-
+.phugoid-curve,
 .short-curve {
-    width: 30vw;
-    height: 30vh;
+    width: calc((100% - 2*2% - 2*1%) / 3); /* set width to account for margin and keep within parent width */
+    height: calc((105% - 2*2%) / 3); /* set height to account for margin */
+    margin-right: 1%; /* add margin between items */
+}
+
+/* apply 2% margin to all items except for the last one */
+.short-curve:last-child {
+    margin-right: 0;
 }

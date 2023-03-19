@@ -43,7 +43,7 @@ def replacer(data_file):
     return data_file
 
 
-# # # collect sys arg as a string
+# # collect sys arg as a string
 data_str1 = sys.argv[1] # latgitudinalSD.json
 data_str2 = sys.argv[2] # steadyConditions.json
 
@@ -84,13 +84,14 @@ e = 0.94  # Oswald factor
 # IF YOU WANT TO USE THE DEFAULT FILES, JUST PUT "None" FOR THE LAST ARGUMENT
 airplane = Airplane("Business JET", S, A, lambda_, b, c_mean, e, "lateral", data)
 
-print("--------------------------------")
+
+print("================================")
 
 print("Exemple to get the aircraft matrix:\n")
 airplane.get_lateral_aircraft_matrix()
 print(airplane.aircraft_matrix)
 
-print("--------------------------------")
+print("================================")
 
 print("Eigen values:")
 airplane.set_lateral_eigenvalues()
@@ -102,8 +103,8 @@ print("\nLateral Characteristic equation:")
 for i in range(len(poly) - 1):
     print(abs(poly[-1 - i]), "* s^", len(poly) - i - 1, " + ", end="")
 print(abs(poly[0]))
+print("================================")
 
-print("--------------------------------")
 #
 # airplane.set_natural_frequency()
 # airplane.set_damping_ratio()
@@ -144,8 +145,15 @@ print(airplane.control_matrix)
 # airplane.lat_plot_stability("Dutch Roll")
 # print("--------------------------------")
 
+print("================================")
+print("Transfer functions:\n")
+TFs = airplane.set_lateral_transfer_functions()
+for tf in TFs:
+    print(f"{tf} = {TFs[tf]}", end="\n")
+print("================================")
 
-#
+
+# #
 data = airplane.lat_plot_stability("Rolling")
 print(f"ImageDataRolling<{data}>Rolling")
 data2 = airplane.lat_plot_stability("Spiral")

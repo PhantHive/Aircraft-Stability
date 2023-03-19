@@ -29,10 +29,10 @@ class Lateral extends Component {
         console.log(this.imgRolling);
         console.log(this.imgSpiral);
 
-        // remove the image data from the text file and save it
-        dataToTxt = dataToTxt.replace(/ImageDataRolling<.+>/s, '');
-        dataToTxt = dataToTxt.replace(/ImageDataSpiral<.+>/s, '');
-        dataToTxt = dataToTxt.replace(/ImageDataDutchRoll<.+>/s, '');
+        // remove the image data and trailing text from the text file and save it
+        dataToTxt = dataToTxt.replace(/ImageDataRolling<.+?>Rolling/, '');
+        dataToTxt = dataToTxt.replace(/ImageDataSpiral<.+?>Spiral/, '');
+        dataToTxt = dataToTxt.replace(/ImageDataDutchRoll<.+?>DutchRoll/, '');
         // remove last trailing characters " and } from the text file
         dataToTxt = dataToTxt.substring(0, dataToTxt.length - 3);
 

@@ -8,9 +8,9 @@ class FlightData:
     '''
 
     def __init__(self, axis="longitudinal", user_file=None):
-        print(axis)
+        # print(axis)
         if user_file is None:
-            print("No user file provided, using default files")
+            # print("No user file provided, using default files")
             if axis == "longitudinal":
                 user_file = [os.path.abspath('calculation/flights/longitudinal/longitudinalSD.json'), os.path.abspath('calculation/flights/longitudinal/steadyConditions.json')]
             elif axis == "lateral":

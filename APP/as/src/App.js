@@ -10,7 +10,7 @@ function App() {
             <Router>
                 <Routes>
                       <Route exact path="/" element={<Home />} />
-                      <Route path="/longitudinal" element={<Longitudinal />} />
+                      <Route path="/longitudinal" element={<Longitudinal />} />ah si
                       <Route path="/lateral" element={<Lateral />} />
                 </Routes>
             </Router>
