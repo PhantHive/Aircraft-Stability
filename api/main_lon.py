@@ -161,11 +161,12 @@ print(f"ImageDataPhugoid<{data}>Phugoid")
 data2 = airplane_long.lon_plot_stability("short_period")
 print(f"ImageDataShort<{data2}>Short")
 
-# print("--------------------------------")
-# print("Plotting the longitudinal TF")
-# tf = airplane_long.set_transfer_functions()
-# print(f"TF = {tf}")
-# print("--------------------------------")
+print("================================")
+print("Transfer functions:\n")
+TFs = airplane_long.set_long_transfer_functions()
+for tf in TFs:
+    print(f"{tf} = {TFs[tf]}", end="\n")
+print("================================")
 
 
 

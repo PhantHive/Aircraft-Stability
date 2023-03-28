@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 sys.path.append("data/")
 import numpy as np
 from data.flight_data import FlightData
+from control import tf
 
 class LongAircraftMatrix(FlightData):
     '''
@@ -22,6 +23,7 @@ class LongAircraftMatrix(FlightData):
 
         FlightData.__init__(self, "longitudinal", user_file=user_file)
 
+        self.tf = {}
         self.aircraft_matrix = None
         self.damping_ratio = None
         self.natural_frequency = None
@@ -180,6 +182,20 @@ class LongAircraftMatrix(FlightData):
         damping_ratio_sp = -np.real(self.eigenvalues[0]) / np.abs(self.eigenvalues[0])
         damping_ratio_p = -np.real(self.eigenvalues[-1]) / np.abs(self.eigenvalues[-1])
         self.damping_ratio = np.array([damping_ratio_sp, damping_ratio_p])
+
+    def set_long_transfer_functions(self):
+
+        # short period mode
+        self.tf["short_period"] = tf([self.natural_frequency[0] ** 2], [1, 2 * self.damping_ratio[0] * self.natural_frequency[0],
+                                                              self.natural_frequency[0] ** 2])
+
+        # phugoid mode
+        self.tf["phugoid"] = tf([self.natural_frequency[1] ** 2], [1, 2 * self.damping_ratio[1] * self.natural_frequency[1],
+                                                                self.natural_frequency[1] ** 2])
+
+
+        return self.tf
+
 
     def get_long_aircraft_matrix(self):
         return self.aircraft_matrix
