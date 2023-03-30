@@ -146,10 +146,17 @@ print(airplane.control_matrix)
 # print("--------------------------------")
 
 print("================================")
-print("Transfer functions:\n")
 TFs = airplane.set_lateral_transfer_functions()
-for tf in TFs:
-    print(f"{tf} = {TFs[tf]}", end="\n")
+
+print(f"Transfer functions for Throttle:\n")
+for i, tf in enumerate(TFs["throttle"]):
+    print(f"{i}:\n {tf}")
+    print("\n")
+
+print(f"Transfer functions for Rudder:\n")
+for i, tf in enumerate(TFs["rudder"]):
+    print(f"{i}:\n {tf}")
+    print("\n")
 print("================================")
 
 

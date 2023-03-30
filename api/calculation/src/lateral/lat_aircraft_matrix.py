@@ -1,4 +1,5 @@
 import numpy as np
+import sympy
 from data.flight_data import FlightData
 from control import tf
 
@@ -150,16 +151,52 @@ class LatAircraftMatrix(FlightData):
         self.damping_ratio = np.array([damping_ratio_sp, damping_ratio_p])
 
     def set_lateral_transfer_functions(self):
-        # calculate transfer functions
-        # rolling mode
-        self.tf["roll_mode"] = tf([self.Nv, self.Np, self.Nr], [1, 0, 0])
 
-        # spiral mode
-        self.tf["spiral_mode"] = tf([self.Lv, self.Lp, self.Lr], [1, 0, 0])
+        s = sympy.symbols('s')
 
-        # dutch roll mode
-        self.tf["dutch_roll_mode"] = tf([self.Yv, self.Yp, -(self.cruise_conditions["V"]["value"] - self.Yr), self.cruise_conditions["g"]["value"]*np.cos((np.pi * self.cruise_conditions["theta"]["value"] / 180))], [1, 0, 0, 0])
+        # (sI-A)^-1 * B
+        tfs = (s * sympy.eye(4) - self.aircraft_matrix).inv() * self.control_matrix
 
+        # Display transfer functions nicely.
+        tfs_simplified = sympy.Matrix(tfs).applyfunc(lambda x: sympy.simplify(x))
+
+        # Set display settings for powers
+        sympy.init_printing(use_unicode=True, pretty_print=True)
+
+        # separete throttle and elevator transfer functions (throttle is pair 0/2/4/6 and elevator is pair 1/3/5/7)
+        elevator_tfs = tfs_simplified[0::2]
+        throttle_tfs = tfs_simplified[1::2]
+
+        elevator_formatted = []
+        throttle_formatted = []
+
+        for tf in elevator_tfs:
+            num, den = sympy.fraction(tf)
+            num = str(num).replace('**', '^')
+            den = str(den).replace('**', '^')
+            if num == '0':
+                tf_formatted = '0'
+            else:
+                tf_formatted = f"{num}\n" \
+                               f"{'-' * len(str(den))}\n" \
+                               f"{den}"
+            elevator_formatted.append(tf_formatted)
+
+        for tf in throttle_tfs:
+            num, den = sympy.fraction(tf)
+            # replace '**' with '^'
+            num = str(num).replace('**', '^')
+            den = str(den).replace('**', '^')
+            if num == '0':
+                tf_formatted = '0'
+            else:
+                tf_formatted = f"{num}\n" \
+                               f"{'-' * len(str(den))}\n" \
+                               f"{den}"
+            throttle_formatted.append(tf_formatted)
+
+        self.tf["rudder"] = elevator_formatted
+        self.tf["throttle"] = throttle_formatted
 
         return self.tf
 
