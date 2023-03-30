@@ -3,6 +3,8 @@ import os
 import re
 import sys
 
+import sympy
+
 from calculation.src.airplane import Airplane
 
 sys.path.append("api/calculation/src/")
@@ -54,7 +56,7 @@ def replacer(data_file):
 
 
 
-# collect sys arg as a string
+# # collect sys arg as a string
 # data_str1 = sys.argv[1] # longitudinalSD.json
 # data_str2 = sys.argv[2] # steadyConditions.json
 #
@@ -152,6 +154,19 @@ airplane_long.get_longitudinal_control_matrix()
 print("Control matrix (Elevator/Throttle) for longitudinal stability")
 print(airplane_long.get_long_stability_control_matrix())
 
+
+print("================================")
+TFs = airplane_long.set_long_transfer_functions()
+
+print(f"Transfer functions for Throttle:\n")
+for i, tf in enumerate(TFs["throttle"]):
+    print(f"{i}:\n {tf}")
+    print("\n")
+
+print(f"Transfer functions for Elevator:\n")
+for i, tf in enumerate(TFs["elevator"]):
+    print(f"{i}:\n {tf}")
+    print("\n")
 print("================================")
 
 # # short_period or phugoid
@@ -161,12 +176,7 @@ print(f"ImageDataPhugoid<{data}>Phugoid")
 data2 = airplane_long.lon_plot_stability("short_period")
 print(f"ImageDataShort<{data2}>Short")
 
-print("================================")
-print("Transfer functions:\n")
-TFs = airplane_long.set_long_transfer_functions()
-for tf in TFs:
-    print(f"{tf} = {TFs[tf]}", end="\n")
-print("================================")
+
 
 
 

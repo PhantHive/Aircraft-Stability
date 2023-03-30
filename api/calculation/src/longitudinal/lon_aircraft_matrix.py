@@ -1,11 +1,14 @@
+import signal
 import sys
-
+import sympy
+from control import tf
 from matplotlib import pyplot as plt
+from scipy.signal import ss2tf, ZerosPolesGain, tf2zpk
 
 sys.path.append("data/")
 import numpy as np
 from data.flight_data import FlightData
-from control import tf
+
 
 class LongAircraftMatrix(FlightData):
     '''
@@ -185,14 +188,55 @@ class LongAircraftMatrix(FlightData):
 
     def set_long_transfer_functions(self):
 
-        # short period mode
-        self.tf["short_period"] = tf([self.natural_frequency[0] ** 2], [1, 2 * self.damping_ratio[0] * self.natural_frequency[0],
-                                                              self.natural_frequency[0] ** 2])
 
-        # phugoid mode
-        self.tf["phugoid"] = tf([self.natural_frequency[1] ** 2], [1, 2 * self.damping_ratio[1] * self.natural_frequency[1],
-                                                                self.natural_frequency[1] ** 2])
+        s = sympy.symbols('s')
 
+        # (sI-A)^-1 * B
+        tfs = (s * sympy.eye(4) - self.aircraft_matrix).inv() * self.control_matrix
+
+        # Display transfer functions nicely.
+        tfs_simplified = sympy.Matrix(tfs).applyfunc(lambda x: sympy.simplify(x))
+
+        # Set display settings for powers
+        sympy.init_printing(use_unicode=True, pretty_print=True)
+
+        # separete throttle and elevator transfer functions (throttle is pair 0/2/4/6 and elevator is pair 1/3/5/7)
+        elevator_tfs = tfs_simplified[0::2]
+        throttle_tfs = tfs_simplified[1::2]
+
+        elevator_formatted = []
+        throttle_formatted = []
+
+        for tf in elevator_tfs:
+            num, den = sympy.fraction(tf)
+            num = str(num).replace('**', '^')
+            den = str(den).replace('**', '^')
+            if num == '0':
+                tf_formatted = '0'
+            else:
+                tf_formatted = f"{num}\n" \
+                               f"{'-' * len(str(den))}\n" \
+                                f"{den}"
+            elevator_formatted.append(tf_formatted)
+
+
+
+        for tf in throttle_tfs:
+            num, den = sympy.fraction(tf)
+            # replace '**' with '^'
+            num = str(num).replace('**', '^')
+            den = str(den).replace('**', '^')
+            if num == '0':
+                tf_formatted = '0'
+            else:
+                tf_formatted = f"{num}\n" \
+                                f"{'-' * len(str(den))}\n" \
+                                f"{den}"
+            throttle_formatted.append(tf_formatted)
+
+
+        self.tf["elevator"] = elevator_formatted
+        self.tf["throttle"] = throttle_formatted
 
         return self.tf
 

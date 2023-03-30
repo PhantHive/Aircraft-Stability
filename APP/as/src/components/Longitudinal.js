@@ -25,6 +25,8 @@ class Longitudinal extends Component {
         // from formData get what is between "ImageData<" and ">"
         this.imgPhugoid = dataToTxt.substring(dataToTxt.indexOf('ImageDataPhugoid<') + 17, dataToTxt.indexOf('>Phugoid'));
         this.imgShort = dataToTxt.substring(dataToTxt.indexOf('ImageDataShort<') + 15, dataToTxt.indexOf('>Short'));
+
+        console.log(dataToTxt)
         console.log(this.imgPhugoid);
         console.log(this.imgShort);
 
@@ -33,7 +35,7 @@ class Longitudinal extends Component {
         dataToTxt = dataToTxt.replace(/ImageDataPhugoid<.+?>Phugoid/, '');
         dataToTxt = dataToTxt.replace(/ImageDataShort<.+?>Short/, '');
         // remove last trailing characters " and } from the text file
-        dataToTxt = dataToTxt.substring(0, dataToTxt.length - 3);
+        dataToTxt = dataToTxt.substring(0, dataToTxt.length - 3);   
 
         let blob = new Blob([dataToTxt], { type: 'text/plain' });
         let url = URL.createObjectURL(blob);
