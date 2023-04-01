@@ -55,9 +55,21 @@
     "value": 0.0,
     "unit": "deg"
   },
+  "Ixx": {
+    "value": 20602.0,
+    "unit": "kg*m^2"
+  },
   "Iyy": {
     "value": 27467.0,
     "unit": "kg*m^2"
+  },
+  "Izz": {
+    "value": 46308.0,
+    "unit": "kg*m^2"
+  },
+  "Ixz": {
+      "value": 5929.0,
+      "unit": "kg*m^2"
   },
   "epsilon": {
     "value": -1111,

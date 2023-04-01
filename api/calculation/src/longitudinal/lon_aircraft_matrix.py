@@ -1,7 +1,9 @@
 import signal
 import sys
+
+import control
 import sympy
-from control import tf
+from control import tf, bode
 from matplotlib import pyplot as plt
 from scipy.signal import ss2tf, ZerosPolesGain, tf2zpk
 
@@ -190,9 +192,12 @@ class LongAircraftMatrix(FlightData):
 
 
         s = sympy.symbols('s')
+        print(self.aircraft_matrix)
+        # # (sI-A)^-1 * B
+        tfs = (s * sympy.eye(4) - self.aircraft_matrix).inv() @ self.control_matrix
 
-        # (sI-A)^-1 * B
-        tfs = (s * sympy.eye(4) - self.aircraft_matrix).inv() * self.control_matrix
+        print(tfs)
+
 
         # Display transfer functions nicely.
         tfs_simplified = sympy.Matrix(tfs).applyfunc(lambda x: sympy.simplify(x))
@@ -200,9 +205,10 @@ class LongAircraftMatrix(FlightData):
         # Set display settings for powers
         sympy.init_printing(use_unicode=True, pretty_print=True)
 
-        # separete throttle and elevator transfer functions (throttle is pair 0/2/4/6 and elevator is pair 1/3/5/7)
-        elevator_tfs = tfs_simplified[0::2]
+        # separete throttle and elevator transfer functions (elevator is pair 0/2/4/6 and throttle is pair 1/3/5/7)
         throttle_tfs = tfs_simplified[1::2]
+        elevator_tfs = tfs_simplified[::2]
+
 
         elevator_formatted = []
         throttle_formatted = []
@@ -239,6 +245,8 @@ class LongAircraftMatrix(FlightData):
         self.tf["throttle"] = throttle_formatted
 
         return self.tf
+
+
 
 
     def get_long_aircraft_matrix(self):

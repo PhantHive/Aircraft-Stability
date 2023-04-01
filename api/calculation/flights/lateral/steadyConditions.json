@@ -1,10 +1,10 @@
 {
   "h": {
-    "value": 12192.0,
+    "value": 6096.0,
     "unit": "m"
   },
   "V": {
-    "value": 206.3,
+    "value": 137.2,
     "unit": "m/s"
   },
   "X_mean_cg": {
@@ -13,67 +13,72 @@
   },
   "q_mean": {
     "value": -1111,
-      "unit": "Pa"
+    "unit": "Pa"
   },
   "C_L_0": {
-      "value": 1.64,
-      "unit": ""
+    "value": 0.3,
+    "unit": ""
   },
   "rho": {
-      "value": 0.303,
-      "unit": "kg/m^3"
+    "value": 0.654,
+    "unit": "kg/m^3"
   },
   "Mach": {
-      "value": 0.7,
-      "unit": ""
+    "value": 0.4,
+    "unit": ""
   },
   "m": {
-      "value": 5785.0,
-      "unit": "kg"
+    "value": 4990.0,
+    "unit": "kg"
   },
   "C_mean_D0": {
-      "value": 0.0,
-      "unit": ""
+    "value": 0.0,
+    "unit": ""
   },
   "C_D_0": {
-      "value": 0.256,
-      "unit": ""
+    "value": 0.0298,
+    "unit": ""
   },
   "a": {
-      "value": 303.3,
-      "unit": "m/s"
+    "value": -1111,
+    "unit": "m/s"
   },
   "g": {
-      "value": 9.81,
-      "unit": "m/s^2"
+    "value": 9.81,
+    "unit": "m/s^2"
   },
   "gamma": {
-      "value": 0.000,
-      "unit": "deg"
+    "value": 0.000,
+    "unit": "deg"
   },
   "theta": {
-      "value": 2.7,
-      "unit": "deg"
+    "value": 0.0,
+    "unit": "deg"
   },
   "Ixx": {
-      "value": 37979.0,
-      "unit": "kg*m^2"
+    "value": 20602.0,
+    "unit": "kg*m^2"
   },
   "Iyy": {
-      "value": 25500.0,
-      "unit": "kg*m^2"
+    "value": 27467.0,
+    "unit": "kg*m^2"
   },
   "Izz": {
-      "value": 63750.0,
+    "value": 46308.0,
+    "unit": "kg*m^2"
+  },
+  "Ixz": {
+      "value": 5929.0,
       "unit": "kg*m^2"
   },
   "epsilon": {
-      "value": 0.0,
-      "unit": ""
+    "value": -1111,
+    "unit": ""
   },
   "C_T": {
-      "value": 0.0,
-      "unit": ""
+    "value": 0.0298,
+    "unit": ""
   }
+
 
 }

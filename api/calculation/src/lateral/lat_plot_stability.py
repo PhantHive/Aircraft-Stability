@@ -14,20 +14,16 @@ class PlotLateralModes:
     def plot_modes(self, mode):
 
 
-        # extract eigenvalue and eigenvector components for selected mode
-        # print(self.eigenvectors)
-
-
         # calculate response for selected mode
         if mode == 'Rolling':
 
-            t = np.linspace(0, 10, 1000)
-            lambda_roll = self.eigenvalues[2].real
+            t = np.linspace(0, 20, 1000)
+            lambda_roll = self.eigenvalues[1]
             # initial conditions
-            v0 = self.eigenvectors[0][2].real
-            p0 = self.eigenvectors[1][2].real
-            r0 = self.eigenvectors[2][2].real
-            phi0 = self.eigenvectors[3][2].real
+            v0 = self.eigenvectors[0][1]
+            p0 = self.eigenvectors[1][1]
+            r0 = self.eigenvectors[2][1]
+            phi0 = self.eigenvectors[3][1]
             # calculate side velocity
             v = v0 * np.exp(lambda_roll * t)
             # calculate roll rate
@@ -37,15 +33,18 @@ class PlotLateralModes:
             # calculate side angle
             phi = phi0 * np.exp(lambda_roll * t)
 
+            print("\nRolling mode parameter:")
+            print("Lambda_roll", lambda_roll)
+
         elif mode == 'Spiral':
-            t = np.linspace(0, 6000, 1000)
+            t = np.linspace(0, 2500, 1000)
             # plot spiral mode
-            lambda_spiral = self.eigenvalues[3].real
+            lambda_spiral = self.eigenvalues[3]
             # initial conditions
-            v0 = self.eigenvectors[0][3].real
-            p0 = self.eigenvectors[1][3].real
-            r0 = self.eigenvectors[2][3].real
-            phi0 = self.eigenvectors[3][3].real
+            v0 = self.eigenvectors[0][3]
+            p0 = self.eigenvectors[1][3]
+            r0 = self.eigenvectors[2][3]
+            phi0 = self.eigenvectors[3][3]
 
             # calculate side velocity
             v = v0 * np.exp(lambda_spiral * t)
@@ -56,29 +55,34 @@ class PlotLateralModes:
             # calculate side angle
             phi = phi0 * np.exp(lambda_spiral * t)
 
+            print("\nSpiral mode parameter:")
+            print("Lambda_spiral", lambda_spiral)
+
 
         elif mode == 'Dutch Roll':
 
-            t = np.linspace(0, 50, 1000)
+            t = np.linspace(0, 100, 1000)
 
             # plot dutch roll mode
+            lambda_dutch = self.eigenvalues[2]
 
-            wn_dutch_roll = self.eigenvalues[0].imag
+            wn_dutch_roll = np.sqrt(lambda_dutch.real ** 2 + lambda_dutch.imag ** 2)
 
-            zeta_dutch_roll = -self.eigenvalues[0].real / (2 * wn_dutch_roll)
+            zeta_dutch_roll = - lambda_dutch.real / wn_dutch_roll
 
-            # print("wn_dutch_roll = ", wn_dutch_roll)
-            # print("zeta_dutch_roll = ", zeta_dutch_roll)
+            print("\nDutch roll mode parameters:")
+            print("(Natural frequency) wn_dutch_roll = ", wn_dutch_roll)
+            print("(Damping factor) zeta_dutch_roll = ", zeta_dutch_roll)
 
             # initial conditions
 
-            v0 = self.eigenvectors[0][1].real  # good
+            v0 = self.eigenvectors[0][2]  # good
 
-            p0 = self.eigenvectors[1][1].real  # good
+            p0 = self.eigenvectors[1][2]  # good
 
-            r0 = self.eigenvectors[2][1].real  # good
+            r0 = self.eigenvectors[2][2]  # good
 
-            phi0 = self.eigenvectors[3][1].real  # good
+            phi0 = self.eigenvectors[3][2]  # good
 
             # calculate side velocity
             v = np.exp(- wn_dutch_roll * zeta_dutch_roll * t) * (v0 * np.cos((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t) + ((v0 * wn_dutch_roll * zeta_dutch_roll)/(wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2))) * np.sin((wn_dutch_roll * np.sqrt(1 - zeta_dutch_roll ** 2)) * t))

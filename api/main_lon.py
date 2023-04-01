@@ -4,6 +4,8 @@ import re
 import sys
 
 import sympy
+from control.matlab import bode
+from matplotlib import pyplot as plt
 
 from calculation.src.airplane import Airplane
 
@@ -113,6 +115,18 @@ print(airplane_long.aircraft_matrix)
 
 print("================================")
 
+# print("Parameters")
+# params = ["Xu", "Xw", "Zu", "Zw", "Zw_dot", "Zq", "Mu", "Mw", "Mw_dot", "Mq"]
+# for param in params:
+#     print(param, " = ", getattr(airplane_long, param))
+# print("--------------------------------")
+
+airplane_long.get_longitudinal_control_matrix()
+print("Control matrix (Elevator/Throttle) for longitudinal stability")
+print(airplane_long.get_long_stability_control_matrix())
+
+print("================================")
+
 print("Eigen values:")
 airplane_long.set_eigenvalues()
 airplane_long.set_eigenvectors()
@@ -142,18 +156,6 @@ print("================================")
 print("Exemple to get a cruise condition")
 print("U0 = ", airplane_long.get_cruise_condition("V"))
 
-print("================================")
-
-# print("Parameters")
-# params = ["Xu", "Xw", "Zu", "Zw", "Zw_dot", "Zq", "Mu", "Mw", "Mw_dot", "Mq"]
-# for param in params:
-#     print(param, " = ", getattr(airplane_long, param))
-# print("--------------------------------")
-
-airplane_long.get_longitudinal_control_matrix()
-print("Control matrix (Elevator/Throttle) for longitudinal stability")
-print(airplane_long.get_long_stability_control_matrix())
-
 
 print("================================")
 TFs = airplane_long.set_long_transfer_functions()
@@ -167,6 +169,8 @@ print(f"Transfer functions for Elevator:\n")
 for i, tf in enumerate(TFs["elevator"]):
     print(f"{i}:\n {tf}")
     print("\n")
+
+
 print("================================")
 
 # # short_period or phugoid
