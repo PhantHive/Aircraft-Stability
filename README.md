@@ -4,7 +4,7 @@
 <div align="center">
 
 <div align="center">
-    <img src="demo3.png" alt="AS-app"/>
+    <img src="aero-demo.gif" alt="AS-app"/>
 </div>
 
 ---
