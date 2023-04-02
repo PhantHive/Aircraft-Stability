@@ -43,9 +43,9 @@ def replacer(data_file):
     return data_file
 
 
-# # collect sys arg as a string
+# collect sys arg as a string
 data_str1 = sys.argv[1] # latgitudinalSD.json
-data_str2 = sys.argv[2] # steadyConditions.json
+data_str2 = sys.argv[2] # flightConditions.json
 
 
 data_str1 = data_str1.replace('\\r', '').replace('\\n', ''). replace(' ', '').replace('\\', '')
@@ -131,14 +131,16 @@ print("================================")
 
 TFs = airplane.set_lateral_transfer_functions()
 
-print(f"Transfer functions for Throttle:\n")
-for i, tf in enumerate(TFs["throttle"]):
-    print(f"{i}:\n {tf}")
+print(f"Transfer functions for Aileron:\n")
+fct_name = ["u(s)/delta_a(s)", "w(s)/delta_a(s)", "q(s)/delta_a(s)", "theta(s)/delta_a(s)"]
+for i, tf in enumerate(TFs["aileron"]):
+    print(f"{i}->{fct_name[i]}:\n {tf}")
     print("\n")
 
 print(f"Transfer functions for Rudder:\n")
+fct_name = ["u(s)/delta_r(s)", "w(s)/delta_r(s)", "q(s)/delta_r(s)", "theta(s)/delta_r(s)"]
 for i, tf in enumerate(TFs["rudder"]):
-    print(f"{i}:\n {tf}")
+    print(f"{i}->{fct_name[i]}:\n {tf}")
     print("\n")
 print("================================")
 

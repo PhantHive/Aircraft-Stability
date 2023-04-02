@@ -163,14 +163,14 @@ class LatAircraftMatrix(FlightData):
         # Set display settings for powers
         sympy.init_printing(use_unicode=True, pretty_print=True)
 
-        # separete throttle and elevator transfer functions (throttle is pair 0/2/4/6 and elevator is pair 1/3/5/7)
-        elevator_tfs = tfs_simplified[0::2]
-        throttle_tfs = tfs_simplified[1::2]
+        # separete aileron and rudder transfer functions (aileron is pair 0/2/4/6 and rudder is pair 1/3/5/7)
+        aileron_tfs = tfs_simplified[1::2]
+        rudder_tfs = tfs_simplified[::2]
 
-        elevator_formatted = []
-        throttle_formatted = []
+        rudder_formatted = []
+        aileron_formatted = []
 
-        for tf in elevator_tfs:
+        for tf in rudder_tfs:
             num, den = sympy.fraction(tf)
             num = str(num).replace('**', '^')
             den = str(den).replace('**', '^')
@@ -180,9 +180,9 @@ class LatAircraftMatrix(FlightData):
                 tf_formatted = f"{num}\n" \
                                f"{'-' * len(str(den))}\n" \
                                f"{den}"
-            elevator_formatted.append(tf_formatted)
+            rudder_formatted.append(tf_formatted)
 
-        for tf in throttle_tfs:
+        for tf in aileron_tfs:
             num, den = sympy.fraction(tf)
             # replace '**' with '^'
             num = str(num).replace('**', '^')
@@ -193,10 +193,10 @@ class LatAircraftMatrix(FlightData):
                 tf_formatted = f"{num}\n" \
                                f"{'-' * len(str(den))}\n" \
                                f"{den}"
-            throttle_formatted.append(tf_formatted)
+            aileron_formatted.append(tf_formatted)
 
-        self.tf["rudder"] = elevator_formatted
-        self.tf["throttle"] = throttle_formatted
+        self.tf["rudder"] = rudder_formatted
+        self.tf["aileron"] = aileron_formatted
 
         return self.tf
 
